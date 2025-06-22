@@ -31,7 +31,8 @@
 
 [Back to TOC](#table-of-contents)
 
-![[assets/Pasted image 20250622201534.png]]
+![](../assets/Pasted%20image%2020250622202403.png)
+
 
 [Back to TOC](#table-of-contents)
 
