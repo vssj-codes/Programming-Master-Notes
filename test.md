@@ -1,3 +1,11 @@
+# Table-of-Contents
+
+<!-- toc -->
+
+<!-- tocstop -->
+
+---
+
 # Heading 1
 
 ## Heading 2
@@ -15,5 +23,8 @@
 ---
 `this is inline test message`
 `this` in javascript is important
+
+[Back to TOC](#table-of-contents)
+
 
 ![[assets/Pasted image 20250622191401.png]]
