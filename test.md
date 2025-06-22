@@ -16,3 +16,4 @@
 `this is inline test message`
 `this` in javascript is important
 
+![[assets/Pasted image 20250622191401.png]]
