@@ -2,7 +2,7 @@
 
 <!-- toc -->
 
-- [Heading -0110](#heading--0110)
+- [Heading-1](#heading-1)
   * [Heading-2](#heading-2)
     + [Heading-3](#heading-3)
 - [Heading-4](#heading-4)
@@ -12,7 +12,7 @@
 ---
 
 
-# Heading -0110
+# Heading-1
 
 ## Heading-2
 
