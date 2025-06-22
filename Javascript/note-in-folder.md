@@ -11,6 +11,7 @@
 
 ---
 
+
 # Heading -0110
 
 ## Heading-2
@@ -19,7 +20,6 @@
 
 # Heading-4
 
-- jyo is my love
 
 ```javascript
 	console.log('Hi');
@@ -33,4 +33,7 @@
 
 ![[assets/Pasted image 20250622201534.png]]
 
+[Back to TOC](#table-of-contents)
+
 ---
+
