@@ -2,7 +2,7 @@
 
 <!-- toc -->
 
-- [Topic 1: JSX in React](#topic-1-jsx-in-react)
+- [Topic 1: JSX](#topic-1-jsx)
   * [1. Structured Notes on JSX in React](#1-structured-notes-on-jsx-in-react)
     + [What is JSX?](#what-is-jsx)
     + [Core Concepts & Syntax](#core-concepts--syntax)
@@ -31,9 +31,8 @@
 
 ---
 
-**
 
-# Topic 1: JSX in React
+# Topic 1: JSX 
 
 ## 1. Structured Notes on JSX in React
 
