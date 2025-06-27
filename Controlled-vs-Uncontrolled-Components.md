@@ -2,20 +2,20 @@
 
 <!-- toc -->
 
-- [Controlled vs Uncontrolled Components in React](#controlled-vs-uncontrolled-components-in-react)
-  * [Core Concepts](#core-concepts)
-    + [Controlled Components](#controlled-components)
-    + [Uncontrolled Components](#uncontrolled-components)
-  * [Why this Distinction Matters](#why-this-distinction-matters)
-  * [How Controlled Components Work](#how-controlled-components-work)
+- [Controlled-Vs-Uncontrolled-Components](#controlled-vs-uncontrolled-components)
+  * [Core-Concepts](#core-concepts)
+    + [Controlled-Components](#controlled-components)
+    + [Uncontrolled-Components](#uncontrolled-components)
+  * [Why-this-Distinction-Matters](#why-this-distinction-matters)
+  * [How-Controlled-Components-Work](#how-controlled-components-work)
   * [How Uncontrolled Components Work](#how-uncontrolled-components-work)
   * [Key Differences](#key-differences)
   * [When to Use Which?](#when-to-use-which)
     + [Use Controlled Components when:](#use-controlled-components-when)
     + [Use Uncontrolled Components when:](#use-uncontrolled-components-when)
   * [Advantages & Disadvantages](#advantages--disadvantages)
-    + [Controlled Components](#controlled-components-1)
-    + [Uncontrolled Components](#uncontrolled-components-1)
+    + [Controlled Components](#controlled-components)
+    + [Uncontrolled Components](#uncontrolled-components)
   * [Common Pitfalls & How to Avoid Them](#common-pitfalls--how-to-avoid-them)
   * [Interview Q&A: Controlled vs Uncontrolled Components](#interview-qa-controlled-vs-uncontrolled-components)
     + [Q1. What is a controlled component in React?](#q1-what-is-a-controlled-component-in-react)
@@ -31,24 +31,23 @@
 <!-- tocstop -->
 
 ---
-# Controlled vs Uncontrolled Components in React
+# Controlled-Vs-Uncontrolled-Components
+## Core-Concepts
 
-## Core Concepts
-
-### Controlled Components
+### Controlled-Components
 Controlled components are React components that control form input elements by storing and updating their values in React state. The form input's value is bound to state, and every change updates the state via event handlers.
 
-### Uncontrolled Components
+### Uncontrolled-Components
 Uncontrolled components are React components that rely on the DOM to handle form input state internally. The value is accessed only when needed, typically via refs.
 
 ---
 
-## Why this Distinction Matters
+## Why-this-Distinction-Matters
 - **Controlled components** offer more direct control over form input, enabling validation, conditional disabling, or formatting as the user types.
 - **Uncontrolled components** are simpler to set up, especially when you only need the value at submit time without instant validation or state syncing.
 - Choosing controlled vs uncontrolled impacts code complexity, readability, and maintainability.
 
-## How Controlled Components Work
+## How-Controlled-Components-Work
 - The input’s `value` prop is set to a React state variable.
 - Changes to the input trigger `onChange` events updating the state.
 - React state is the single source of truth for input values.
