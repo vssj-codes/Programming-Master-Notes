@@ -39,14 +39,8 @@
 ### What is JSX?
 
 - JSX (JavaScript XML) is a syntax extension for JavaScript used in React to describe UI elements.  
-      
-    
 - It looks like HTML but is not a string or HTML, rather a syntactic sugar that transpiles to React.createElement calls.  
-      
-    
 - Enables writing HTML-like code inside JavaScript to define component structure declaratively.  
-      
-    
 
 ### Core Concepts & Syntax
 
