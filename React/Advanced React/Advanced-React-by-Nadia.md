@@ -55,6 +55,13 @@
       - [**6.8 Key Takeaways**](#68-key-takeaways)
 - [**Chapter 7: Higher-Order Components in the Modern World**](#chapter-7-higher-order-components-in-the-modern-world)
       - [**7.1 What is a Higher-Order Component (HOC)?**](#71-what-is-a-higher-order-component-hoc)
+      - [**7.2 Common Use Cases for HOCs**](#72-common-use-cases-for-hocs)
+      - [**7.3 Example: Enhancing Callbacks**](#73-example-enhancing-callbacks)
+      - [**7.4 Intercepting DOM Events**](#74-intercepting-dom-events)
+      - [**7.5 When to Avoid HOCs**](#75-when-to-avoid-hocs)
+      - [**7.6 HOCs and React Hooks**](#76-hocs-and-react-hooks)
+      - [**7.7 Code Splitting with HOCs**](#77-code-splitting-with-hocs)
+      - [**7.8 Key Takeaways**](#78-key-takeaways)
 
 <!-- tocstop -->
 
@@ -548,7 +555,8 @@ const App = () => (isOpen ? <ModalDialog footer={footer} /> : null);
     
 
 ```javascript
-    `const withSomeLogic = (Component) => {   return (props) => <Component {...props} />; };```
+const withSomeLogic = (Component) => {   return (props) => <Component {...props} />; };
+```
     
 
 ---
