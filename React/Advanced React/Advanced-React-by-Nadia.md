@@ -2,13 +2,13 @@
 
 <!-- toc -->
 
-- [Chapter-1-Intro-to-Re-renders-🧠](#chapter-1-intro-to-re-renders-%F0%9F%A7%A0)
+- [Chapter-1-Intro-to-Re-renders](#chapter-1-intro-to-re-renders)
   * [1.1-What-triggers-re-renders?](#11-what-triggers-re-renders)
   * [1.2-How-re-renders-propagate?](#12-how-re-renders-propagate)
   * [1.3-The-big-re-renders-myth](#13-the-big-re-renders-myth)
   * [1.4-Moving-state-down-pattern](#14-moving-state-down-pattern)
   * [1.5-Danger-of-custom-hooks](#15-danger-of-custom-hooks)
-- [Chapter-2-Elements,-Children-as-Props,-and-Re-renders-🧠](#chapter-2-elements-children-as-props-and-re-renders-%F0%9F%A7%A0)
+- [Chapter-2-Elements,-Children-as-Props,-and-Re-renders](#chapter-2-elements-children-as-props-and-re-renders)
   * [2.1-Core-concepts](#21-core-concepts)
   * [2.2-Re-renders-and-passing-Elements-as-props](#22-re-renders-and-passing-elements-as-props)
   * [2.3-Children-as-props-syntax-sugar](#23-children-as-props-syntax-sugar)
@@ -75,7 +75,7 @@
 
 ---
 
-# Chapter-1-Intro-to-Re-renders-🧠
+# Chapter-1-Intro-to-Re-renders
 
 ## 1.1-What-triggers-re-renders?
 
@@ -106,7 +106,7 @@
 
 ---
 
-# Chapter-2-Elements,-Children-as-Props,-and-Re-renders-🧠
+# Chapter-2-Elements,-Children-as-Props,-and-Re-renders
 
 ## 2.1-Core-concepts
 
