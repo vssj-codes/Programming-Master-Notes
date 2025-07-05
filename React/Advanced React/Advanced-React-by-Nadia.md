@@ -44,21 +44,17 @@
   * [5.8-useMemo-and-Expensive-Calculations](#58-usememo-and-expensive-calculations)
   * [5.9-Key-Takeaways-and-Rules-Summary](#59-key-takeaways-and-rules-summary)
     + [Bonus:-Common-Pitfall-Example](#bonus-common-pitfall-example)
-  * [7.2-Common-Use-Cases-for-HOCs](#72-common-use-cases-for-hocs)
-  * [7.3-Example:-Enhancing-Callbacks](#73-example-enhancing-callbacks)
-  * [7.4-Intercepting-DOM-Events](#74-intercepting-dom-events)
-  * [7.5-When-to-Avoid-HOCs](#75-when-to-avoid-hocs)
-  * [7.6-HOCs-and-React-Hooks](#76-hocs-and-react-hooks)
-  * [7.7-Code-Splitting-with-HOCs](#77-code-splitting-with-hocs)
-  * [7.8-Key-Takeaways](#78-key-takeaways)
-- [Chapter 8: React Context and Performance](#chapter-8-react-context-and-performance)
-  * [8.1-The-Problem](#81-the-problem)
-  * [8.2-How-Context-Can-Help](#82-how-context-can-help)
-  * [8.3-Context-Value-Change](#83-context-value-change)
-  * [8.4-Preventing-Unnecessary-Context-Re-renders](#84-preventing-unnecessary-context-re-renders)
-  * [8.5-Using-Reducers-with-Split-Providers](#85-using-reducers-with-split-providers)
-  * [8.6-Context-Selectors](#86-context-selectors)
-  * [8.7-Key-Takeaways](#87-key-takeaways)
+- [**Chapter 6: Deep Dive into Diffing and Reconciliation**](#chapter-6-deep-dive-into-diffing-and-reconciliation)
+  * [6.1-The-Mysterious-Bug](#61-the-mysterious-bug)
+  * [6.2-Diffing-and-Reconciliation](#62-diffing-and-reconciliation)
+  * [6.3-Why-We-Can’t-Define-Components-Inside-Other-Components](#63-why-we-cant-define-components-inside-other-components)
+  * [6.4-Reconciliation-and-Arrays](#64-reconciliation-and-arrays)
+  * [6.5-Why-`key`-is-Important](#65-why-key-is-important)
+  * [6.6-Using-`key`-to-Force-Reuse-of-an-Element](#66-using-key-to-force-reuse-of-an-element)
+  * [6.7-Performance-and-Best-Practices](#67-performance-and-best-practices)
+  * [6.8-Key-Takeaways](#68-key-takeaways)
+- [Chapter 7: Higher-Order Components in the Modern World](#chapter-7-higher-order-components-in-the-modern-world)
+  * [7.1-What-is-a-Higher-Order-Component-(HOC)?](#71-what-is-a-higher-order-component-hoc)
 
 <!-- tocstop -->
 
@@ -463,7 +459,6 @@ const App = () => (isOpen ? <ModalDialog footer={footer} /> : null);
     
 
 ---
-```markdown
 # **Chapter 6: Deep Dive into Diffing and Reconciliation**
 
 ## 6.1-The-Mysterious-Bug
@@ -717,3 +712,4 @@ const App = () => (isOpen ? <ModalDialog footer={footer} /> : null);
 - **Optimization Techniques**: Memoizing Context values and splitting large Context providers are effective ways to improve performance.
     
 - **Consider External State Management**: For large applications, consider using a state management library like Redux for better optimization, especially when selectors are needed.
+
