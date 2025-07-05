@@ -888,9 +888,3 @@ const App = () => (isOpen ? <ModalDialog footer={footer} /> : null);
 - **`useRef`** can store functions that need access to the latest state or props without re-creating them on each render.
     
 - **Properly managing dependencies** and **mutating refs** are essential strategies to escape stale closure traps in React.
-    
-
-```
-
-These **micro notes** summarize the key concepts in **Chapter 10** on **closures** and how they interact with React’s state, props, `useCallback`, `useMemo`, and `useRef`. Let me know if you need more examples or further explanations!
-```
