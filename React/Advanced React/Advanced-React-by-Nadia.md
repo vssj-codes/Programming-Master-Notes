@@ -60,6 +60,10 @@
   * [9.6 Imperative API with `useImperativeHandle`](#96-imperative-api-with-useimperativehandle)
   * [9.7 Imperative API without `useImperativeHandle`](#97-imperative-api-without-useimperativehandle)
   * [9.8 Key Takeaways](#98-key-takeaways)
+- [Chapter 10: Closures in React](#chapter-10-closures-in-react)
+  * [10.1 The Problem](#101-the-problem)
+    + [Example:](#example)
+  * [10.2 What Are Closures?](#102-what-are-closures)
 
 <!-- tocstop -->
 
@@ -779,3 +783,114 @@ const App = () => (isOpen ? <ModalDialog footer={footer} /> : null);
 - **Imperative logic** can be exposed via `useImperativeHandle` or manual mutation of `ref.current`.
     
 - **`forwardRef`** is needed when passing refs to child components in functional components.
+# Chapter 10: Closures in React
+
+## 10.1 The Problem
+- **Closures** in JavaScript: Functions that capture their surrounding environment.
+- **Stale closure**: When the closure "captures" the state or props at the moment it’s created and doesn’t update after that.
+  
+### Example:
+- A form with a callback, like `onClick`, is passed into a memoized component, but the callback captures **stale state** and logs `undefined` instead of the current state.
+
+---
+
+## 10.2 What Are Closures?
+- **Definition**: A closure is a function that has access to its **own scope**, the **enclosing function’s scope**, and the **global scope**.
+- **Closure Example**:
+  ```javascript
+  const something = () => {
+    const value = 'text';
+    const inside = () => {
+      console.log(value); // inside can access value
+    };
+  };
+```
+
+---
+
+## 10.3 The Stale Closure Problem
+
+- **Stale closure** occurs when a function "captures" state/props and **does not update** them on re-renders.
+    
+- **Common scenario**: Using `useCallback` or `useMemo` incorrectly, causing the callback to use old state values instead of the latest.
+    
+
+---
+
+## 10.4 Stale Closures in React
+
+- **`useCallback`**: When dependencies are missing, the closure doesn't update, and it retains outdated values (like state).
+    
+    ```javascript
+    const onClick = useCallback(() => {
+      console.log(state); // Might log outdated state if not properly handled
+    }, []); // Missing state in dependency array
+    ```
+    
+- **`useMemo`**: Same issue occurs with `useMemo` when the dependencies aren’t correctly defined.
+    
+
+---
+
+## 10.5 Stale Closures in Refs
+
+- **Refs and Stale Closures**: Passing a function to a `useRef` doesn’t trigger an update unless the ref is explicitly updated in a `useEffect`.
+    
+    - **Problem**: The function is only set once, and it won’t update on state changes unless explicitly mutated.
+        
+    - **Fix**: Use `useEffect` to update the ref when state or props change:
+        
+        ```javascript
+        const ref = useRef();
+        useEffect(() => {
+          ref.current = () => {
+            console.log(state);
+          };
+        }, [state]);
+        ```
+        
+
+---
+
+## 10.6 Stale Closures in `React.memo`
+
+- **Memoization issue**: If `React.memo` is used with a callback, the callback might never update due to memoization and will always carry the stale closure.
+    
+- **Fix**: Add custom comparison logic to `React.memo` or ensure that the function has access to the latest state by using `useCallback`.
+    
+
+---
+
+## 10.7 Escaping the Closure Trap with Refs
+
+- **Solution**: Use `useRef` to store the function, which can access the latest state through `ref.current`. This avoids the closure problem and keeps the function stable without re-creating it.
+    
+    - **Implementation**:
+        
+        ```javascript
+        const ref = useRef();
+        useEffect(() => {
+          ref.current = () => {
+            console.log(state); // Always accesses the latest state
+          };
+        }, [state]);
+        ```
+        
+
+---
+
+## 10.8 Key Takeaways
+
+- **Closures capture the state at the time of creation**—leading to stale closures when that state changes.
+    
+- **`useCallback` and `useMemo`** can help avoid unnecessary re-creations but may cause stale closures if dependencies are not managed correctly.
+    
+- **`useRef`** can store functions that need access to the latest state or props without re-creating them on each render.
+    
+- **Properly managing dependencies** and **mutating refs** are essential strategies to escape stale closure traps in React.
+    
+
+```
+
+These **micro notes** summarize the key concepts in **Chapter 10** on **closures** and how they interact with React’s state, props, `useCallback`, `useMemo`, and `useRef`. Let me know if you need more examples or further explanations!
+```
