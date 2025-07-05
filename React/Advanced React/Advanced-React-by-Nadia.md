@@ -20,7 +20,7 @@
   * [3.2-Examples-from-the-book-📚](#32-examples-from-the-book-%F0%9F%93%9A)
     + [3.2.1-The-Flexible-Button](#321-the-flexible-button)
     + [3.2.2-The-cloneElement-Trap](#322-the-cloneelement-trap)
-    + [3.2.3-Conditional-Rendering-+-Element-Creation](#323-conditional-rendering--element-creation)
+    + [3.2.3-Conditional-Rendering+Element-Creation](#323-conditional-renderingelement-creation)
     + [3.3-Why-This-Pattern-Rocks-🤘](#33-why-this-pattern-rocks-%F0%9F%A4%98)
     + [3.4-Watch-Out-⚠️](#34-watch-out-%E2%9A%A0%EF%B8%8F)
 - [Chapter-4-Advanced-Configuration-with-Render-Props-🧠](#chapter-4-advanced-configuration-with-render-props-%F0%9F%A7%A0)
@@ -179,7 +179,7 @@ const clonedIcon = React.cloneElement(icon, { color: "gray" });
 
 ---
 
-### 3.2.3-Conditional-Rendering-+-Element-Creation
+### 3.2.3-Conditional-Rendering+Element-Creation
 
 ```jsx
 const footer = <Footer />;
