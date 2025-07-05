@@ -64,6 +64,12 @@
   * [10.1-The-Problem](#101-the-problem)
     + [Example:](#example)
   * [10.2-What-Are-Closures?](#102-what-are-closures)
+  * [10.3-The-Stale-Closure-Problem](#103-the-stale-closure-problem)
+  * [10.4-Stale-Closures-in-React](#104-stale-closures-in-react)
+  * [10.5-Stale-Closures-in-Refs](#105-stale-closures-in-refs)
+  * [10.6-Stale-Closures-in-`React.memo`](#106-stale-closures-in-reactmemo)
+  * [10.7-Escaping-the-Closure-Trap-with-Refs](#107-escaping-the-closure-trap-with-refs)
+  * [10.8-Key-Takeaways](#108-key-takeaways)
 
 <!-- tocstop -->
 
@@ -832,7 +838,7 @@ const App = () => (isOpen ? <ModalDialog footer={footer} /> : null);
 - A form with a callback, like `onClick`, is passed into a memoized component, but the callback captures **stale state** and logs `undefined` instead of the current state.
     
 
----
+
 
 ## 10.2-What-Are-Closures?
 
@@ -850,9 +856,7 @@ const App = () => (isOpen ? <ModalDialog footer={footer} /> : null);
     ```
     
 
-```
 
----
 
 ## 10.3-The-Stale-Closure-Problem
 
@@ -860,7 +864,7 @@ const App = () => (isOpen ? <ModalDialog footer={footer} /> : null);
     
 - **Common scenario**: Using `useCallback` or `useMemo` incorrectly, causing the callback to use old state values instead of the latest.
 
----
+
 
 ## 10.4-Stale-Closures-in-React
 
@@ -874,7 +878,7 @@ const App = () => (isOpen ? <ModalDialog footer={footer} /> : null);
     
 - **`useMemo`**: Same issue occurs with `useMemo` when the dependencies aren’t correctly defined.
 
----
+
 
 ## 10.5-Stale-Closures-in-Refs
 
@@ -893,7 +897,7 @@ const App = () => (isOpen ? <ModalDialog footer={footer} /> : null);
         }, [state]);
         ```
 
----
+
 
 ## 10.6-Stale-Closures-in-`React.memo`
 
@@ -901,7 +905,7 @@ const App = () => (isOpen ? <ModalDialog footer={footer} /> : null);
     
 - **Fix**: Add custom comparison logic to `React.memo` or ensure that the function has access to the latest state by using `useCallback`.
 
----
+
 
 ## 10.7-Escaping-the-Closure-Trap-with-Refs
 
@@ -918,7 +922,7 @@ const App = () => (isOpen ? <ModalDialog footer={footer} /> : null);
         }, [state]);
         ```
 
----
+
 
 ## 10.8-Key-Takeaways
 
@@ -931,6 +935,3 @@ const App = () => (isOpen ? <ModalDialog footer={footer} /> : null);
 - **Properly managing dependencies** and **mutating refs** are essential strategies to escape stale closure traps in React.
 
 ---
-
-This concludes Chapter 10: Closures in React. Let me know if you need further clarifications or examples from this chapter!
-```
