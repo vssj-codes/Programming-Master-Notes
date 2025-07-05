@@ -55,6 +55,25 @@
   * [6.8-Key-Takeaways](#68-key-takeaways)
 - [Chapter 7: Higher-Order Components in the Modern World](#chapter-7-higher-order-components-in-the-modern-world)
   * [7.1-What-is-a-Higher-Order-Component-(HOC)?](#71-what-is-a-higher-order-component-hoc)
+  * [7.2-Common-Use-Cases-for-HOCs](#72-common-use-cases-for-hocs)
+  * [7.3-Example:-Enhancing-Callbacks](#73-example-enhancing-callbacks)
+  * [7.4-Intercepting-DOM-Events](#74-intercepting-dom-events)
+  * [7.5-When-to-Avoid-HOCs](#75-when-to-avoid-hocs)
+  * [7.6-HOCs-and-React-Hooks](#76-hocs-and-react-hooks)
+  * [7.7-Code-Splitting-with-HOCs](#77-code-splitting-with-hocs)
+  * [7.8-Key-Takeaways](#78-key-takeaways)
+- [Chapter 8: React Context and Performance](#chapter-8-react-context-and-performance)
+  * [8.1-The-Problem](#81-the-problem)
+  * [8.2-How-Context-Can-Help](#82-how-context-can-help)
+  * [8.3-Context-Value-Change](#83-context-value-change)
+  * [8.4-Preventing-Unnecessary-Context-Re-renders](#84-preventing-unnecessary-context-re-renders)
+  * [8.5-Using-Reducers-with-Split-Providers](#85-using-reducers-with-split-providers)
+  * [8.6-Context-Selectors](#86-context-selectors)
+  * [8.7-Key-Takeaways](#87-key-takeaways)
+- [Chapter 9: Refs: From Storing Data to Imperative API](#chapter-9-refs-from-storing-data-to-imperative-api)
+  * [9.1-Accessing-the-DOM-in-React](#91-accessing-the-dom-in-react)
+  * [9.2-What-is-Ref?](#92-what-is-ref)
+  * [9.3-Ref-Update-Doesn't-Trigger-Re-render](#93-ref-update-doesnt-trigger-re-render)
   * [9.4-Assigning-DOM-Elements-to-Ref](#94-assigning-dom-elements-to-ref)
   * [9.5-Passing-Ref-from-Parent-to-Child](#95-passing-ref-from-parent-to-child)
   * [9.6-Imperative-API-with-useImperativeHandle](#96-imperative-api-with-useimperativehandle)
@@ -558,11 +577,11 @@ const App = () => (isOpen ? <ModalDialog footer={footer} /> : null);
 - **Definition**: A Higher-Order Component (HOC) is a function that takes a component, adds logic or behavior to it, and returns a new enhanced component.
 - **Purpose**: HOCs are used for code reuse, logic encapsulation, and enhancing components without modifying their internal implementation.
 - **Structure of an HOC**:
-  ```jsx
+````javascript
   const withSomeLogic = (Component) => {
     return (props) => <Component {...props} />;
   };
-```
+````
 
 ## 7.2-Common-Use-Cases-for-HOCs
 
@@ -750,10 +769,10 @@ const App = () => (isOpen ? <ModalDialog footer={footer} /> : null);
 
 - **Ref updates are synchronous and do not trigger re-renders**, making them useful for **storing mutable data** without affecting the component's visual output.
 - **Example**: A form that uses a ref to store the value of an input without causing re-renders on each keystroke.
-  ```jsx
+```javascript
   const ref = useRef();
   const onChange = (e) => { ref.current = e.target.value; };
-```
+````
 
 - **Drawback**: If you need to **render changes** based on a ref value (like showing a character count), you can't do that with refs, as their updates don’t trigger re-renders.
     
