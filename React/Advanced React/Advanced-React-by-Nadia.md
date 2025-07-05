@@ -53,15 +53,8 @@
       - [**6.6 Using `key` to Force Reuse of an Element**](#66-using-key-to-force-reuse-of-an-element)
       - [**6.7 Performance and Best Practices**](#67-performance-and-best-practices)
       - [**6.8 Key Takeaways**](#68-key-takeaways)
-- [**Chapter 7: Higher-Order Components in the Modern World**](#chapter-7-higher-order-components-in-the-modern-world)
-      - [**7.1 What is a Higher-Order Component (HOC)?**](#71-what-is-a-higher-order-component-hoc)
-      - [**7.2 Common Use Cases for HOCs**](#72-common-use-cases-for-hocs)
-      - [**7.3 Example: Enhancing Callbacks**](#73-example-enhancing-callbacks)
-      - [**7.4 Intercepting DOM Events**](#74-intercepting-dom-events)
-      - [**7.5 When to Avoid HOCs**](#75-when-to-avoid-hocs)
-      - [**7.6 HOCs and React Hooks**](#76-hocs-and-react-hooks)
-      - [**7.7 Code Splitting with HOCs**](#77-code-splitting-with-hocs)
-      - [**7.8 Key Takeaways**](#78-key-takeaways)
+- [Chapter 7: Higher-Order Components in the Modern World](#chapter-7-higher-order-components-in-the-modern-world)
+  * [7.1 What is a Higher-Order Component (HOC)?](#71-what-is-a-higher-order-component-hoc)
 
 <!-- tocstop -->
 
@@ -542,26 +535,19 @@ const App = () => (isOpen ? <ModalDialog footer={footer} /> : null);
     
 - **Component structure**: Avoid unnecessary nested components to improve reconciliation efficiency.
 
-# **Chapter 7: Higher-Order Components in the Modern World**
+# Chapter 7: Higher-Order Components in the Modern World
 
-#### **7.1 What is a Higher-Order Component (HOC)?**
-
+## 7.1 What is a Higher-Order Component (HOC)?
 - **Definition**: A Higher-Order Component (HOC) is a function that takes a component, adds logic or behavior to it, and returns a new enhanced component.
-    
 - **Purpose**: HOCs are used for code reuse, logic encapsulation, and enhancing components without modifying their internal implementation.
-    
 - **Structure of an HOC**:
-    
-    
-
-```javascript
-const withSomeLogic = (Component) => {   return (props) => <Component {...props} />; };
+  ```jsx
+  const withSomeLogic = (Component) => {
+    return (props) => <Component {...props} />;
+  };
 ```
-    
 
----
-
-#### **7.2 Common Use Cases for HOCs**
+## 7.2 Common Use Cases for HOCs
 
 - **Enhancing callbacks**: Add logic to callbacks like `onClick`, `onChange`, etc.
     
@@ -574,9 +560,7 @@ const withSomeLogic = (Component) => {   return (props) => <Component {...props}
 - **Enhancing lifecycle methods**: You can enhance or modify lifecycle methods (e.g., `componentDidMount`, `componentWillUnmount`) in the wrapped component.
     
 
----
-
-#### **7.3 Example: Enhancing Callbacks**
+## 7.3 Example: Enhancing Callbacks
 
 - **Problem**: Need to log user clicks across multiple components.
     
@@ -584,40 +568,53 @@ const withSomeLogic = (Component) => {   return (props) => <Component {...props}
     
 - **With HOC**: Use an HOC to inject logging functionality dynamically.
     
-    jsx
-    
-    Copy
-    
-    `const withLoggingOnClick = (Component) => {   return (props) => {     const onClick = () => {       console.log('Button clicked!');       props.onClick(); // Call the original onClick     };     return <Component {...props} onClick={onClick} />;   }; };`
+    ```jsx
+    const withLoggingOnClick = (Component) => {
+      return (props) => {
+        const onClick = () => {
+          console.log('Button clicked!');
+          props.onClick(); // Call the original onClick
+        };
+        return <Component {...props} onClick={onClick} />;
+      };
+    };
+    ```
     
 
----
-
-#### **7.4 Intercepting DOM Events**
+## 7.4 Intercepting DOM Events
 
 - **Global Event Handling**: Use HOCs to attach global event listeners, such as keypress events or mouse events, across components.
     
 - **Example**: A modal component that intercepts keypress events to close when the user presses "Escape":
     
-    jsx
-    
-    Copy
-    
-    `const withEscapeKeyHandler = (Component) => {   return (props) => {     useEffect(() => {       const onKeyDown = (event) => {         if (event.key === 'Escape') {           props.onClose();         }       };       window.addEventListener('keydown', onKeyDown);       return () => {         window.removeEventListener('keydown', onKeyDown);       };     }, []);     return <Component {...props} />;   }; };`
+    ```jsx
+    const withEscapeKeyHandler = (Component) => {
+      return (props) => {
+        useEffect(() => {
+          const onKeyDown = (event) => {
+            if (event.key === 'Escape') {
+              props.onClose();
+            }
+          };
+          window.addEventListener('keydown', onKeyDown);
+          return () => {
+            window.removeEventListener('keydown', onKeyDown);
+          };
+        }, []);
+        return <Component {...props} />;
+      };
+    };
+    ```
     
 
----
-
-#### **7.5 When to Avoid HOCs**
+## 7.5 When to Avoid HOCs
 
 - **Overuse of HOCs**: With the introduction of React hooks, many use cases for HOCs have been replaced with more readable and maintainable hook-based solutions.
     
 - **Component Reusability**: HOCs can sometimes make components harder to test and debug, especially when they are chained together.
     
 
----
-
-#### **7.6 HOCs and React Hooks**
+## 7.6 HOCs and React Hooks
 
 - **Before Hooks**: HOCs were the primary way to add logic or modify components in React.
     
@@ -632,29 +629,25 @@ const withSomeLogic = (Component) => {   return (props) => <Component {...props}
 - **Best Practice**: Use HOCs for cross-cutting concerns (e.g., authentication, theming) but prefer hooks for most other cases.
     
 
----
-
-#### **7.7 Code Splitting with HOCs**
+## 7.7 Code Splitting with HOCs
 
 - **Dynamic Imports**: HOCs are often used with **React.lazy** to split large components into smaller chunks and only load them when needed.
     
 - **Example**: Wrap components with `React.lazy` for dynamic loading:
     
-    jsx
-    
-    Copy
-    
-    `const withLazyLoad = (importFunc) => {   return React.lazy(importFunc); };`
+    ```jsx
+    const withLazyLoad = (importFunc) => {
+      return React.lazy(importFunc);
+    };
+    ```
     
 
----
-
-#### **7.8 Key Takeaways**
+## 7.8 Key Takeaways
 
 - **HOCs** are useful for enhancing components with additional logic, like logging or handling lifecycle methods, and for injecting props.
     
 - **HOCs replace props** and **modify behavior**, while **React hooks** offer a simpler and more declarative approach for managing component logic.
     
-- **When to use HOCs**: Use them for code reuse, cross-cutting concerns, and component enhancement without modifying the original component's behavior.
+- **When to use HOCs**: Use them for code reuse, cross-cutting concerns, and component enhancement without modifying the original component’s behavior.
     
 - **When not to use HOCs**: Avoid overcomplicating component logic with too many HOCs, especially when hooks provide a better alternative.
