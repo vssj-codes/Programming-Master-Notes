@@ -3,8 +3,8 @@
 <!-- toc -->
 
 - [Chapter-1-Intro-to-Re-renders](#chapter-1-intro-to-re-renders)
-  * [1,1-What-triggers-re-renders?](#11-what-triggers-re-renders)
-  * [1,2-How-re-renders-propagate?](#12-how-re-renders-propagate)
+  * [1.1-What-triggers-re-renders?](#11-what-triggers-re-renders)
+  * [1.2-How-re-renders-propagate?](#12-how-re-renders-propagate)
   * [1.3-The-big-re-renders-myth](#13-the-big-re-renders-myth)
   * [1.4-Moving-state-down-pattern](#14-moving-state-down-pattern)
   * [1.5-Danger-of-custom-hooks](#15-danger-of-custom-hooks)
@@ -96,12 +96,12 @@
 
 # Chapter-1-Intro-to-Re-renders
 
-## 1,1-What-triggers-re-renders?
+## 1.1-What-triggers-re-renders?
 
 - **State updates** trigger re-renders, starting at the component holding the state.
 - Props changes alone **do not** trigger re-renders (unless memoized with React.memo).
 
-## 1,2-How-re-renders-propagate?
+## 1.2-How-re-renders-propagate?
 
 - React re-renders the component where state changed and all nested children **below** it in the component tree.
 - React does **not** re-render upward or sibling components.
