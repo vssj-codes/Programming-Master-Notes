@@ -44,26 +44,21 @@
   * [5.8-useMemo-and-Expensive-Calculations](#58-usememo-and-expensive-calculations)
   * [5.9-Key-Takeaways-and-Rules-Summary](#59-key-takeaways-and-rules-summary)
     + [Bonus:-Common-Pitfall-Example](#bonus-common-pitfall-example)
-- [**Chapter 6: Deep Dive into Diffing and Reconciliation**](#chapter-6-deep-dive-into-diffing-and-reconciliation)
-      - [**6.1 The Mysterious Bug**](#61-the-mysterious-bug)
-      - [**6.2 Diffing and Reconciliation**](#62-diffing-and-reconciliation)
-      - [**6.3 Why We Can’t Define Components Inside Other Components**](#63-why-we-cant-define-components-inside-other-components)
-      - [**6.4 Reconciliation and Arrays**](#64-reconciliation-and-arrays)
-      - [**6.5 Why `key` is Important**](#65-why-key-is-important)
-      - [**6.6 Using `key` to Force Reuse of an Element**](#66-using-key-to-force-reuse-of-an-element)
-      - [**6.7 Performance and Best Practices**](#67-performance-and-best-practices)
-      - [**6.8 Key Takeaways**](#68-key-takeaways)
-- [Chapter 7: Higher-Order Components in the Modern World](#chapter-7-higher-order-components-in-the-modern-world)
-  * [7.1 What is a Higher-Order Component (HOC)?](#71-what-is-a-higher-order-component-hoc)
-  * [9.4 Assigning DOM Elements to Ref](#94-assigning-dom-elements-to-ref)
-  * [9.5 Passing Ref from Parent to Child](#95-passing-ref-from-parent-to-child)
-  * [9.6 Imperative API with `useImperativeHandle`](#96-imperative-api-with-useimperativehandle)
-  * [9.7 Imperative API without `useImperativeHandle`](#97-imperative-api-without-useimperativehandle)
-  * [9.8 Key Takeaways](#98-key-takeaways)
-- [Chapter 10: Closures in React](#chapter-10-closures-in-react)
-  * [10.1 The Problem](#101-the-problem)
-    + [Example:](#example)
-  * [10.2 What Are Closures?](#102-what-are-closures)
+  * [7.2-Common-Use-Cases-for-HOCs](#72-common-use-cases-for-hocs)
+  * [7.3-Example:-Enhancing-Callbacks](#73-example-enhancing-callbacks)
+  * [7.4-Intercepting-DOM-Events](#74-intercepting-dom-events)
+  * [7.5-When-to-Avoid-HOCs](#75-when-to-avoid-hocs)
+  * [7.6-HOCs-and-React-Hooks](#76-hocs-and-react-hooks)
+  * [7.7-Code-Splitting-with-HOCs](#77-code-splitting-with-hocs)
+  * [7.8-Key-Takeaways](#78-key-takeaways)
+- [Chapter 8: React Context and Performance](#chapter-8-react-context-and-performance)
+  * [8.1-The-Problem](#81-the-problem)
+  * [8.2-How-Context-Can-Help](#82-how-context-can-help)
+  * [8.3-Context-Value-Change](#83-context-value-change)
+  * [8.4-Preventing-Unnecessary-Context-Re-renders](#84-preventing-unnecessary-context-re-renders)
+  * [8.5-Using-Reducers-with-Split-Providers](#85-using-reducers-with-split-providers)
+  * [8.6-Context-Selectors](#86-context-selectors)
+  * [8.7-Key-Takeaways](#87-key-takeaways)
 
 <!-- tocstop -->
 
@@ -143,7 +138,6 @@
 
 Instead of stuffing your components with a million tiny config props (`iconType`, `iconColor`, `isAvatar`, etc.), just **pass React elements as props**. This way, your component becomes a **configurable stage**, and the elements are the **stars**!
 
----
 
 ## 3.2-Examples-from-the-book-📚
 
@@ -469,9 +463,10 @@ const App = () => (isOpen ? <ModalDialog footer={footer} /> : null);
     
 
 ---
+```markdown
 # **Chapter 6: Deep Dive into Diffing and Reconciliation**
 
-#### **6.1 The Mysterious Bug**
+## 6.1-The-Mysterious-Bug
 
 - **The Bug**: When conditionally rendering components (like showing a company tax ID input), React may unmount and mount components.
     
@@ -482,7 +477,7 @@ const App = () => (isOpen ? <ModalDialog footer={footer} /> : null);
 
 ---
 
-#### **6.2 Diffing and Reconciliation**
+## 6.2-Diffing-and-Reconciliation
 
 - **Reconciliation**: React compares the old and new virtual DOM to determine what to update in the actual DOM.
     
@@ -493,14 +488,14 @@ const App = () => (isOpen ? <ModalDialog footer={footer} /> : null);
 
 ---
 
-#### **6.3 Why We Can’t Define Components Inside Other Components**
+## 6.3-Why-We-Can’t-Define-Components-Inside-Other-Components
 
 - **Breaking reconciliation**: Defining components inside other components can cause React to lose the original reference, leading to unnecessary re-mounts.
     
 
 ---
 
-#### **6.4 Reconciliation and Arrays**
+## 6.4-Reconciliation-and-Arrays
 
 - **Handling arrays**: React can efficiently update lists when the **`key` attribute is used**.
     
@@ -509,7 +504,7 @@ const App = () => (isOpen ? <ModalDialog footer={footer} /> : null);
 
 ---
 
-#### **6.5 Why `key` is Important**
+## 6.5-Why-`key`-is-Important
 
 - **Optimizes rendering**: The `key` helps React to match elements and avoid unnecessary re-renders when the list changes.
     
@@ -518,7 +513,7 @@ const App = () => (isOpen ? <ModalDialog footer={footer} /> : null);
 
 ---
 
-#### **6.6 Using `key` to Force Reuse of an Element**
+## 6.6-Using-`key`-to-Force-Reuse-of-an-Element
 
 - **Force reuse**: The `key` attribute can be used strategically to force React to reuse elements, preventing unnecessary state resets or DOM manipulations.
     
@@ -527,7 +522,7 @@ const App = () => (isOpen ? <ModalDialog footer={footer} /> : null);
 
 ---
 
-#### **6.7 Performance and Best Practices**
+## 6.7-Performance-and-Best-Practices
 
 - **Minimize component nesting**: Reducing unnecessary nested components helps improve performance.
     
@@ -536,7 +531,7 @@ const App = () => (isOpen ? <ModalDialog footer={footer} /> : null);
 
 ---
 
-#### **6.8 Key Takeaways**
+## 6.8-Key-Takeaways
 
 - **Diffing and reconciliation**: React efficiently updates the DOM by comparing the virtual DOM trees before and after the update.
     
@@ -544,9 +539,12 @@ const App = () => (isOpen ? <ModalDialog footer={footer} /> : null);
     
 - **Component structure**: Avoid unnecessary nested components to improve reconciliation efficiency.
 
+---
+
 # Chapter 7: Higher-Order Components in the Modern World
 
-## 7.1 What is a Higher-Order Component (HOC)?
+## 7.1-What-is-a-Higher-Order-Component-(HOC)?
+
 - **Definition**: A Higher-Order Component (HOC) is a function that takes a component, adds logic or behavior to it, and returns a new enhanced component.
 - **Purpose**: HOCs are used for code reuse, logic encapsulation, and enhancing components without modifying their internal implementation.
 - **Structure of an HOC**:
@@ -556,7 +554,7 @@ const App = () => (isOpen ? <ModalDialog footer={footer} /> : null);
   };
 ```
 
-## 7.2 Common Use Cases for HOCs
+## 7.2-Common-Use-Cases-for-HOCs
 
 - **Enhancing callbacks**: Add logic to callbacks like `onClick`, `onChange`, etc.
     
@@ -569,7 +567,7 @@ const App = () => (isOpen ? <ModalDialog footer={footer} /> : null);
 - **Enhancing lifecycle methods**: You can enhance or modify lifecycle methods (e.g., `componentDidMount`, `componentWillUnmount`) in the wrapped component.
     
 
-## 7.3 Example: Enhancing Callbacks
+## 7.3-Example:-Enhancing-Callbacks
 
 - **Problem**: Need to log user clicks across multiple components.
     
@@ -590,7 +588,7 @@ const App = () => (isOpen ? <ModalDialog footer={footer} /> : null);
     ```
     
 
-## 7.4 Intercepting DOM Events
+## 7.4-Intercepting-DOM-Events
 
 - **Global Event Handling**: Use HOCs to attach global event listeners, such as keypress events or mouse events, across components.
     
@@ -616,14 +614,14 @@ const App = () => (isOpen ? <ModalDialog footer={footer} /> : null);
     ```
     
 
-## 7.5 When to Avoid HOCs
+## 7.5-When-to-Avoid-HOCs
 
 - **Overuse of HOCs**: With the introduction of React hooks, many use cases for HOCs have been replaced with more readable and maintainable hook-based solutions.
     
 - **Component Reusability**: HOCs can sometimes make components harder to test and debug, especially when they are chained together.
     
 
-## 7.6 HOCs and React Hooks
+## 7.6-HOCs-and-React-Hooks
 
 - **Before Hooks**: HOCs were the primary way to add logic or modify components in React.
     
@@ -638,7 +636,7 @@ const App = () => (isOpen ? <ModalDialog footer={footer} /> : null);
 - **Best Practice**: Use HOCs for cross-cutting concerns (e.g., authentication, theming) but prefer hooks for most other cases.
     
 
-## 7.7 Code Splitting with HOCs
+## 7.7-Code-Splitting-with-HOCs
 
 - **Dynamic Imports**: HOCs are often used with **React.lazy** to split large components into smaller chunks and only load them when needed.
     
@@ -651,7 +649,7 @@ const App = () => (isOpen ? <ModalDialog footer={footer} /> : null);
     ```
     
 
-## 7.8 Key Takeaways
+## 7.8-Key-Takeaways
 
 - **HOCs** are useful for enhancing components with additional logic, like logging or handling lifecycle methods, and for injecting props.
     
@@ -660,231 +658,62 @@ const App = () => (isOpen ? <ModalDialog footer={footer} /> : null);
 - **When to use HOCs**: Use them for code reuse, cross-cutting concerns, and component enhancement without modifying the original component’s behavior.
     
 - **When not to use HOCs**: Avoid overcomplicating component logic with too many HOCs, especially when hooks provide a better alternative.
+    
+
+---
+
 # Chapter 8: React Context and Performance
 
-## 8.1 The Problem
+## 8.1-The-Problem
+
 - **Context** often has a bad reputation for causing unnecessary re-renders, with some developers avoiding it entirely.
+    
 - **Performance Issues**: Context value changes trigger re-renders for **all consumers** of that Context, potentially impacting performance.
+    
 
-## 8.2 How Context Can Help
+## 8.2-How-Context-Can-Help
+
 - **Global State Management**: Context allows you to share values without prop drilling, improving the structure and performance of your app when used correctly.
+    
 - **Alternative to Prop Drilling**: It can simplify passing data between deeply nested components.
+    
 
-## 8.3 Context Value Change
+## 8.3-Context-Value-Change
+
 - **Re-render Trigger**: Every time a value in the Context provider changes, **all consumers** that use this Context re-render.
+    
 - **Impact**: This can lead to performance bottlenecks, especially in large apps with frequent Context value updates.
+    
 
-## 8.4 Preventing Unnecessary Context Re-renders
+## 8.4-Preventing-Unnecessary-Context-Re-renders
+
 - **Split Providers**: Divide large Context providers into smaller ones to isolate changes and limit the scope of re-renders.
-  - **Example**: Using multiple Context providers for independent state management (e.g., navigation state, user data).
-  
+    
+    - **Example**: Using multiple Context providers for independent state management (e.g., navigation state, user data).
+        
 - **Memoizing Context Values**: Use `useMemo` and `useCallback` to memoize the Context value, preventing unnecessary re-renders when the Context value changes.
-  - **Example**:
-    ```jsx
-    const value = useMemo(() => ({ isNavExpanded, toggle }), [isNavExpanded, toggle]);
-    ```
-
-## 8.5 Using Reducers with Split Providers
-- **`useReducer` for Complex State**: Combining Context with `useReducer` helps manage complex state within the provider while still optimizing re-renders.
-
-## 8.6 Context Selectors
-- **Imitate Selectors**: Context doesn’t have built-in selectors, but you can implement them using **higher-order components (HOCs)** and **React.memo** to prevent re-renders when irrelevant state changes.
-
-## 8.7 Key Takeaways
-- **Context Re-renders**: Be cautious as Context re-renders every consumer when the value changes.
-- **Optimization Techniques**: Memoizing Context values and splitting large Context providers are effective ways to improve performance.
-- **Consider External State Management**: For large applications, consider using a state management library like Redux for better optimization, especially when selectors are needed.
-# Chapter 9: Refs: From Storing Data to Imperative API
-
-## 9.1 Accessing the DOM in React
-- **Why we need Refs**: React abstracts away direct DOM manipulation, but there are still rare cases where direct DOM access is necessary (e.g., focusing an input, shaking an element, measuring sizes).
-- **Common use cases**:
-  - Manually focusing an element (e.g., form inputs).
-  - Detecting clicks outside components (e.g., for modals).
-  - Scrolling to a specific element.
-  - Measuring component sizes.
-
-## 9.2 What is Ref?
-- **Definition**: A **Ref** is a **mutable object** created using `useRef()`, which persists across re-renders.
-- **Difference between Ref and State**: 
-  - **State** updates trigger re-renders; **Ref** updates do not.
-  - Refs can store **anything**—DOM nodes, values, or functions.
-
-## 9.3 Ref Update Doesn't Trigger Re-render
-- **Ref updates are synchronous and do not trigger re-renders**, making them useful for **storing mutable data** without affecting the component's visual output.
-- **Example**: A form that uses a ref to store the value of an input without causing re-renders on each keystroke.
-  ```jsx
-  const ref = useRef();
-  const onChange = (e) => { ref.current = e.target.value; };
-```
-
-- **Drawback**: If you need to **render changes** based on a ref value (like showing a character count), you can't do that with refs, as their updates don’t trigger re-renders.
     
-
-## 9.4 Assigning DOM Elements to Ref
-
-- **How to use Refs with DOM elements**:
-    
-    - Attach a ref to a DOM element using the `ref` attribute:
+    - **Example**:
         
         ```jsx
-        const inputRef = useRef();
-        <input ref={inputRef} />
+        const value = useMemo(() => ({ isNavExpanded, toggle }), [isNavExpanded, toggle]);
         ```
         
 
-## 9.5 Passing Ref from Parent to Child
+## 8.5-Using-Reducers-with-Split-Providers
 
-- **Passing Refs as Props**: Refs can be passed from parent to child components as regular props.
-    
-- **Forwarding Refs**: Use `forwardRef` to pass the ref to a child component:
-    
-    ```jsx
-    const Input = forwardRef((props, ref) => <input ref={ref} {...props} />);
-    ```
+- **`useReducer` for Complex State**: Combining Context with `useReducer` helps manage complex state within the provider while still optimizing re-renders.
     
 
-## 9.6 Imperative API with `useImperativeHandle`
+## 8.6-Context-Selectors
 
-- **Purpose**: `useImperativeHandle` allows you to customize the instance value that’s exposed when a ref is passed to a child component.
-    
-    ```jsx
-    useImperativeHandle(ref, () => ({
-      focus: () => { inputRef.current.focus(); },
-      shake: () => { /* shake logic */ },
-    }));
-    ```
-    
-- **Alternative**: You can manually mutate the `ref.current` object in a `useEffect` to implement imperative logic without using `useImperativeHandle`.
+- **Imitate Selectors**: Context doesn’t have built-in selectors, but you can implement them using **higher-order components (HOCs)** and **React.memo** to prevent re-renders when irrelevant state changes.
     
 
-## 9.7 Imperative API without `useImperativeHandle`
+## 8.7-Key-Takeaways
 
-- **Manual approach**: Instead of using `useImperativeHandle`, you can directly mutate `ref.current` to expose imperative methods:
+- **Context Re-renders**: Be cautious as Context re-renders every consumer when the value changes.
     
-    ```jsx
-    const InputField = ({ apiRef }) => {
-      useEffect(() => {
-        apiRef.current = {
-          focus: () => { /* focus logic */ },
-          shake: () => { /* shake logic */ },
-        };
-      }, [apiRef]);
-    };
-    ```
+- **Optimization Techniques**: Memoizing Context values and splitting large Context providers are effective ways to improve performance.
     
-
-## 9.8 Key Takeaways
-
-- **Refs are mutable** objects that persist between renders, useful for storing values, DOM elements, or functions.
-    
-- **Ref updates don't trigger re-renders**, which is useful for performance but limits their use for UI-driven logic.
-    
-- **Imperative logic** can be exposed via `useImperativeHandle` or manual mutation of `ref.current`.
-    
-- **`forwardRef`** is needed when passing refs to child components in functional components.
-# Chapter 10: Closures in React
-
-## 10.1 The Problem
-- **Closures** in JavaScript: Functions that capture their surrounding environment.
-- **Stale closure**: When the closure "captures" the state or props at the moment it’s created and doesn’t update after that.
-  
-### Example:
-- A form with a callback, like `onClick`, is passed into a memoized component, but the callback captures **stale state** and logs `undefined` instead of the current state.
-
----
-
-## 10.2 What Are Closures?
-- **Definition**: A closure is a function that has access to its **own scope**, the **enclosing function’s scope**, and the **global scope**.
-- **Closure Example**:
-  ```javascript
-  const something = () => {
-    const value = 'text';
-    const inside = () => {
-      console.log(value); // inside can access value
-    };
-  };
-```
-
----
-
-## 10.3 The Stale Closure Problem
-
-- **Stale closure** occurs when a function "captures" state/props and **does not update** them on re-renders.
-    
-- **Common scenario**: Using `useCallback` or `useMemo` incorrectly, causing the callback to use old state values instead of the latest.
-    
-
----
-
-## 10.4 Stale Closures in React
-
-- **`useCallback`**: When dependencies are missing, the closure doesn't update, and it retains outdated values (like state).
-    
-    ```javascript
-    const onClick = useCallback(() => {
-      console.log(state); // Might log outdated state if not properly handled
-    }, []); // Missing state in dependency array
-    ```
-    
-- **`useMemo`**: Same issue occurs with `useMemo` when the dependencies aren’t correctly defined.
-    
-
----
-
-## 10.5 Stale Closures in Refs
-
-- **Refs and Stale Closures**: Passing a function to a `useRef` doesn’t trigger an update unless the ref is explicitly updated in a `useEffect`.
-    
-    - **Problem**: The function is only set once, and it won’t update on state changes unless explicitly mutated.
-        
-    - **Fix**: Use `useEffect` to update the ref when state or props change:
-        
-        ```javascript
-        const ref = useRef();
-        useEffect(() => {
-          ref.current = () => {
-            console.log(state);
-          };
-        }, [state]);
-        ```
-        
-
----
-
-## 10.6 Stale Closures in `React.memo`
-
-- **Memoization issue**: If `React.memo` is used with a callback, the callback might never update due to memoization and will always carry the stale closure.
-    
-- **Fix**: Add custom comparison logic to `React.memo` or ensure that the function has access to the latest state by using `useCallback`.
-    
-
----
-
-## 10.7 Escaping the Closure Trap with Refs
-
-- **Solution**: Use `useRef` to store the function, which can access the latest state through `ref.current`. This avoids the closure problem and keeps the function stable without re-creating it.
-    
-    - **Implementation**:
-        
-        ```javascript
-        const ref = useRef();
-        useEffect(() => {
-          ref.current = () => {
-            console.log(state); // Always accesses the latest state
-          };
-        }, [state]);
-        ```
-        
-
----
-
-## 10.8 Key Takeaways
-
-- **Closures capture the state at the time of creation**—leading to stale closures when that state changes.
-    
-- **`useCallback` and `useMemo`** can help avoid unnecessary re-creations but may cause stale closures if dependencies are not managed correctly.
-    
-- **`useRef`** can store functions that need access to the latest state or props without re-creating them on each render.
-    
-- **Properly managing dependencies** and **mutating refs** are essential strategies to escape stale closure traps in React.
+- **Consider External State Management**: For large applications, consider using a state management library like Redux for better optimization, especially when selectors are needed.
