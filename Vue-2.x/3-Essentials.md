@@ -486,7 +486,7 @@ Vue.component('my-component', { ... });
 - Data passed from parent to child
     
 - Can validate using type, required, default
-    
+- We should not mutate props, doing do will give warning and is considered anti-pattern.
 
 ### 3.10.3-Template-syntax-for-props
 
