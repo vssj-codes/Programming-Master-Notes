@@ -19,7 +19,6 @@
       - [3.2.4.1-v-on](#3241-v-on)
       - [3.2.4.2-Shorthand](#3242-shorthand)
     + [3.2.5-JavaScript-expressions-in-templates](#325-javascript-expressions-in-templates)
-    + [3.2.6-Directives-overview](#326-directives-overview)
   * [3.3-Directives-In-Depth](#33-directives-in-depth)
     + [3.3.1-Arguments](#331-arguments)
     + [3.3.2-Dynamic-arguments](#332-dynamic-arguments)
@@ -181,16 +180,15 @@ new Vue({
 - Not allowed: statements or complex logic
     
 
-### 3.2.6-Directives-overview
 
-- Special attributes with `v-` prefix.
-    
-- Examples: `v-model`, `v-if`, `v-for`, `v-show`, `v-bind`, `v-on`
-    
 
 ---
 
 ## 3.3-Directives-In-Depth
+
+- Special attributes with `v-` prefix. It's job is to reactively apply side effects to the DOM when the value of its expression changes
+    
+- Examples: `v-model`, `v-if`, `v-for`, `v-show`, `v-bind`, `v-on`
 
 ### 3.3.1-Arguments
 
