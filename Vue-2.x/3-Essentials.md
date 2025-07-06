@@ -19,7 +19,7 @@
       - [3.2.4.1-v-on](#3241-v-on)
       - [3.2.4.2-Shorthand](#3242-shorthand)
     + [3.2.5-JavaScript-expressions-in-templates](#325-javascript-expressions-in-templates)
-  * [3.3-Directives-In-Depth](#33-directives-in-depth)
+  * [3.3-Directives](#33-directives)
     + [3.3.1-Arguments](#331-arguments)
     + [3.3.2-Dynamic-arguments](#332-dynamic-arguments)
     + [3.3.3-Modifiers](#333-modifiers)
@@ -184,7 +184,7 @@ new Vue({
 
 ---
 
-## 3.3-Directives-In-Depth
+## 3.3-Directives
 
 - Special attributes with `v-` prefix. It's job is to reactively apply side effects to the DOM when the value of its expression changes
     
