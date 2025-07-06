@@ -81,6 +81,16 @@ mixins: [myMixin]
     
 - Methods and data are overwritten with component values if conflicts exist.
     
+| Option                     | Behavior                           |
+| -------------------------- | ---------------------------------- |
+| `data`                     | Merged, component takes precedence |
+| `methods`                  | Merged, component wins on conflict |
+| `computed`                 | Merged, component wins on conflict |
+| `watch`                    | Merged, both run                   |
+| **Lifecycle hooks**            | **All called, mixin first**            |
+| `props`, `inject`          | Component overrides mixin          |
+| `components`, `directives` | Merged, component wins on conflict |
+- **Some are merged**, and when there’s a conflict, the **component’s definition takes priority**, except lifecycle hooks mixin's run first!
 
 ### 5.1.4-Global-vs-local-mixins
 
