@@ -123,7 +123,7 @@ const routes = [
 ---
 
 
-[Back to TOC](#table-of-contents)[Back to TOC](#ta
+[Back to TOC](#table-of-contents)
 ## 7.2-Routes-Configuration
 
 ### 7.2.1-Static-routes
