@@ -122,6 +122,10 @@ const routes = [
 
 ---
 
+
+[Back to TOC](#table-of-contents)[Back to TOC](#table-of-contents)
+
+[Back to TOC](#table-of-contents)
 ## 7.2-Routes-Configuration
 
 ### 7.2.1-Static-routes
@@ -170,6 +174,7 @@ const routes = [
 ```
 
 ---
+[Back to TOC](#table-of-contents)
 
 ## 7.3-Navigation
 
@@ -212,6 +217,7 @@ this.$router.replace('/login');
     
 
 ---
+[Back to TOC](#table-of-contents)
 
 ## 7.4-Navigation-Guards
 
@@ -258,6 +264,7 @@ beforeRouteLeave (to, from, next) {}
     
 
 ---
+[Back to TOC](#table-of-contents)
 
 ## 7.5-Route-Props
 
@@ -283,6 +290,7 @@ props: route => ({ id: route.params.id })
 ```
 
 ---
+[Back to TOC](#table-of-contents)
 
 ## 7.6-Lazy-Loading-Routes
 
@@ -304,6 +312,7 @@ const Bar = () => import(/* webpackChunkName: "group-bar" */ './Bar.vue');
 ```
 
 ---
+[Back to TOC](#table-of-contents)
 
 ## 7.7-Scroll-Behavior
 
@@ -328,6 +337,7 @@ const router = new VueRouter({
     
 
 ---
+[Back to TOC](#table-of-contents)
 
 ## 7.8-Named-Views
 
@@ -354,6 +364,7 @@ components: {
 
 ---
 
+[Back to TOC](#table-of-contents)
 ## 7.9-Redirects-And-Aliases
 
 ### 7.9.1-Redirects
@@ -377,6 +388,7 @@ components: {
 
 ---
 
+[Back to TOC](#table-of-contents)
 ## 7.10-Wildcard-And-Catch-All-Routes
 
 ### 7.10.1-Wildcard-usage
@@ -397,6 +409,7 @@ components: {
 
 ---
 
+[Back to TOC](#table-of-contents)
 ## 7.11-Advanced-Features
 
 ### 7.11.1-Navigation-failures
