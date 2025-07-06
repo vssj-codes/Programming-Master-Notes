@@ -49,7 +49,7 @@
     + [4.7.2-Mixins](#472-mixins)
     + [4.7.3-Extending-components](#473-extending-components)
     + [4.7.4-Functional-components](#474-functional-components)
-    + [4.7.5-$parent-and-$root](#475-parent-and-root)
+    + [4.7.5-\$parent-and-$root](#475-parent-and-root)
     + [4.7.6-Recursive-components](#476-recursive-components)
     + [4.7.7-Dynamic-template-generation-caveats](#477-dynamic-template-generation-caveats)
 
@@ -383,7 +383,7 @@ const CompA = Vue.extend({ ... });
 functional: true
 ```
 
-### 4.7.5-$parent-and-$root
+### 4.7.5-\$parent-and-$root
 
 - `$parent`: immediate parent instance
     
