@@ -2606,8 +2606,7 @@ Using **Redux Toolkit (RTK)** over traditional Redux has the following benefits:
     
 
 ---
-
-This concludes **Topic 11: State Management (Redux, MobX, etc.)** and **Redux Toolkit (RTK)**. Let me know if you'd like to proceed with the next topic!
+[Back to TOC](#table-of-contents)
 
 # 12-error-boundaries
 
@@ -2817,6 +2816,7 @@ function App() {
 
 ---
 
+[Back to TOC](#table-of-contents)
 # 13-performance-optimization
 
 ### 13.1-how-do-you-prevent-unnecessary-re-renders-in-react
@@ -3060,6 +3060,7 @@ function SearchComponent() {
 ```
 
 ---
+[Back to TOC](#table-of-contents)
 # 14-testing
 - 14.1-how-do-you-write-unit-tests-for-react-components-using-jest-and-react-testing-library
 - 14.2-how-do-you-test-hooks-in-react
