@@ -2,12 +2,11 @@
 
 <!-- toc -->
 
-- [1-jsx-and-rendering](#1-jsx-and-rendering)
+  * [1-jsx-and-rendering](#1-jsx-and-rendering)
     + [1.1-what-is-jsx-how-is-it-different-from-html](#11-what-is-jsx-how-is-it-different-from-html)
-      - [**Machine Coding Task:**](#machine-coding-task)
-    + [**1.2-how-is-jsx-transpiled-to-javascript-can-you-demonstrate-this-with-code**](#12-how-is-jsx-transpiled-to-javascript-can-you-demonstrate-this-with-code)
-    + [**1.3-explain-how-react-renders-elements-to-the-dom-how-does-the-virtual-dom-fit-into-this**](#13-explain-how-react-renders-elements-to-the-dom-how-does-the-virtual-dom-fit-into-this)
-    + [**1.4-how-do-you-handle-conditions-in-jsx**](#14-how-do-you-handle-conditions-in-jsx)
+    + [1.2-how-is-jsx-transpiled-to-javascript-can-you-demonstrate-this-with-code](#12-how-is-jsx-transpiled-to-javascript-can-you-demonstrate-this-with-code)
+    + [1.3-explain-how-react-renders-elements-to-the-dom-how-does-the-virtual-dom-fit-into-this](#13-explain-how-react-renders-elements-to-the-dom-how-does-the-virtual-dom-fit-into-this)
+    + [1.4-how-do-you-handle-conditions-in-jsx](#14-how-do-you-handle-conditions-in-jsx)
 - [2-components](#2-components)
 - [3-state-and-props](#3-state-and-props)
 - [4-event-handling](#4-event-handling)
@@ -30,7 +29,11 @@
 
 ---
 
-# 1-jsx-and-rendering
+Here is **Topic 1: JSX and Rendering** with the updated format and rules:
+
+---
+
+## 1-jsx-and-rendering
 
 ### 1.1-what-is-jsx-how-is-it-different-from-html
 
@@ -48,7 +51,7 @@ JSX (JavaScript XML) is a syntax extension for JavaScript that allows us to writ
 4. **Expressions**: You can embed JavaScript expressions inside JSX by wrapping them in curly braces `{}`.
     
 
-#### **Machine Coding Task:** 
+**Machine Coding Task:**  
 Write a simple React component that renders a `div` containing a `button`. The button should say "Click me", and when clicked, it should show an alert that says "Hello, JSX!"
 
 ```jsx
@@ -69,7 +72,7 @@ export default MyComponent;
 
 ---
 
-### **1.2-how-is-jsx-transpiled-to-javascript-can-you-demonstrate-this-with-code**
+### 1.2-how-is-jsx-transpiled-to-javascript-can-you-demonstrate-this-with-code
 
 **Conceptual Answer:**  
 JSX is not natively understood by browsers. It needs to be transpiled into regular JavaScript. Tools like Babel perform this transformation. The JSX code:
@@ -87,7 +90,7 @@ const element = React.createElement('h1', null, 'Hello, world!');
 This `React.createElement()` function creates a virtual DOM element that React uses to efficiently update the real DOM when necessary.
 
 **Machine Coding Task:**  
-Write JSX code to display a `div` with "JSX to JavaScript" text. In your browser console, log the JavaScript equivalent of the JSX code (simulate using React.createElement).
+Write JSX code to display a `div` with "JSX to JavaScript" text. In your browser console, log the JavaScript equivalent of the JSX code (simulate using `React.createElement`).
 
 ```jsx
 const element = <div>JSX to JavaScript</div>;
@@ -96,7 +99,7 @@ console.log(React.createElement('div', null, 'JSX to JavaScript'));
 
 ---
 
-### **1.3-explain-how-react-renders-elements-to-the-dom-how-does-the-virtual-dom-fit-into-this**
+### 1.3-explain-how-react-renders-elements-to-the-dom-how-does-the-virtual-dom-fit-into-this
 
 **Conceptual Answer:**  
 React uses a concept called the **Virtual DOM** to optimize rendering. The Virtual DOM is a lightweight representation of the real DOM. When you create elements in React, they are initially rendered to the Virtual DOM. React compares the current Virtual DOM with the previous version (using an algorithm called "Reconciliation") and only updates the parts of the actual DOM that have changed, which makes updates more efficient.
@@ -116,7 +119,7 @@ React uses a concept called the **Virtual DOM** to optimize rendering. The Virtu
 Write a simple React component that updates the background color of a `div` when a button is clicked. Use `useState` to trigger a re-render.
 
 ```jsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 function BackgroundChanger() {
   const [color, setColor] = useState('white');
@@ -137,7 +140,7 @@ export default BackgroundChanger;
 
 ---
 
-### **1.4-how-do-you-handle-conditions-in-jsx**
+### 1.4-how-do-you-handle-conditions-in-jsx
 
 **Conceptual Answer:**  
 In JSX, conditions can be handled using JavaScript expressions. You can use conditional operators such as the ternary operator or logical `&&` operator.
@@ -159,8 +162,6 @@ In JSX, conditions can be handled using JavaScript expressions. You can use cond
 Write a React component that displays a message "You are logged in" if the user is logged in, and "Please log in" if not. Use a variable `isLoggedIn` to simulate this.
 
 ```jsx
-import React from 'react';
-
 function ConditionalRendering() {
   const isLoggedIn = true; // Change this value to false to test
 
@@ -173,12 +174,6 @@ function ConditionalRendering() {
 
 export default ConditionalRendering;
 ```
-
----
-
-These are the detailed questions, answers, and machine coding tasks for **Topic 1: JSX and Rendering**. You can now use them in your Obsidian notes with the appropriate markdown format.
-
-Let me know if you'd like to proceed with the next topic!
 
 # 2-components
 - 2.1-what-is-the-difference-between-functional-and-class-components-in-react
