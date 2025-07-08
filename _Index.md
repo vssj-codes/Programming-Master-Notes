@@ -48,7 +48,7 @@
     + [10.2-how-do-you-use-dynamic-routes-with-react-router](#102-how-do-you-use-dynamic-routes-with-react-router)
     + [10.3-how-do-you-implement-nested-routes-in-react-router](#103-how-do-you-implement-nested-routes-in-react-router)
     + [10.4-how-do-you-handle-redirects-in-react-router](#104-how-do-you-handle-redirects-in-react-router)
-- [11-state-management-redux-mobx-RT](#11-state-management-redux-mobx-rt)
+- [11-state-management-redux-mobx-RTK](#11-state-management-redux-mobx-rtk)
     + [11.1-what-is-redux-can-you-explain-its-core-principles-actions-reducers-store](#111-what-is-redux-can-you-explain-its-core-principles-actions-reducers-store)
     + [11.2-how-do-you-connect-redux-to-a-react-component-can-you-show-an-example](#112-how-do-you-connect-redux-to-a-react-component-can-you-show-an-example)
     + [11.3-what-are-the-differences-between-local-state-management-and-using-redux-for-state-management](#113-what-are-the-differences-between-local-state-management-and-using-redux-for-state-management)
@@ -2278,7 +2278,7 @@ function App() {
 
 ---
 
-# 11-state-management-redux-mobx-RT
+# 11-state-management-redux-mobx-RTK
 
 ### 11.1-what-is-redux-can-you-explain-its-core-principles-actions-reducers-store
 
