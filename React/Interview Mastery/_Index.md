@@ -240,6 +240,7 @@ function ConditionalRendering() {
 export default ConditionalRendering;
 ```
 
+[Back to TOC](#table-of-contents)
 # 2-components
 
 ### 2.1-what-is-the-difference-between-functional-and-class-components-in-react
@@ -452,6 +453,7 @@ function ChildComponent({ message }) {
 }
 ```
 
+[Back to TOC](#table-of-contents)
 
 # 3-state-and-props
 
@@ -632,6 +634,7 @@ function ChildComponent({ increment, count }) {
 }
 ```
 
+[Back to TOC](#table-of-contents)
 
 # 4-event-handling
 
@@ -849,8 +852,7 @@ function UncontrolledForm() {
 
 ---
 
-This concludes **Topic 4: Event Handling**. Let me know if you'd like to continue with the next topic!
-
+[Back to TOC](#table-of-contents)
 # 5-conditional-rendering
 
 ### 5.1-how-do-you-implement-conditional-rendering-in-react
@@ -979,6 +981,7 @@ function AdminPanel() {
 
 ---
 
+[Back to TOC](#table-of-contents)
 # 6-lists-and-keys
 
 ### 6.1-how-do-you-render-a-list-of-items-in-react-using-map
