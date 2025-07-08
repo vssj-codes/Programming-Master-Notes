@@ -4,6 +4,7 @@
 
 - [1-jsx-and-rendering](#1-jsx-and-rendering)
     + [1.1-what-is-jsx-how-is-it-different-from-html](#11-what-is-jsx-how-is-it-different-from-html)
+      - [**Machine Coding Task:**](#machine-coding-task)
     + [**1.2-how-is-jsx-transpiled-to-javascript-can-you-demonstrate-this-with-code**](#12-how-is-jsx-transpiled-to-javascript-can-you-demonstrate-this-with-code)
     + [**1.3-explain-how-react-renders-elements-to-the-dom-how-does-the-virtual-dom-fit-into-this**](#13-explain-how-react-renders-elements-to-the-dom-how-does-the-virtual-dom-fit-into-this)
     + [**1.4-how-do-you-handle-conditions-in-jsx**](#14-how-do-you-handle-conditions-in-jsx)
@@ -47,7 +48,7 @@ JSX (JavaScript XML) is a syntax extension for JavaScript that allows us to writ
 4. **Expressions**: You can embed JavaScript expressions inside JSX by wrapping them in curly braces `{}`.
     
 
-**Machine Coding Task:**  
+#### **Machine Coding Task:** 
 Write a simple React component that renders a `div` containing a `button`. The button should say "Click me", and when clicked, it should show an alert that says "Hello, JSX!"
 
 ```jsx
