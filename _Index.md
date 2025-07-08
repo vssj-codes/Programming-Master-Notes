@@ -79,6 +79,10 @@
     + [17.2-how-do-you-implement-ssr-with-react-what-tools-or-frameworks-would-you-use](#172-how-do-you-implement-ssr-with-react-what-tools-or-frameworks-would-you-use)
     + [17.3-what-are-the-challenges-of-ssr-with-react-and-how-do-you-overcome-them](#173-what-are-the-challenges-of-ssr-with-react-and-how-do-you-overcome-them)
 - [18-typescript-with-react](#18-typescript-with-react)
+    + [18.1-how-do-you-type-react-components-with-typescript](#181-how-do-you-type-react-components-with-typescript)
+    + [18.2-how-do-you-type-hooks-like-usestate-and-useeffect-in-typescript](#182-how-do-you-type-hooks-like-usestate-and-useeffect-in-typescript)
+    + [18.3-how-do-you-type-props-and-events-in-react-with-typescript](#183-how-do-you-type-props-and-events-in-react-with-typescript)
+    + [18.4-what-are-the-benefits-of-using-typescript-with-react-and-how-does-it-improve-development](#184-what-are-the-benefits-of-using-typescript-with-react-and-how-does-it-improve-development)
 
 <!-- tocstop -->
 
@@ -3626,7 +3630,228 @@ export default HomePage;
 
 ---
 # 18-typescript-with-react
-- 18.1-how-do-you-type-react-components-with-typescript
-- 18.2-how-do-you-type-hooks-like-usestate-and-useeffect-in-typescript
-- 18.3-how-do-you-type-props-and-events-in-react-with-typescript
-- 18.4-what-are-the-benefits-of-using-typescript-with-react-and-how-does-it-improve-development
+
+### 18.1-how-do-you-type-react-components-with-typescript
+
+**Conceptual Answer:**  
+When using **TypeScript** with React, you can type your components by defining types for **props**, **state**, and **event handlers**. TypeScript provides type safety, which helps catch errors during development.
+
+1. **Functional Components**: For functional components, you define prop types using an interface or type alias.
+    
+2. **Class Components**: For class components, you extend `React.Component` with types for both props and state.
+    
+
+**Example:**
+
+1. **Functional Component with TypeScript**:
+    
+
+```tsx
+interface MyComponentProps {
+  name: string;
+  age: number;
+}
+
+const MyComponent: React.FC<MyComponentProps> = ({ name, age }) => {
+  return <div>{name} is {age} years old.</div>;
+};
+
+export default MyComponent;
+```
+
+In this example, `MyComponent` accepts `name` and `age` as props, and TypeScript ensures that these props are passed correctly.
+
+2. **Class Component with TypeScript**:
+    
+
+```tsx
+interface MyComponentProps {
+  name: string;
+  age: number;
+}
+
+interface MyComponentState {
+  isActive: boolean;
+}
+
+class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
+  state: MyComponentState = {
+    isActive: true,
+  };
+
+  render() {
+    const { name, age } = this.props;
+    return <div>{name} is {age} years old and is {this.state.isActive ? 'active' : 'inactive'}.</div>;
+  }
+}
+
+export default MyComponent;
+```
+
+---
+
+### 18.2-how-do-you-type-hooks-like-usestate-and-useeffect-in-typescript
+
+**Conceptual Answer:**  
+TypeScript allows you to type hooks like `useState` and `useEffect` in React, which improves code completion and error checking.
+
+1. **`useState`**: The type of state can be explicitly set using TypeScript. If you don’t provide a type, TypeScript will infer it from the initial state value.
+    
+    **Example:**
+    
+    ```tsx
+    const [count, setCount] = useState<number>(0);
+    const [name, setName] = useState<string>('John');
+    ```
+    
+2. **`useEffect`**: The `useEffect` hook itself doesn’t have a return value, but if you're performing asynchronous operations inside it (like fetching data), you can define the types of the data being fetched.
+    
+    **Example:**
+    
+    ```tsx
+    const [data, setData] = useState<string | null>(null);
+    
+    useEffect(() => {
+      const fetchData = async () => {
+        const response = await fetch('https://api.example.com/data');
+        const result: string = await response.json();
+        setData(result);
+      };
+    
+      fetchData();
+    }, []);
+    ```
+    
+
+**Machine Coding Task:**  
+Write a component that uses `useState` to manage a count (number) and `useEffect` to fetch some data from an API and display it.
+
+```tsx
+import React, { useState, useEffect } from 'react';
+
+const DataFetcher: React.FC = () => {
+  const [data, setData] = useState<string | null>(null);
+  const [count, setCount] = useState<number>(0);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch('https://jsonplaceholder.typicode.com/posts/1');
+      const result = await response.json();
+      setData(result.title);
+    };
+
+    fetchData();
+  }, []);
+
+  return (
+    <div>
+      <p>{data}</p>
+      <button onClick={() => setCount(count + 1)}>Increment Count</button>
+      <p>Count: {count}</p>
+    </div>
+  );
+};
+
+export default DataFetcher;
+```
+
+---
+
+### 18.3-how-do-you-type-props-and-events-in-react-with-typescript
+
+**Conceptual Answer:**  
+In TypeScript, you can type both **props** and **events** to ensure type safety in your React components.
+
+1. **Typing Props**: You can define types for props using an interface or type alias.
+    
+    **Example:**
+    
+    ```tsx
+    interface ButtonProps {
+      label: string;
+      onClick: () => void;
+    }
+    
+    const Button: React.FC<ButtonProps> = ({ label, onClick }) => {
+      return <button onClick={onClick}>{label}</button>;
+    };
+    ```
+    
+2. **Typing Events**: TypeScript provides built-in types for various events such as `React.MouseEvent`, `React.ChangeEvent`, etc.
+    
+    **Example for typing an `onClick` event:**
+    
+    ```tsx
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+      console.log('Button clicked');
+    };
+    ```
+    
+
+**Machine Coding Task:**  
+Write a component that accepts a `label` prop and triggers an `onClick` event handler, typed appropriately.
+
+```tsx
+import React from 'react';
+
+interface ButtonProps {
+  label: string;
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+}
+
+const Button: React.FC<ButtonProps> = ({ label, onClick }) => {
+  return <button onClick={onClick}>{label}</button>;
+};
+
+const App: React.FC = () => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    console.log('Button clicked!');
+  };
+
+  return <Button label="Click Me" onClick={handleClick} />;
+};
+
+export default App;
+```
+
+---
+
+### 18.4-what-are-the-benefits-of-using-typescript-with-react-and-how-does-it-improve-development
+
+**Conceptual Answer:**  
+Using **TypeScript** with **React** provides several benefits, including:
+
+1. **Static Type Checking**: TypeScript provides static type checking, which helps catch errors at compile-time rather than runtime, reducing bugs and improving code quality.
+    
+2. **Enhanced Code Completion**: TypeScript provides better IntelliSense and code completion in IDEs, making development more efficient and helping you catch mistakes early.
+    
+3. **Improved Refactoring**: TypeScript makes refactoring easier and safer by enforcing type constraints.
+    
+4. **Better Documentation**: Types serve as a form of documentation, making the codebase easier to understand and maintain.
+    
+5. **Integration with IDEs**: TypeScript works well with popular IDEs, offering features like auto-completion, type hints, and error checking.
+    
+
+**Example:**
+
+```tsx
+interface UserProps {
+  name: string;
+  age: number;
+}
+
+const UserProfile: React.FC<UserProps> = ({ name, age }) => {
+  return (
+    <div>
+      <h1>{name}</h1>
+      <p>Age: {age}</p>
+    </div>
+  );
+};
+
+// TypeScript ensures that the props are correctly passed
+<UserProfile name="John Doe" age={30} />;
+```
+
+---
+
