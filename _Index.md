@@ -3428,9 +3428,6 @@ function App() {
 ```
 
 ---
-
-This concludes **Topic 16: Advanced Patterns**. Let me know if you'd like to continue with the next topic!
-
 # 17-server-side-rendering-ssr
 - 17.1-what-is-server-side-rendering-ssr-and-how-does-it-benefit-react-applications
 - 17.2-how-do-you-implement-ssr-with-react-what-tools-or-frameworks-would-you-use
