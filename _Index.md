@@ -2,8 +2,8 @@
 
 <!-- toc -->
 
-  * [**1-jsx-and-rendering**](#1-jsx-and-rendering)
-    + [**1.1-what-is-jsx-how-is-it-different-from-html**](#11-what-is-jsx-how-is-it-different-from-html)
+- [1-jsx-and-rendering](#1-jsx-and-rendering)
+    + [1.1-what-is-jsx-how-is-it-different-from-html](#11-what-is-jsx-how-is-it-different-from-html)
     + [**1.2-how-is-jsx-transpiled-to-javascript-can-you-demonstrate-this-with-code**](#12-how-is-jsx-transpiled-to-javascript-can-you-demonstrate-this-with-code)
     + [**1.3-explain-how-react-renders-elements-to-the-dom-how-does-the-virtual-dom-fit-into-this**](#13-explain-how-react-renders-elements-to-the-dom-how-does-the-virtual-dom-fit-into-this)
     + [**1.4-how-do-you-handle-conditions-in-jsx**](#14-how-do-you-handle-conditions-in-jsx)
@@ -29,9 +29,9 @@
 
 ---
 
-## **1-jsx-and-rendering**
+# 1-jsx-and-rendering
 
-### **1.1-what-is-jsx-how-is-it-different-from-html**
+### 1.1-what-is-jsx-how-is-it-different-from-html
 
 **Conceptual Answer:**  
 JSX (JavaScript XML) is a syntax extension for JavaScript that allows us to write HTML-like structures within JavaScript. It is not valid JavaScript but is transpiled to `React.createElement()` calls. JSX is a core feature in React because it enables developers to create components in a declarative manner that is similar to HTML, but with the power of JavaScript.
