@@ -2,7 +2,7 @@
 
 <!-- toc -->
 
-  * [1-jsx-and-rendering](#1-jsx-and-rendering)
+- [1-jsx-and-rendering](#1-jsx-and-rendering)
     + [1.1-what-is-jsx-how-is-it-different-from-html](#11-what-is-jsx-how-is-it-different-from-html)
     + [1.2-how-is-jsx-transpiled-to-javascript-can-you-demonstrate-this-with-code](#12-how-is-jsx-transpiled-to-javascript-can-you-demonstrate-this-with-code)
     + [1.3-explain-how-react-renders-elements-to-the-dom-how-does-the-virtual-dom-fit-into-this](#13-explain-how-react-renders-elements-to-the-dom-how-does-the-virtual-dom-fit-into-this)
@@ -88,28 +88,17 @@
     + [20.2-what-is-css-in-js-and-why-should-you-use-it-in-react](#202-what-is-css-in-js-and-why-should-you-use-it-in-react)
     + [20.3-how-do-you-use-styled-components-in-react](#203-how-do-you-use-styled-components-in-react)
     + [20.4-how-do-you-use-emotion-for-styling-in-react](#204-how-do-you-use-emotion-for-styling-in-react)
-  * [21-react-performance-profiler](#21-react-performance-profiler)
+- [21-React-Performance-Profiler](#21-react-performance-profiler)
     + [21.1-what-is-the-react-performance-profiler-and-how-do-you-use-it](#211-what-is-the-react-performance-profiler-and-how-do-you-use-it)
     + [21.2-how-do-you-optimize-performance-in-react-using-the-profiler](#212-how-do-you-optimize-performance-in-react-using-the-profiler)
-  * [22-react-suspense-and-concurrent-react](#22-react-suspense-and-concurrent-react)
+- [22-React-Suspense-and-Concurrent-React](#22-react-suspense-and-concurrent-react)
     + [22.1-what-is-react-suspense-and-how-does-it-work](#221-what-is-react-suspense-and-how-does-it-work)
     + [22.2-what-is-concurrent-react-and-how-does-it-improve-performance](#222-what-is-concurrent-react-and-how-does-it-improve-performance)
-- [23-react-testing](#23-react-testing)
-    + [23.1-what-are-the-best-practices-for-testing-react-components](#231-what-are-the-best-practices-for-testing-react-components)
-    + [23.2-how-do-you-test-react-components-with-jest-and-react-testing-library](#232-how-do-you-test-react-components-with-jest-and-react-testing-library)
-    + [23.3-what-are-mocks-and-spies-in-jest-and-when-should-you-use-them](#233-what-are-mocks-and-spies-in-jest-and-when-should-you-use-them)
-    + [23.4-what-are-snapshot-tests-and-how-do-you-use-them-in-jest](#234-what-are-snapshot-tests-and-how-do-you-use-them-in-jest)
-    + [23.5-how-do-you-test-async-operations-in-react-with-jest](#235-how-do-you-test-async-operations-in-react-with-jest)
 
 <!-- tocstop -->
 
 ---
-
-Here is **Topic 1: JSX and Rendering** with the updated format and rules:
-
----
-
-## 1-jsx-and-rendering
+# 1-jsx-and-rendering
 
 ### 1.1-what-is-jsx-how-is-it-different-from-html
 
@@ -4061,7 +4050,7 @@ export default App;
 
 ---
 
-## 21-react-performance-profiler
+# 21-React-Performance-Profiler
 
 ### 21.1-what-is-the-react-performance-profiler-and-how-do-you-use-it
 
@@ -4136,7 +4125,7 @@ const MemoizedComponent = React.memo(function ExpensiveComponent() {
 
 ---
 
-## 22-react-suspense-and-concurrent-react
+# 22-React-Suspense-and-Concurrent-React
 
 ### 22.1-what-is-react-suspense-and-how-does-it-work
 
@@ -4196,242 +4185,3 @@ function App() {
 ```
 
 ---
-Let's move on to **Topic 23: React Testing**.
-
----
-
-# 23-react-testing
-
-### 23.1-what-are-the-best-practices-for-testing-react-components
-
-**Conceptual Answer:**  
-Testing React components ensures that your components are functioning correctly and helps prevent regressions. There are a few best practices to follow:
-
-1. **Test the component’s behavior**: Focus on testing how the component behaves rather than testing the implementation details. For example, test that a button click increases the count, rather than how the button’s `onClick` handler is implemented.
-    
-2. **Use the right testing tools**:
-    
-    - **Jest**: The testing framework that runs the tests.
-        
-    - **React Testing Library**: A utility to help test React components by interacting with the DOM the way a user would, encouraging testing the behavior rather than implementation.
-        
-3. **Write unit tests for each component**: Test each component in isolation to ensure it behaves as expected.
-    
-4. **Mock external dependencies**: If a component depends on external services, such as APIs or external libraries, mock them to ensure the tests are isolated.
-    
-5. **Test edge cases**: Ensure that your components handle edge cases gracefully, such as empty inputs, errors, or null values.
-    
-
-**Example:**
-
-```jsx
-import { render, fireEvent } from '@testing-library/react';
-import Counter from './Counter';
-
-test('increments count on button click', () => {
-  const { getByText } = render(<Counter />);
-  
-  const button = getByText(/Increment/i);
-  fireEvent.click(button);
-  
-  expect(getByText(/Count: 1/i)).toBeInTheDocument();
-});
-```
-
----
-
-### 23.2-how-do-you-test-react-components-with-jest-and-react-testing-library
-
-**Conceptual Answer:**  
-To test React components with **Jest** and **React Testing Library**, follow these steps:
-
-1. **Render the component**: Use `render` from `@testing-library/react` to render the component.
-    
-2. **Simulate user interactions**: Use `fireEvent` or `userEvent` to simulate actions like clicks, typing, etc.
-    
-3. **Assertions**: Use Jest's `expect` function to check that the component behaves as expected (e.g., checking text, class names, or component state).
-    
-
-**Steps to set up testing:**
-
-1. Install dependencies:
-    
-    ```bash
-    npm install --save-dev @testing-library/react jest
-    ```
-    
-2. Example Test for a Button Component:
-    
-    ```jsx
-    import { render, fireEvent } from '@testing-library/react';
-    import Button from './Button';
-    
-    test('button click triggers onClick handler', () => {
-      const handleClick = jest.fn();
-      const { getByText } = render(<Button onClick={handleClick}>Click me</Button>);
-    
-      fireEvent.click(getByText(/Click me/i));
-      expect(handleClick).toHaveBeenCalledTimes(1);
-    });
-    ```
-    
-
-**Machine Coding Task:**  
-Write a test to check if a counter component increments the value when the button is clicked.
-
-```jsx
-import { render, fireEvent } from '@testing-library/react';
-import Counter from './Counter';
-
-test('it increments the counter value when the button is clicked', () => {
-  const { getByText } = render(<Counter />);
-  
-  const button = getByText(/Increment/i);
-  fireEvent.click(button);
-  
-  expect(getByText(/Count: 1/i)).toBeInTheDocument();
-});
-```
-
----
-
-### 23.3-what-are-mocks-and-spies-in-jest-and-when-should-you-use-them
-
-**Conceptual Answer:**  
-In **Jest**, **mocks** and **spies** allow you to simulate functions and track how they were called. They are useful when testing components that interact with external dependencies or when you need to control how certain functions behave during tests.
-
-1. **Mocks**:
-    
-    - You can mock functions or modules so that they don't execute their original logic. This is useful when you want to isolate the component being tested and prevent side effects from external calls.
-        
-    
-    **Example:**
-    
-    ```javascript
-    jest.mock('axios');
-    axios.get.mockResolvedValue({ data: { message: 'Hello World' } });
-    ```
-    
-2. **Spies**:
-    
-    - Spies track function calls. Jest automatically spies on function calls, and you can use `jest.fn()` to create a spy.
-        
-    
-    **Example:**
-    
-    ```javascript
-    const mockFunction = jest.fn();
-    mockFunction();
-    expect(mockFunction).toHaveBeenCalled();
-    ```
-    
-
-**Machine Coding Task:**  
-Mock a function that fetches data and test that it was called with the correct arguments.
-
-```javascript
-jest.mock('axios');
-
-test('fetchData function calls axios.get with the correct URL', async () => {
-  const fetchData = async () => {
-    const response = await axios.get('https://api.example.com/data');
-    return response.data;
-  };
-
-  axios.get.mockResolvedValue({ data: 'Some data' });
-
-  await fetchData();
-
-  expect(axios.get).toHaveBeenCalledWith('https://api.example.com/data');
-});
-```
-
----
-
-### 23.4-what-are-snapshot-tests-and-how-do-you-use-them-in-jest
-
-**Conceptual Answer:**  
-**Snapshot testing** is a way of ensuring that a component renders consistently over time. Jest saves the rendered output of a component as a "snapshot" and compares future renders to that snapshot. If a change occurs, Jest will highlight the difference and allow you to approve or reject the change.
-
-**Steps to use Snapshot Testing in Jest**:
-
-1. Install Jest and React Testing Library.
-    
-2. Render the component using `render`.
-    
-3. Use `toMatchSnapshot()` to save the rendered output as a snapshot.
-    
-
-**Example:**
-
-```javascript
-import { render } from '@testing-library/react';
-import Button from './Button';
-
-test('matches snapshot', () => {
-  const { asFragment } = render(<Button />);
-  expect(asFragment()).toMatchSnapshot();
-});
-```
-
-**Machine Coding Task:**  
-Write a snapshot test to check if the rendered output of a `Header` component matches the saved snapshot.
-
-```javascript
-import { render } from '@testing-library/react';
-import Header from './Header';
-
-test('Header component matches snapshot', () => {
-  const { asFragment } = render(<Header />);
-  expect(asFragment()).toMatchSnapshot();
-});
-```
-
----
-
-### 23.5-how-do-you-test-async-operations-in-react-with-jest
-
-**Conceptual Answer:**  
-Testing **async** operations in React is necessary when dealing with API calls, timers, or other asynchronous behavior. In Jest, you can test async code by using `async`/`await`, `waitFor`, or `findBy` functions from React Testing Library.
-
-1. **Using `async/await`**:
-    
-    ```jsx
-    test('loads and displays data', async () => {
-      const { findByText } = render(<FetchData />);
-      const data = await findByText(/Hello World/);
-      expect(data).toBeInTheDocument();
-    });
-    ```
-    
-2. **Using `waitFor`**:  
-    `waitFor` is useful for waiting for specific elements to appear after an async operation.
-    
-    ```javascript
-    import { render, screen, waitFor } from '@testing-library/react';
-    import FetchData from './FetchData';
-    
-    test('fetches and displays data after async call', async () => {
-      render(<FetchData />);
-      await waitFor(() => screen.getByText(/Data Loaded/));
-      expect(screen.getByText(/Data Loaded/)).toBeInTheDocument();
-    });
-    ```
-    
-
-**Machine Coding Task:**  
-Write a test that waits for an element to appear after an async operation is completed.
-
-```jsx
-import { render, screen, waitFor } from '@testing-library/react';
-import FetchData from './FetchData';
-
-test('displays data after fetching', async () => {
-  render(<FetchData />);
-  await waitFor(() => screen.getByText(/Data Loaded/));
-  expect(screen.getByText(/Data Loaded/)).toBeInTheDocument();
-});
-```
-
----
-
