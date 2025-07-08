@@ -52,8 +52,6 @@ JSX (JavaScript XML) is a syntax extension for JavaScript that allows us to writ
 Write a simple React component that renders a `div` containing a `button`. The button should say "Click me", and when clicked, it should show an alert that says "Hello, JSX!"
 
 ```jsx
-import React from 'react';
-
 function MyComponent() {
   const handleClick = () => {
     alert('Hello, JSX!');
