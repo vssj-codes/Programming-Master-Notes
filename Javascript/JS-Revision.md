@@ -112,7 +112,7 @@
 
 ---
 
-#### Micro notes
+### Micro notes
 
 - **Hoisting** lifts declarations (not assignments) to top of their scope at compile time.
     
