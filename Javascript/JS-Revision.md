@@ -2,136 +2,353 @@
 
 <!-- toc -->
 
-- [Micro notes](#micro-notes)
+- [1. 🔍 Strong Conceptual Notes](#1-%F0%9F%94%8D-strong-conceptual-notes)
+  * [What is an Execution Context?](#what-is-an-execution-context)
+  * [Types of Execution Context:](#types-of-execution-context)
+  * [Execution Context Phases:](#execution-context-phases)
+  * [Call Stack (Execution Stack):](#call-stack-execution-stack)
+  * [Key Concepts:](#key-concepts)
+- [2. 🎯 10 Interview Questions with Detailed Answers](#2-%F0%9F%8E%AF-10-interview-questions-with-detailed-answers)
+  * [1. **Theory:**](#1-theory)
+  * [2. **Code-Based Scenario:**](#2-code-based-scenario)
+  * [3. **Code-Based Scenario (TDZ):**](#3-code-based-scenario-tdz)
+  * [4. **Edge Case:**](#4-edge-case)
+  * [5. **Real-World Bug:**](#5-real-world-bug)
+  * [6. **Best Practices:**](#6-best-practices)
+  * [7. **Debugging:**](#7-debugging)
+  * [8. **Code Understanding:**](#8-code-understanding)
+  * [9. **Closures + Execution Context:**](#9-closures--execution-context)
+  * [10. **Memory Leak Case:**](#10-memory-leak-case)
+- [3. 🧠 Micro Notes (Quick Revision)](#3-%F0%9F%A7%A0-micro-notes-quick-revision)
+- [4. 💡 Demonstration Code Snippet](#4-%F0%9F%92%A1-demonstration-code-snippet)
 
 <!-- tocstop -->
 
 ---
+## 1. 🔍 Strong Conceptual Notes 
 
-1. **What is hoisting in JavaScript, and what this really means is…?**  
-    **Answer:** Hoisting is the compile-time process where JavaScript “moves” declarations of variables and functions to the top of their containing scope—whether that’s global or function—before running any code. What gets moved is the declaration, not the initialization. So when you write `var x = 5`, under the hood it becomes:
+### What is an Execution Context?
+
+An **execution context** is the environment in which JavaScript code is evaluated and executed. It’s created whenever code is run.
+
+### Types of Execution Context:
+
+1. **Global Execution Context (GEC)**
     
-    ```js
-    var x;
-    // …your code…
-    x = 5;
-    ```
+    - Created by default when the JS file starts.
+        
+    - Creates `window` (in browsers) or `global` (in Node) object and `this`.
+        
+    - Variables declared with `var` are attached to `window`.
+        
+2. **Function Execution Context (FEC)**
     
-    That initial `undefined` state is why you can reference a `var` before its assignment without a crash.
+    - Created every time a function is invoked.
+        
+    - Has its own `arguments`, `this`, local variables, scope chain.
+        
+3. **Eval Execution Context** (rarely used, avoid)
     
-2. **Given:**
+    - Created inside the `eval()` function.
+        
+
+### Execution Context Phases:
+
+1. **Creation Phase**:
     
-    ```js
-    console.log(a);
-    var a = 10;
-    console.log(a);
-    ```
+    - Scope chain is set.
+        
+    - `this` is determined.
+        
+    - Memory allocation for variables (`undefined` for `var`, TDZ for `let`/`const`).
+        
+    - Functions are hoisted.
+        
+2. **Execution Phase**:
     
-    What logs and why?  
-    **Answer:** First it logs `undefined`, then `10`. At compile time, `var a` is hoisted (initialized to `undefined`). So the first `console.log(a)` sees that undefined. Only afterward does the assignment `a = 10` run, so the second log shows `10`.
+    - Code is executed line-by-line.
+        
+    - Variables are assigned actual values.
+        
+
+### Call Stack (Execution Stack):
+
+- A stack that manages function calls via LIFO (Last-In-First-Out).
     
-3. **What happens with `let`/`const`:**
+- When a function is invoked, its context is pushed onto the stack.
     
-    ```js
-    console.log(b);
-    let b = 20;
-    ```
+- Once finished, it is popped off.
     
-    And what’s the Temporal Dead Zone (TDZ)?  
-    **Answer:** You get a `ReferenceError: Cannot access 'b' before initialization`. Here `let`/`const` are hoisted but not initialized. Between entering the block and the actual declaration you’re in the TDZ. Any access there throws, protecting you from accidental early reads.
+
+### Key Concepts:
+
+- **Hoisting** only affects declarations (not initializations).
     
-4. **How do function declarations differ from function expressions in hoisting?**  
-    **Answer:** Function declarations are hoisted with both name and body, so you can call them anywhere in their scope:
+- **TDZ (Temporal Dead Zone)** is where `let`/`const` exist but are inaccessible before declaration.
     
-    ```js
-    greet();            // works
-    function greet() {} // declaration is hoisted
-    ```
+- **`this`** depends on how a function is called, not where it’s defined.
     
-    Function expressions (including arrow functions) hoist only the variable name as `undefined`:
-    
-    ```js
-    speak();                 // TypeError: speak is not a function
-    var speak = function() {};
-    ```
-    
-5. **In this snippet, what happens and why?**
-    
-    ```js
-    console.log(foo);
-    var foo = () => 'bar';
-    console.log(foo());
-    ```
-    
-    **Answer:** First log is `undefined` (the var is hoisted without its assignment). Then `foo()` runs fine after assignment, logging `'bar'`. Arrow functions behave like any function expression.
-    
-6. **Can you do `new MyClass()` before `class MyClass {}`?**  
-    **Answer:** No. Class declarations are hoisted in a TDZ, similar to `let`. Attempting to instantiate before the declaration throws `ReferenceError`. The engine knows the class exists but won’t initialize it until its line.
-    
-7. **Analyze this and predict output:**
-    
-    ```js
-    function test() {
-      console.log(x);
-      if (false) var x = 5;
-      console.log(x);
-    }
-    test();
-    ```
-    
-    **Answer:** Both logs are `undefined`. Inside `test`, `var x` is hoisted to top of that function (not just inside the `if`), so `x` exists from the start, initialized to `undefined`.
-    
-8. **Debugging angle:** Describe a scenario where hoisting caused a subtle bug in production. How would you find and fix it?  
-    **Answer:** Imagine a block that conditionally declares a `var userId`, then later reuses `userId` assuming it’s from an outer scope—but ends up `undefined`. You’d spot it by noticing odd `undefined` values in logs or a stack trace pointing to unexpected scope. Enabling strict mode, running a linter rule like `no-use-before-define`, and switching to `let`/`const` often fixes it.
-    
-9. **How do default parameters interact with hoisting and the TDZ?**
-    
-    ```js
-    function f(a = x, x = 5) {
-      console.log(a, x);
-    }
-    f();
-    ```
-    
-    **Answer:** You get `ReferenceError` for `x` when evaluating `a = x`, because default parameters are evaluated in left-to-right order in their own scope. `x` lives in the TDZ until its default is processed.
-    
-10. **In a modular codebase (ES modules or CommonJS), how can hoisting affect initialization order?** Give an example and mitigation.  
-    **Answer:** With circular dependencies, module A might import `foo` from B before B has assigned it, yielding `undefined`. For example:
-    
-    ```js
-    // a.js
-    import { bar } from './b.js'; console.log(bar);
-    export const foo = 'FOO';
-    // b.js
-    import { foo } from './a.js'; console.log(foo);
-    export const bar = 'BAR';
-    ```
-    
-    You’d see `undefined` first. To mitigate, refactor to avoid circular deps, or use dynamic imports so you defer evaluation until after both modules load.
+- **Closures** are functions that access variables from their parent context.
     
 
 ---
 
-### Micro notes
+## 2. 🎯 10 Interview Questions with Detailed Answers
 
-- **Hoisting** lifts declarations (not assignments) to top of their scope at compile time.
-    
-- **var** is hoisted & initialized to `undefined`.
-    
-- **let/const** hoisted but uninitialized → TDZ until declaration.
-    
-- **Function declarations** fully hoisted (name + body).
-    
-- **Function expressions/arrow** only hoist the var name (as `undefined`).
-    
-- **Class declarations** behave like `let` (TDZ → cannot use early).
-    
-- **var in blocks** moves to function scope, not block.
-    
-- **Default params** evaluated L→R; referencing later params hits TDZ.
-    
-- **Debug tips:** strict mode + `no-use-before-define` lint + clear naming.
-    
-- **Modules:** circular imports can expose `undefined`; use dynamic imports or refactor.
+---
 
+### 1. **Theory:**
 
+**Q:** What happens during the creation phase of an execution context?
+
+**A:**
+
+- Memory is allocated for variables and functions.
+    
+- Variables declared with `var` are hoisted and initialized as `undefined`.
+    
+- `let`/`const` are hoisted but left uninitialized (TDZ).
+    
+- Functions are hoisted with full definition.
+    
+- `this` is determined.
+    
+- Scope chain is initialized.
+    
+
+---
+
+### 2. **Code-Based Scenario:**
+
+**Q:** What is the output?
+
+```js
+console.log(a);
+var a = 5;
+```
+
+**A:**  
+Output: `undefined`  
+`var a` is hoisted during the creation phase and assigned `undefined`. The assignment happens in the execution phase.
+
+---
+
+### 3. **Code-Based Scenario (TDZ):**
+
+**Q:** What is the output?
+
+```js
+console.log(b);
+let b = 10;
+```
+
+**A:**  
+ReferenceError: Cannot access 'b' before initialization  
+`let` is hoisted but not initialized — it resides in the Temporal Dead Zone until the declaration is evaluated.
+
+---
+
+### 4. **Edge Case:**
+
+**Q:** Can you modify the value of `this` inside a regular function execution context?
+
+**A:**  
+No. In non-strict mode, `this` in global or regular functions refers to `window/global`. In strict mode, it’s `undefined`. Arrow functions don’t have their own `this`.
+
+---
+
+### 5. **Real-World Bug:**
+
+**Q:** Why does this code throw an error?
+
+```js
+function example() {
+  console.log(x);
+  if (false) {
+    let x = 20;
+  }
+}
+example();
+```
+
+**A:**  
+It throws a ReferenceError due to accessing `x` inside its TDZ — even though the condition is `false`, the block is still scoped and hoisted.
+
+---
+
+### 6. **Best Practices:**
+
+**Q:** What are best practices for managing execution contexts in large applications?
+
+**A:**
+
+- Use strict mode (`'use strict'`) to catch errors.
+    
+- Avoid polluting the global scope.
+    
+- Use block scoping (`let`/`const`) to prevent variable leakage.
+    
+- Keep functions small to avoid deep call stacks.
+    
+
+---
+
+### 7. **Debugging:**
+
+**Q:** How can you debug execution context issues?
+
+**A:**
+
+- Use browser DevTools (Sources tab + Call Stack).
+    
+- Set breakpoints to observe the Call Stack and Scope.
+    
+- Watch for TDZ errors and improper `this` bindings.
+    
+
+---
+
+### 8. **Code Understanding:**
+
+**Q:** Explain the call stack for this code:
+
+```js
+function a() {
+  b();
+}
+function b() {
+  console.log('Hello');
+}
+a();
+```
+
+**A:**  
+Call stack flow:
+
+1. GEC created and pushed.
+    
+2. `a()` is called → FEC for `a` pushed.
+    
+3. `b()` is called inside `a` → FEC for `b` pushed.
+    
+4. `console.log` executes.
+    
+5. `b` and then `a` contexts are popped off.
+    
+
+---
+
+### 9. **Closures + Execution Context:**
+
+**Q:** Why does the following code work?
+
+```js
+function outer() {
+  let count = 0;
+  return function inner() {
+    count++;
+    return count;
+  };
+}
+const counter = outer();
+console.log(counter());
+console.log(counter());
+```
+
+**A:**  
+Because `inner()` retains access to the `outer()`'s execution context via closure, even after `outer()` has finished executing. It remembers `count`.
+
+---
+
+### 10. **Memory Leak Case:**
+
+**Q:** How can poorly managed execution contexts lead to memory leaks?
+
+**A:**  
+If closures hold references to large objects from outer contexts unnecessarily, those objects aren’t garbage collected even if no longer needed.
+
+---
+
+## 3. 🧠 Micro Notes (Quick Revision)
+
+- **Execution Context** = environment where code runs.
+    
+- **Types**: Global, Function, Eval.
+    
+- **Phases**:
+    
+    1. Creation → Hoisting, `this`, scope setup
+        
+    2. Execution → Code runs line-by-line
+        
+- **Call Stack** uses LIFO to manage function calls.
+    
+- **`var` hoisted** → `undefined`; `let/const` hoisted → TDZ.
+    
+- **`this`** is dynamic, based on function call, not definition.
+    
+- **Closures** retain reference to parent context.
+    
+- **Strict mode** helps avoid accidental global leakage.
+    
+- **Memory leaks** can happen with unintentional closures.
+    
+
+---
+
+## 4. 💡 Demonstration Code Snippet
+
+```js
+'use strict';
+
+function globalExample() {
+  console.log("Global `this`:", this); // undefined in strict mode
+}
+
+function counterFactory() {
+  let count = 0; // part of this execution context
+
+  return function counter() {
+    count++;
+    console.log(`Count: ${count}`);
+  };
+}
+
+function hoistingDemo() {
+  console.log(msg); // undefined due to var hoisting
+  var msg = "Hoisted!";
+  
+  try {
+    console.log(value); // ReferenceError due to TDZ
+    let value = 10;
+  } catch (e) {
+    console.error("TDZ Error:", e.message);
+  }
+}
+
+function recursive(depth) {
+  if (depth === 0) return;
+  console.log("Depth:", depth);
+  recursive(depth - 1); // New context each time
+}
+
+globalExample(); // Execution context 1
+const counter = counterFactory(); // Execution context 2
+counter(); // Uses closure
+counter();
+
+hoistingDemo();
+recursive(3); // Shows stack creation
+```
+
+🧠 **How to walk through this in interview**:
+
+- Explain hoisting with `var` and TDZ with `let`.
+    
+- Show how closures retain state across calls.
+    
+- Describe how `recursive()` builds nested execution contexts.
+    
+- Point out strict mode effect on `this`.
+
+---
