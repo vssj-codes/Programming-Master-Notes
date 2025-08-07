@@ -297,6 +297,27 @@ If closures hold references to large objects from outer contexts unnecessarily, 
 ---
 
 ## 4. 💡 Demonstration Code Snippet
+- Simple Eg
+```javascript
+// GEC, FEC
+
+console.log(this)
+console.log(window)
+console.log(this === window)
+
+function noArgs() {
+    console.log('arguments obj from noArgs: ', arguments)
+}
+
+noArgs()
+
+function showArgs(arg1, arg2) {
+    console.log("arguments: ", arguments)
+    return `arg1: ${arg1} and arg2: ${arg2}`
+}
+
+showArgs('hello', 'world')
+```
 
 ```js
 'use strict';
