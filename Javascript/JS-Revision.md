@@ -98,6 +98,7 @@
   * [3. 🧠 Micro Notes (Quick Revision)](#3-%F0%9F%A7%A0-micro-notes-quick-revision-4)
   * [4. 💡 Demonstration Code Snippet (Space Analogy 🚀)](#4-%F0%9F%92%A1-demonstration-code-snippet-space-analogy-%F0%9F%9A%80)
     + [🗣️ Interview Explanation:](#%F0%9F%97%A3%EF%B8%8F-interview-explanation)
+- [6. [/[/ scope /]/]](#6--scope-)
 
 <!-- tocstop -->
 
@@ -1536,5 +1537,12 @@ galaxy(); // Outputs: 🌕 is in 🌟 Solar System inside 🌌 Universe
 > “When `planet()` runs, it looks for `moon` in its own scope. Then it looks for `starSystem` in the `galaxy()` scope. Then `universe` in the global scope. That’s the scope chain in action — inner functions accessing variables defined lexically in parent scopes.”
 
 ---
+# 6. [/[/ scope /]/]
 
-Ready for the next topic? Want to cover **Closures** next since it builds directly on the scope chain?
+```javascript
+// Lexical Env = [[scope]]
+function a() {
+}
+a()
+```
+
