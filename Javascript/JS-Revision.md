@@ -39,6 +39,65 @@
     + [10. **Best Practices:**](#10-best-practices)
   * [3. 🧠 Micro Notes (Quick Revision)](#3-%F0%9F%A7%A0-micro-notes-quick-revision-1)
   * [4. 💡 Demonstration Code Snippet](#4-%F0%9F%92%A1-demonstration-code-snippet-1)
+- [3. Hoisting](#3-hoisting)
+    + [What is Hoisting?](#what-is-hoisting)
+    + [Key Rules:](#key-rules)
+    + [Behind the Scenes:](#behind-the-scenes)
+  * [2. 🎯 10 Interview Questions with Detailed Answers](#2-%F0%9F%8E%AF-10-interview-questions-with-detailed-answers-2)
+    + [1. **Theory:**](#1-theory-2)
+    + [2. **Code-Based Scenario (Var Hoisting):**](#2-code-based-scenario-var-hoisting)
+    + [3. **TDZ Case (Let Hoisting):**](#3-tdz-case-let-hoisting)
+    + [4. **Function Hoisting vs Expression:**](#4-function-hoisting-vs-expression)
+    + [5. **Edge Case: Overriding Function with Var**](#5-edge-case-overriding-function-with-var)
+    + [6. **Real-World Bug:**](#6-real-world-bug-1)
+    + [7. **Best Practice Question:**](#7-best-practice-question)
+    + [8. **Class Hoisting:**](#8-class-hoisting)
+    + [9. **Function Inside Block:**](#9-function-inside-block)
+    + [10. **Debugging Hoisting:**](#10-debugging-hoisting)
+  * [3. 🧠 Micro Notes (Quick Revision)](#3-%F0%9F%A7%A0-micro-notes-quick-revision-2)
+  * [4. 💡 Demonstration Code Snippet (Simple + Interview-Ready)](#4-%F0%9F%92%A1-demonstration-code-snippet-simple--interview-ready)
+    + [🗣️ Interview Walkthrough:](#%F0%9F%97%A3%EF%B8%8F-interview-walkthrough)
+- [4. Scopes](#4-scopes)
+    + [What is Scope?](#what-is-scope)
+    + [Types of Scope in JavaScript:](#types-of-scope-in-javascript)
+    + [Scope Chain:](#scope-chain)
+    + [Closures:](#closures)
+    + [`var` vs `let`/`const`:](#var-vs-letconst)
+    + [Shadowing:](#shadowing)
+  * [2. 🎯 10 Interview Questions with Detailed Answers](#2-%F0%9F%8E%AF-10-interview-questions-with-detailed-answers-3)
+    + [1. **Theory:**](#1-theory-3)
+    + [2. **Code Scenario:**](#2-code-scenario)
+    + [3. **Shadowing:**](#3-shadowing)
+    + [4. **Closures + Scope:**](#4-closures--scope)
+    + [5. **Loop + Scope Trap:**](#5-loop--scope-trap)
+    + [6. **Global Pollution:**](#6-global-pollution)
+    + [7. **Best Practices:**](#7-best-practices)
+    + [8. **Scope Chain Debugging:**](#8-scope-chain-debugging-1)
+    + [9. **Function Declaration Inside Block:**](#9-function-declaration-inside-block)
+    + [10. **TDZ (Temporal Dead Zone):**](#10-tdz-temporal-dead-zone)
+  * [3. 🧠 Micro Notes (Quick Revision)](#3-%F0%9F%A7%A0-micro-notes-quick-revision-3)
+  * [4. 💡 Demonstration Code Snippet (Planet Analogy 🌍)](#4-%F0%9F%92%A1-demonstration-code-snippet-planet-analogy-%F0%9F%8C%8D)
+    + [🗣️ How to explain this in an interview:](#%F0%9F%97%A3%EF%B8%8F-how-to-explain-this-in-an-interview)
+- [5. Scope Chain](#5-scope-chain)
+  * [1. Notes](#1-notes)
+    + [What is a Scope Chain?](#what-is-a-scope-chain)
+    + [Analogy:](#analogy)
+    + [How it's Formed:](#how-its-formed)
+    + [Key Rules:](#key-rules-1)
+  * [2. 🎯 10 Interview Questions with Detailed Answers](#2-%F0%9F%8E%AF-10-interview-questions-with-detailed-answers-4)
+    + [1. **Theory:**](#1-theory-4)
+    + [2. **Code Understanding:**](#2-code-understanding-1)
+    + [3. **ReferenceError Case:**](#3-referenceerror-case)
+    + [4. **Variable Hiding (Shadowing via Scope Chain):**](#4-variable-hiding-shadowing-via-scope-chain)
+    + [5. **Real-World Bug:**](#5-real-world-bug-1)
+    + [6. **Closures + Scope Chain:**](#6-closures--scope-chain)
+    + [7. **Nested Functions Accessing Outer Scopes:**](#7-nested-functions-accessing-outer-scopes)
+    + [8. **Debugging Scope Chain:**](#8-debugging-scope-chain)
+    + [9. **Best Practice:**](#9-best-practice)
+    + [10. **Scope Chain ≠ Call Stack:**](#10-scope-chain-%E2%89%A0-call-stack)
+  * [3. 🧠 Micro Notes (Quick Revision)](#3-%F0%9F%A7%A0-micro-notes-quick-revision-4)
+  * [4. 💡 Demonstration Code Snippet (Space Analogy 🚀)](#4-%F0%9F%92%A1-demonstration-code-snippet-space-analogy-%F0%9F%9A%80)
+    + [🗣️ Interview Explanation:](#%F0%9F%97%A3%EF%B8%8F-interview-explanation)
 
 <!-- tocstop -->
 
@@ -680,3 +739,802 @@ obj.arrow();
     
 
 ---
+# 3. Hoisting
+
+### What is Hoisting?
+
+**Hoisting** is JavaScript's default behavior of moving **declarations** to the **top of their scope** during the **creation phase** of execution.
+
+### Key Rules:
+
+- **Only declarations are hoisted**, not initializations.
+    
+- **`var` is hoisted** and initialized as `undefined`.
+    
+- **`let` and `const` are hoisted**, but remain **uninitialized** in the **Temporal Dead Zone (TDZ)**.
+    
+- **Function declarations** are fully hoisted (code + definition).
+    
+- **Function expressions** are treated like variables.
+    
+
+### Behind the Scenes:
+
+During the creation phase:
+
+- JS engine sets up memory space for variables and functions.
+    
+- `var` → `undefined`
+    
+- `let`/`const` → TDZ (can’t be accessed until line of declaration)
+    
+- Function declarations → Hoisted completely (name + body)
+    
+
+---
+
+## 2. 🎯 10 Interview Questions with Detailed Answers
+
+---
+
+### 1. **Theory:**
+
+**Q:** What gets hoisted in JavaScript?
+
+**A:**
+
+- All **declarations** (`var`, `let`, `const`, `function`, `class`) are hoisted.
+    
+- Only `var` and `function` declarations are usable before their line.
+    
+- `let`, `const`, and `class` stay in TDZ and throw ReferenceError if accessed early.
+    
+
+---
+
+### 2. **Code-Based Scenario (Var Hoisting):**
+
+```js
+console.log(a);
+var a = 10;
+```
+
+**A:**  
+Output: `undefined`  
+`a` is hoisted and initialized to `undefined`. The assignment `10` happens later.
+
+---
+
+### 3. **TDZ Case (Let Hoisting):**
+
+```js
+console.log(b);
+let b = 20;
+```
+
+**A:**  
+Throws: `ReferenceError: Cannot access 'b' before initialization`  
+`b` is hoisted but remains in TDZ until the `let` line executes.
+
+---
+
+### 4. **Function Hoisting vs Expression:**
+
+```js
+greet(); // Works
+function greet() {
+  console.log('Hello');
+}
+
+wave(); // Error
+var wave = function () {
+  console.log('Hi');
+};
+```
+
+**A:**
+
+- `greet` is hoisted as a complete function.
+    
+- `wave` is hoisted as a variable (`undefined`), not as a function.
+    
+
+---
+
+### 5. **Edge Case: Overriding Function with Var**
+
+```js
+console.log(typeof sayHi);
+var sayHi = "👋";
+function sayHi() {
+  console.log("Hello");
+}
+```
+
+**A:**  
+Output: `string`  
+Function `sayHi` is hoisted first, but then `var sayHi` re-declares it (overwrites it) with `undefined`, then later it becomes a string.
+
+---
+
+### 6. **Real-World Bug:**
+
+```js
+function init() {
+  console.log(config);
+  var config = "API_KEY";
+}
+init();
+```
+
+**A:**  
+Logs `undefined`, not an error.  
+This can lead to **silent bugs** where you expect `config` to exist, but get `undefined` due to hoisting.
+
+---
+
+### 7. **Best Practice Question:**
+
+**Q:** How to avoid hoisting pitfalls?
+
+**A:**
+
+- Use `let`/`const` over `var`.
+    
+- Declare all variables at the top of their scope.
+    
+- Avoid function expressions before definition.
+    
+- Use linters like ESLint to catch hoisting-related bugs.
+    
+
+---
+
+### 8. **Class Hoisting:**
+
+```js
+const user = new Person();
+class Person {}
+```
+
+**A:**  
+Throws: `ReferenceError: Cannot access 'Person' before initialization`  
+`class` declarations are hoisted but in TDZ, just like `let`/`const`.
+
+---
+
+### 9. **Function Inside Block:**
+
+```js
+if (true) {
+  function say() {
+    console.log("Hi");
+  }
+}
+say();
+```
+
+**A:**  
+In **strict mode**, this throws an error (`say is not defined`) because function declarations inside blocks are scoped to that block.
+
+---
+
+### 10. **Debugging Hoisting:**
+
+**Q:** How to debug a ReferenceError caused by hoisting?
+
+**A:**
+
+- Check if you’re accessing `let`/`const`/`class` before declaration.
+    
+- Look for TDZ issues in the call stack.
+    
+- Use breakpoints and scope inspector in DevTools to see what’s initialized.
+    
+
+---
+
+## 3. 🧠 Micro Notes (Quick Revision)
+
+- **Hoisting = declarations move to top** (during creation phase).
+    
+- `var` → hoisted, initialized as `undefined`.
+    
+- `let`/`const`/`class` → hoisted but in **TDZ**.
+    
+- Function **declarations** → fully hoisted.
+    
+- Function **expressions** → only the variable part is hoisted.
+    
+- TDZ = accessing `let`/`const` before they’re initialized throws error.
+    
+- `class` behaves like `const` (TDZ until initialized).
+    
+- Use `let`/`const`, never rely on `var`.
+    
+- Watch out for hidden bugs due to hoisted `undefined`.
+    
+
+---
+
+## 4. 💡 Demonstration Code Snippet (Simple + Interview-Ready)
+
+```js
+'use strict';
+
+console.log("1. varDemo:", varDemo); // undefined
+var varDemo = "I'm hoisted";
+
+try {
+  console.log("2. letDemo:", letDemo); // ReferenceError
+  let letDemo = "I'm in TDZ";
+} catch (err) {
+  console.error("2. letDemo Error:", err.message);
+}
+
+greet(); // Works due to full hoisting
+function greet() {
+  console.log("3. greet(): Function declaration hoisted");
+}
+
+try {
+  wave(); // ReferenceError
+  var wave = function () {
+    console.log("This won't run");
+  };
+} catch (err) {
+  console.error("4. wave Error:", err.message);
+}
+
+// Class hoisting test
+try {
+  const obj = new Planet();
+  class Planet {}
+} catch (err) {
+  console.error("5. class hoisting Error:", err.message);
+}
+```
+
+---
+
+### 🗣️ Interview Walkthrough:
+
+> “Here, `varDemo` is hoisted and initialized with `undefined`. But `letDemo` is hoisted but stuck in TDZ, causing a ReferenceError. The `greet` function is fully hoisted, so it works. `wave`, on the other hand, is hoisted only as a variable. Same with the class — it's hoisted like `let`, and accessing it before declaration causes a ReferenceError.”
+
+---
+# 4. Scopes
+
+### What is Scope?
+
+**Scope** determines the **visibility** and **lifetime** of variables, functions, and objects in a program — i.e., where you can access them.
+
+---
+
+### Types of Scope in JavaScript:
+
+|Scope Type|Description|
+|---|---|
+|**Global**|Accessible everywhere. Created outside all functions.|
+|**Function**|Created inside a function; `var` is function-scoped.|
+|**Block**|Created inside `{ }`; `let` and `const` are block-scoped.|
+|**Module**|ES6 modules have their own top-level scope (not global).|
+|**Lexical**|Scope defined by code position, not call stack (a.k.a. static scope).|
+
+---
+
+### Scope Chain:
+
+- When accessing a variable, JS looks **locally** first, then checks **parent scopes** recursively until global is reached.
+    
+- If not found, → `ReferenceError`.
+    
+
+---
+
+### Closures:
+
+- Inner functions **remember** variables from outer scopes via lexical scoping — this is how closures work.
+    
+
+---
+
+### `var` vs `let`/`const`:
+
+- `var` is **function scoped**, ignores block `{}`.
+    
+- `let`/`const` are **block scoped**, respect `{}`.
+    
+
+---
+
+### Shadowing:
+
+- When an inner scope declares a variable with the same name as an outer scope — it "shadows" the outer one within that block.
+    
+
+---
+
+## 2. 🎯 10 Interview Questions with Detailed Answers
+
+---
+
+### 1. **Theory:**
+
+**Q:** What's the difference between function scope and block scope?
+
+**A:**
+
+- **Function scope** (e.g., `var`) means the variable is only accessible within the entire function, not within a block.
+    
+- **Block scope** (e.g., `let`, `const`) limits access to the specific `{}` block (like loops or if statements).
+    
+
+---
+
+### 2. **Code Scenario:**
+
+```js
+if (true) {
+  var a = 1;
+  let b = 2;
+}
+console.log(a); // ?
+console.log(b); // ?
+```
+
+**A:**  
+`a = 1` (accessible — function scoped)  
+`b = ReferenceError` (block scoped)
+
+---
+
+### 3. **Shadowing:**
+
+```js
+let x = 10;
+function test() {
+  let x = 5;
+  console.log(x);
+}
+test();
+```
+
+**A:**  
+Output: `5` — the `x` inside `test()` shadows the outer `x`.
+
+---
+
+### 4. **Closures + Scope:**
+
+```js
+function outer() {
+  let secret = '🔐';
+  return function inner() {
+    return secret;
+  };
+}
+const fn = outer();
+console.log(fn());
+```
+
+**A:**  
+Output: `🔐` — `inner()` has access to `outer()`’s scope even after `outer()` returns.
+
+---
+
+### 5. **Loop + Scope Trap:**
+
+```js
+for (var i = 0; i < 3; i++) {
+  setTimeout(() => console.log(i), 0);
+}
+```
+
+**A:**  
+Output: `3 3 3` — all closures refer to the same `i` (function scope).  
+To fix: use `let i` for block scoping.
+
+---
+
+### 6. **Global Pollution:**
+
+**Q:** What’s the risk of using `var` globally?
+
+**A:**  
+It attaches variables to `window` (in browsers), potentially **overwriting** existing properties or libraries and leading to hard-to-debug issues.
+
+---
+
+### 7. **Best Practices:**
+
+**Q:** What are some scope-related best practices?
+
+**A:**
+
+- Prefer `const` for immutables, `let` for block-scoped vars.
+    
+- Avoid using `var`.
+    
+- Declare variables at the top of their scope.
+    
+- Keep scopes shallow and small for easier debugging.
+    
+
+---
+
+### 8. **Scope Chain Debugging:**
+
+```js
+function one() {
+  let a = "A";
+  function two() {
+    let b = "B";
+    function three() {
+      console.log(a, b);
+    }
+    three();
+  }
+  two();
+}
+one();
+```
+
+**A:**  
+Logs: `A B` — `three()` has access to all ancestor scopes due to lexical scope.
+
+---
+
+### 9. **Function Declaration Inside Block:**
+
+```js
+if (true) {
+  function sayHi() {
+    return 'Hi';
+  }
+}
+console.log(sayHi());
+```
+
+**A:**  
+In **strict mode**, this throws a `ReferenceError`. Function declarations inside blocks are block-scoped per ES6.
+
+---
+
+### 10. **TDZ (Temporal Dead Zone):**
+
+```js
+{
+  console.log(a);
+  let a = 2;
+}
+```
+
+**A:**  
+`ReferenceError` — `a` is block-scoped and in the **TDZ** until declared.
+
+---
+
+## 3. 🧠 Micro Notes (Quick Revision)
+
+- **Scope = visibility of variables.**
+    
+- `var` → function scoped.
+    
+- `let/const` → block scoped.
+    
+- **Lexical scope** = defined by where functions are written.
+    
+- Scope chain: inner → outer → global.
+    
+- **Shadowing** = inner var hides outer var.
+    
+- **Closures** use outer scopes even after function exits.
+    
+- **Avoid global scope pollution.**
+    
+- **TDZ** → error if `let/const` used before declaration.
+    
+
+---
+
+## 4. 💡 Demonstration Code Snippet (Planet Analogy 🌍)
+
+```js
+'use strict';
+
+let galaxy = '🌌 Milky Way'; // Global scope
+
+function createPlanet(planet) {
+  let atmosphere = 'Oxygen'; // Function scope
+
+  if (planet === 'Earth') {
+    let life = true; // Block scope
+    console.log(`Inside block: ${planet} has life: ${life}`);
+  }
+
+  // console.log(life); // ReferenceError: block scoped
+
+  return function describe() {
+    console.log(`${planet} has ${atmosphere} in the ${galaxy}`);
+  };
+}
+
+const earthInfo = createPlanet('🌍 Earth');
+earthInfo(); // Uses all 3 scopes
+```
+
+---
+
+### 🗣️ How to explain this in an interview:
+
+> "Here, we have variables in global, function, and block scope. The `describe()` function uses lexical scoping to access them all. The `life` variable is block scoped, so it’s inaccessible outside the `if`. This cleanly shows how different scopes coexist and how closures retain access to outer scopes."
+
+---
+
+# 5. Scope Chain
+## 1. Notes
+
+### What is a Scope Chain?
+
+The **scope chain** is the chain of **lexical environments** that JavaScript uses to **resolve variable identifiers**.
+
+When a variable is accessed:
+
+1. JS looks in the **current scope**.
+    
+2. If not found, it checks the **outer (parent) scope**.
+    
+3. This continues up until the **global scope**.
+    
+4. If still not found → `ReferenceError`.
+    
+
+---
+
+### Analogy:
+
+Imagine asking your friend a question. If they don’t know, they ask their parent. If the parent doesn’t know, they ask a grandparent — this is the scope chain.
+
+---
+
+### How it's Formed:
+
+- Every time a function is created, it remembers the **scope in which it was defined** (its lexical environment).
+    
+- These nested scopes create a **chain of accessible variables**.
+    
+
+---
+
+### Key Rules:
+
+- The scope chain is based on **where functions are defined**, **not** where they are called.
+    
+- Used for **variable lookup**, not `this` binding.
+    
+
+---
+
+## 2. 🎯 10 Interview Questions with Detailed Answers
+
+---
+
+### 1. **Theory:**
+
+**Q:** What is the scope chain used for?
+
+**A:**  
+To **resolve variable names** during execution. JS looks through the nested chain of lexical environments until it finds the variable or throws an error.
+
+---
+
+### 2. **Code Understanding:**
+
+```js
+let a = 'global';
+
+function one() {
+  let b = 'one';
+  function two() {
+    let c = 'two';
+    console.log(a, b, c);
+  }
+  two();
+}
+one();
+```
+
+**A:**  
+Logs: `global one two`  
+Because `two()` can access its own scope, then `one()`’s, then global — thanks to the scope chain.
+
+---
+
+### 3. **ReferenceError Case:**
+
+```js
+function outer() {
+  function inner() {
+    console.log(x);
+  }
+  inner();
+}
+outer();
+let x = 10;
+```
+
+**A:**  
+Throws `ReferenceError: x is not defined`  
+Because `x` is declared **after** `outer()` is executed — it's **not in the scope chain** at the time.
+
+---
+
+### 4. **Variable Hiding (Shadowing via Scope Chain):**
+
+```js
+let item = 'apple';
+
+function printItem() {
+  let item = 'banana';
+  console.log(item);
+}
+printItem();
+```
+
+**A:**  
+Logs: `banana` — `printItem()`'s local `item` **shadows** the global `item`.
+
+---
+
+### 5. **Real-World Bug:**
+
+**Q:** Why does this log `undefined`?
+
+```js
+let config = "global";
+
+function setup() {
+  if (false) {
+    var config = "scoped";
+  }
+  console.log(config);
+}
+setup();
+```
+
+**A:**  
+Because `var config` is hoisted to the top of `setup()`, making the inner `config` take precedence in the scope chain → initialized as `undefined`.
+
+---
+
+### 6. **Closures + Scope Chain:**
+
+```js
+function counter() {
+  let count = 0;
+  return function () {
+    count++;
+    return count;
+  };
+}
+const increment = counter();
+console.log(increment());
+console.log(increment());
+```
+
+**A:**  
+Returns `1`, then `2`.  
+The inner function forms a **closure** and keeps `count` alive via the scope chain.
+
+---
+
+### 7. **Nested Functions Accessing Outer Scopes:**
+
+```js
+function grandParent() {
+  let gp = "👴";
+  function parent() {
+    let p = "👨";
+    function child() {
+      let c = "👶";
+      console.log(gp, p, c);
+    }
+    child();
+  }
+  parent();
+}
+grandParent();
+```
+
+**A:**  
+Logs: `👴 👨 👶` — the child function walks up the scope chain to access outer variables.
+
+---
+
+### 8. **Debugging Scope Chain:**
+
+**Q:** How to inspect scope chain in DevTools?
+
+**A:**
+
+- Use breakpoints in the Sources tab.
+    
+- Look at the **"Scope"** panel — it shows Local, Closure, Script, and Global scopes in chain order.
+    
+
+---
+
+### 9. **Best Practice:**
+
+**Q:** How can understanding the scope chain prevent bugs?
+
+**A:**
+
+- Helps identify **where a variable is coming from**.
+    
+- Avoids accidental **global variable access**.
+    
+- Useful in debugging `undefined` or `ReferenceError` issues.
+    
+
+---
+
+### 10. **Scope Chain ≠ Call Stack:**
+
+**Q:** Is the scope chain the same as the call stack?
+
+**A:**  
+No. Scope chain is about **where functions are defined**.  
+Call stack is about **which function is currently being executed**.
+
+---
+
+## 3. 🧠 Micro Notes (Quick Revision)
+
+- **Scope chain = chain of parent scopes used to find variables.**
+    
+- JS checks current → parent → grandparent → ... → global.
+    
+- Based on **function definition location**, not where it's called.
+    
+- Used in closures, variable lookup.
+    
+- If not found in chain → `ReferenceError`.
+    
+- Useful for debugging bugs like `undefined` or shadowed vars.
+    
+- `let`/`const` respect block scope in the chain; `var` is function-scoped.
+    
+
+---
+
+## 4. 💡 Demonstration Code Snippet (Space Analogy 🚀)
+
+```js
+'use strict';
+
+let universe = '🌌 Universe'; // Global
+
+function galaxy() {
+  let starSystem = '🌟 Solar System'; // Enclosed in galaxy
+
+  function planet() {
+    let moon = '🌕 Moon'; // Enclosed in planet
+    console.log(`${moon} is in ${starSystem} inside ${universe}`);
+  }
+
+  planet();
+}
+
+galaxy(); // Outputs: 🌕 is in 🌟 Solar System inside 🌌 Universe
+```
+
+---
+
+### 🗣️ Interview Explanation:
+
+> “When `planet()` runs, it looks for `moon` in its own scope. Then it looks for `starSystem` in the `galaxy()` scope. Then `universe` in the global scope. That’s the scope chain in action — inner functions accessing variables defined lexically in parent scopes.”
+
+---
+
+Ready for the next topic? Want to cover **Closures** next since it builds directly on the scope chain?
