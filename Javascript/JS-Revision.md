@@ -104,6 +104,29 @@
   * [**2. 10 Challenging Interview-Style Questions with Answers**](#2-10-challenging-interview-style-questions-with-answers)
   * [**3. Micro Notes (Quick Revision)**](#3-micro-notes-quick-revision)
   * [**4. Demonstration Code Snippet (Interview-Ready)**](#4-demonstration-code-snippet-interview-ready)
+  * [7.1 Strings](#71-strings)
+    + [**1. Basics**](#1-basics)
+    + [**2. Creation & Coercion**](#2-creation--coercion)
+    + [**3. Access & Iteration**](#3-access--iteration)
+    + [**4. Common Methods**](#4-common-methods)
+    + [**5. Unicode & Special Handling**](#5-unicode--special-handling)
+    + [**6. Template Literals**](#6-template-literals)
+    + [**7. Performance**](#7-performance)
+    + [**8. Edge Cases**](#8-edge-cases)
+    + [**9. Internationalization**](#9-internationalization)
+    + [**10. Best Practices**](#10-best-practices)
+  * [7.2 Non-Primitive Data Types](#72-non-primitive-data-types)
+    + [**1. Definition**](#1-definition)
+    + [**2. Categories**](#2-categories)
+      - [**a. Objects**](#a-objects)
+      - [**b. Arrays**](#b-arrays)
+      - [**c. Functions**](#c-functions)
+      - [**d. Special Objects**](#d-special-objects)
+    + [**3. Key Characteristics**](#3-key-characteristics)
+    + [**4. Memory & Performance**](#4-memory--performance)
+    + [**5. Common Pitfalls**](#5-common-pitfalls)
+    + [**6. Best Practices**](#6-best-practices)
+    + [**7. Interview Edge Cases**](#7-interview-edge-cases)
 
 <!-- tocstop -->
 
@@ -1834,5 +1857,283 @@ console.log(typeof null); // "object" (legacy bug)
     
 - Covered **`typeof` quirks** like `null`.
     
+
+---
+Alright — let’s build **"Micro Notes: Strings in JavaScript"** at a **mid-to-senior interview depth** so you have a crisp but deep reference for revision.
+
+---
+
+## 7.1 Strings
+
+### **1. Basics**
+
+- **Primitive vs. Object**: `"abc"` is a primitive; `new String("abc")` creates a String object (rarely used, avoid in practice).
+    
+- **Immutability**: String values cannot be changed in place; operations return new strings.
+    
+- **Unicode & UTF-16**: JS strings are sequences of UTF-16 code units. Some characters (e.g., emojis, certain CJK characters) are **surrogate pairs** requiring 2 code units.
+    
+- **Length Pitfall**: `length` counts UTF-16 code units, not Unicode code points.
+    
+
+---
+
+### **2. Creation & Coercion**
+
+- Created via literals, template literals (`` `Hello ${name}` ``), or constructor.
+    
+- **Type coercion**: `String(123) → "123"`, `123 + "" → "123"`.
+    
+- Objects get stringified via `toString()` or `valueOf()`.
+    
+
+---
+
+### **3. Access & Iteration**
+
+- Access by index: `"abc"[1] → "b"`.
+    
+- Iterate:
+    
+    ```js
+    for (let ch of str) { ... } // Correct for Unicode-aware iteration
+    ```
+    
+- `charAt(i)` returns UTF-16 code unit at position.
+    
+
+---
+
+### **4. Common Methods**
+
+**Search**: `indexOf`, `lastIndexOf`, `includes`, `startsWith`, `endsWith`  
+**Extract**: `slice`, `substring`, `substr` _(deprecated)_  
+**Modify**: `replace` (string/regex), `replaceAll` (ES2021), `toUpperCase`, `toLowerCase`, `trim`, `padStart`, `padEnd`  
+**Split & Join**: `split` creates array; join is on arrays.  
+**Regex**: `match`, `matchAll`, `search`.
+
+---
+
+### **5. Unicode & Special Handling**
+
+- **Code points**:
+    
+    ```js
+    "💡".length // 2
+    "💡".codePointAt(0) // 128161
+    String.fromCodePoint(128161) // "💡"
+    ```
+    
+- Normalize for accents:
+    
+    ```js
+    "é".normalize("NFD") // 'é'
+    ```
+    
+- Grapheme clusters (e.g., emoji + skin tone) require libraries like `Intl.Segmenter` or external libs to count visually perceived characters.
+    
+
+---
+
+### **6. Template Literals**
+
+- Multiline strings without `\n`.
+    
+- Expression interpolation:
+    
+    ```js
+    `Hello ${name}`
+    ```
+    
+- Tagged templates: custom processing for i18n, escaping, etc.
+    
+
+---
+
+### **7. Performance**
+
+- Concatenation: `+` and template literals are fast due to engine optimizations.
+    
+- For **very large concatenations in loops**, consider `Array.join("")`.
+    
+
+---
+
+### **8. Edge Cases**
+
+- `NaN + "abc"` → `"NaNabc"`.
+    
+- `"abc" == new String("abc")` → true, but not strictly equal.
+    
+- `"ß".toUpperCase()` → `"SS"` in some locales.
+    
+- Zero-width spaces, RTL marks can break UI layouts.
+    
+- `replace` without regex replaces only first match.
+    
+
+---
+
+### **9. Internationalization**
+
+- Locale-aware comparison:
+    
+    ```js
+    "ä".localeCompare("z", "de") // -1
+    ```
+    
+- Collation and sorting via `Intl.Collator`.
+    
+
+---
+
+### **10. Best Practices**
+
+- Use **string primitives**, avoid `new String()`.
+    
+- Be aware of Unicode pitfalls when slicing or measuring.
+    
+- For user-facing text, handle normalization and locale rules.
+    
+- Prefer template literals for readability.
+    
+
+---
+
+## 7.2 Non-Primitive Data Types 
+
+### **1. Definition**
+
+- **Primitive** values are immutable and compared by value (`string`, `number`, `boolean`, `null`, `undefined`, `symbol`, `bigint`).
+    
+- **Non-primitive** (reference) values are **objects** — stored and compared by reference.
+    
+- Even if two objects have identical content, they are **not equal** unless they reference the same memory location.
+    
+
+```js
+{} === {} // false
+let a = {};
+let b = a;
+a === b // true
+```
+
+---
+
+### **2. Categories**
+
+All non-primitive types in JS are **objects**, but they have sub-types:
+
+#### **a. Objects**
+
+- Plain objects (`{}` or `new Object()`).
+    
+- Created via literals, constructors, `Object.create()`.
+    
+- Key-value pairs; keys are strings or symbols.
+    
+
+#### **b. Arrays**
+
+- Indexed collections, zero-based.
+    
+- Special object subtype (`Array.isArray(arr) === true`).
+    
+- Inherits from `Array.prototype`.
+    
+
+#### **c. Functions**
+
+- First-class objects: can be passed, returned, assigned.
+    
+- Callable objects with internal `[[Call]]` property.
+    
+- Have their own prototype.
+    
+
+#### **d. Special Objects**
+
+- `Date`
+    
+- `RegExp`
+    
+- `Map`, `Set`, `WeakMap`, `WeakSet`
+    
+- `Error` and custom error types
+    
+- Typed Arrays (`Uint8Array`, `Float32Array`, etc.)
+    
+- `Promise`
+    
+- `ArrayBuffer`, `DataView`
+    
+- `Proxy`, `Reflect`
+    
+
+---
+
+### **3. Key Characteristics**
+
+- **Mutable**: Contents can be changed without changing the reference.
+    
+- **Reference Assignment**: Assigning an object to another variable copies the reference, not the value.
+    
+- **Equality**: `===` checks reference equality.
+    
+- **Garbage Collection**: Freed when no references remain.
+    
+
+---
+
+### **4. Memory & Performance**
+
+- Stored in **heap memory**, variable holds a **reference (pointer)** in the stack.
+    
+- Passing to functions passes the **reference** (still by value of reference).
+    
+- Deep cloning is expensive — use `structuredClone`, `JSON.parse(JSON.stringify(obj))`, or libraries like Lodash.
+    
+
+---
+
+### **5. Common Pitfalls**
+
+- Modifying a reference affects all variables pointing to it.
+    
+- Comparing two different objects with the same properties yields `false`.
+    
+- Copying with spread (`{...obj}`) is shallow — nested objects are still referenced.
+    
+
+---
+
+### **6. Best Practices**
+
+- Use `const` for references you don’t intend to reassign.
+    
+- For equality checks, use deep comparison when needed.
+    
+- Be careful when mutating shared objects/arrays; consider immutability patterns.
+    
+- Understand prototype chain for method access.
+    
+
+---
+
+### **7. Interview Edge Cases**
+
+```js
+let obj1 = {a: 1};
+let obj2 = {a: 1};
+console.log(obj1 == obj2); // false
+
+let arr = [1,2];
+arr.length = 1;
+console.log(arr); // [1]
+
+(function() {
+  console.log(typeof arguments); // "object"
+})();
+```
 
 ---
