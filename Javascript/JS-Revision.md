@@ -1836,3 +1836,9 @@ console.log(typeof null); // "object" (legacy bug)
     
 
 ---
+I’m a JavaScript developer with 5 years of experience preparing for technical coding interviews. I will give you one JavaScript topic at a time.
+For each topic, 
+1. give me 10 interview coding questions with solution
+2. These questions should cover 
+Audience is mid-senior level developers
+Let’s begin with the topic: Data types- primitive
