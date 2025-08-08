@@ -99,6 +99,11 @@
   * [4. 💡 Demonstration Code Snippet (Space Analogy 🚀)](#4-%F0%9F%92%A1-demonstration-code-snippet-space-analogy-%F0%9F%9A%80)
     + [🗣️ Interview Explanation:](#%F0%9F%97%A3%EF%B8%8F-interview-explanation)
 - [6. [/[/ scope /]/]](#6--scope-)
+- [7. Data types- Primitive](#7-data-types--primitive)
+  * [**1. Strong Conceptual Notes (Primitive Data Types)**](#1-strong-conceptual-notes-primitive-data-types)
+  * [**2. 10 Challenging Interview-Style Questions with Answers**](#2-10-challenging-interview-style-questions-with-answers)
+  * [**3. Micro Notes (Quick Revision)**](#3-micro-notes-quick-revision)
+  * [**4. Demonstration Code Snippet (Interview-Ready)**](#4-demonstration-code-snippet-interview-ready)
 
 <!-- tocstop -->
 
@@ -1546,3 +1551,288 @@ function a() {
 a()
 ```
 
+---
+# 7. Data types- Primitive
+## **1. Strong Conceptual Notes (Primitive Data Types)**
+
+**Definition:**  
+Primitive data types are immutable, single-value types in JavaScript, stored directly in memory by value (not by reference).
+
+**7 Primitive Types in JavaScript:**
+
+1. **Number** – Both integer and floating-point, IEEE 754 double precision.
+    
+2. **String** – Sequence of UTF-16 code units.
+    
+3. **Boolean** – `true` or `false`.
+    
+4. **Null** – Intentional absence of any value (`typeof null` is `"object"` — historical bug).
+    
+5. **Undefined** – Declared but not assigned.
+    
+6. **Symbol** – Unique and immutable, used as object property keys.
+    
+7. **BigInt** – For arbitrarily large integers beyond `Number.MAX_SAFE_INTEGER`.
+    
+
+**Key Characteristics:**
+
+- **Immutable:** Any change creates a new value.
+    
+- **Pass-by-value:** Copy is passed, not the original.
+    
+- **Stored in stack** (small, fixed-size values).
+    
+- **Type Coercion:** Automatic conversion when needed (can cause bugs).
+    
+
+**Special Cases:**
+
+- `NaN` is a **Number** (`typeof NaN === "number"`).
+    
+- `+0` and `-0` are distinct but mostly behave the same.
+    
+- `Symbol` and `BigInt` are ES6+ and ES2020 additions.
+    
+- String methods return new strings, do not mutate original.
+    
+
+**When to Use:**
+
+- Use primitive for fixed, small data values.
+    
+- Use `Symbol` for object property keys that must be unique.
+    
+- Use `BigInt` for exact large integer math (like IDs, crypto).
+    
+
+---
+
+## **2. 10 Challenging Interview-Style Questions with Answers**
+
+---
+
+**Q1.** _Why is `typeof null` `"object"` and not `"null"`?_  
+**A:** It’s a legacy bug from the first JS implementation in 1995 where values were stored as type tags in binary. Objects had the tag `000`, and `null` was represented as a null pointer (`000`). Changing it now would break old code.
+
+---
+
+**Q2.** _What’s the difference between `undefined` and `null`?_  
+**A:**
+
+- `undefined`: A variable has been declared but not assigned.
+    
+- `null`: An intentional absence of value set by the developer.  
+    Example:
+    
+
+```js
+let a;
+console.log(a); // undefined
+let b = null;
+console.log(b); // null
+```
+
+---
+
+**Q3.** _What is `NaN` and how do you check for it reliably?_  
+**A:**  
+`NaN` stands for "Not-a-Number" but is a `number` type.
+
+- Fails equality checks: `NaN === NaN` → false
+    
+- Check: `Number.isNaN(value)` (better than global `isNaN` which coerces).  
+    Example:
+    
+
+```js
+Number.isNaN("abc"); // false
+isNaN("abc"); // true (bad)
+```
+
+---
+
+**Q4.** _What’s the difference between `Symbol()` and `Symbol.for()`?_  
+**A:**
+
+- `Symbol()` creates a new unique symbol every time.
+    
+- `Symbol.for()` checks a global registry; if symbol exists, returns it; else creates it.
+    
+
+```js
+Symbol("x") === Symbol("x"); // false
+Symbol.for("x") === Symbol.for("x"); // true
+```
+
+---
+
+**Q5.** _What’s the issue with adding `Number` and `BigInt`?_  
+**A:**  
+They cannot be mixed directly:
+
+```js
+1n + 1; // TypeError
+```
+
+Must convert explicitly:
+
+```js
+BigInt(1) + 1n; // works
+```
+
+---
+
+**Q6.** _Why are primitive values immutable, and what happens when you "change" them?_  
+**A:**  
+You can’t alter the actual value; instead, a new value is created and the reference is updated.
+
+```js
+let str = "Hi";
+str[0] = "h"; // no effect
+str = "hi"; // new string created
+```
+
+---
+
+**Q7.** _How do `==` and `===` behave with primitives?_  
+**A:**
+
+- `===`: No coercion, checks value & type.
+    
+- `==`: Allows coercion (e.g., `"5" == 5` → true).  
+    Best practice: Always use `===`.
+    
+
+---
+
+**Q8.** _What’s the difference between `0`, `-0`, and `Object.is`?_  
+**A:**
+
+- `0 === -0` → true
+    
+- `Object.is(0, -0)` → false
+    
+- Used in math: `1 / 0` → Infinity, `1 / -0` → -Infinity.
+    
+
+---
+
+**Q9.** _What’s a real-world use of `Symbol` in large codebases?_  
+**A:**  
+To define unique keys in objects to avoid accidental overwrites in libraries/plugins:
+
+```js
+const id = Symbol("id");
+user[id] = 123; // can't clash with other props
+```
+
+---
+
+**Q10.** _How does `typeof` behave differently for primitives and objects?_  
+**A:**
+
+- Primitives: `"number"`, `"string"`, `"boolean"`, `"undefined"`, `"symbol"`, `"bigint"`.
+    
+- Objects: `"object"` (including `null`), functions: `"function"`.
+    
+
+---
+
+## **3. Micro Notes (Quick Revision)**
+
+- **Primitive Types:** Number, String, Boolean, Null, Undefined, Symbol, BigInt.
+    
+- Immutable, pass-by-value, stored in stack.
+    
+- `typeof null` → "object" (legacy bug).
+    
+- `NaN` is a number; use `Number.isNaN()` to check.
+    
+- `Symbol()` → unique every time; `Symbol.for()` → global registry.
+    
+- Cannot mix BigInt and Number directly.
+    
+- `===` strict, `==` allows coercion.
+    
+- `Object.is` detects `+0` vs `-0` and `NaN` equality.
+    
+- Strings immutable — all string ops return new strings.
+    
+- Use `Symbol` for unique keys, `BigInt` for large integers.
+    
+
+---
+
+## **4. Demonstration Code Snippet (Interview-Ready)**
+
+This example packs in all core primitive concepts in one story-like snippet:
+
+```js
+// Primitive Data Types Demo: Bank Account Example
+
+// Account details
+let accountNumber = 9876543210123456n; // BigInt for large ID
+let holderName = "Vamsi"; // String (immutable)
+let isActive = true; // Boolean
+let lastTransaction = null; // Null = intentionally no transaction
+let balance; // Undefined = not set yet
+const accountSecret = Symbol("accountSecret"); // Unique key
+
+let account = {
+  [accountSecret]: "hashed_secret_key",
+};
+
+// Assign balance later
+balance = 1200.50; // Number
+
+// Demonstrate immutability
+let oldName = holderName;
+holderName = "Vamsi Krishna"; // New string, oldName unchanged
+
+// NaN check example
+let withdrawal = "abc"; 
+if (Number.isNaN(Number(withdrawal))) {
+  console.log("Invalid withdrawal amount");
+}
+
+// Symbol uniqueness
+console.log(Symbol("x") === Symbol("x")); // false
+console.log(Symbol.for("y") === Symbol.for("y")); // true
+
+// BigInt + Number mix error (intentional)
+try {
+  console.log(accountNumber + 1);
+} catch (e) {
+  console.log("Error mixing BigInt and Number");
+}
+
+// 0 vs -0 detection
+console.log(0 === -0); // true
+console.log(Object.is(0, -0)); // false
+
+// Show typeof results
+console.log(typeof balance); // "number"
+console.log(typeof accountSecret); // "symbol"
+console.log(typeof null); // "object" (legacy bug)
+
+```
+
+**Interview Walkthrough Points:**
+
+- Chose **BigInt** for account numbers beyond safe integer limit.
+    
+- Showed **immutability** of strings with `oldName`.
+    
+- Demonstrated **`NaN` safe check** with `Number.isNaN()`.
+    
+- Used **Symbols** for secure property keys.
+    
+- Exposed **BigInt + Number mixing** TypeError.
+    
+- Showed **`Object.is`** to detect `+0` vs `-0`.
+    
+- Covered **`typeof` quirks** like `null`.
+    
+
+---
