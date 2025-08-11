@@ -151,7 +151,7 @@
     }); req.end();
     ```
 - **`get(url, cb)`**: GET-only shortcut, auto `.end()`.
-- **http vs https**: plain vs TLS/SSL encrypted; match module to UR
+- **http vs https**: plain vs TLS/SSL encrypted; match module to URL
 - **Best Practices**:
     
     - Match protocol.
@@ -165,15 +165,15 @@
     - `.end()` in `request` vs `get`.
 
 ### Why use modules?
-- **Module** = Self-contained “box” of code for one tas
+- **Module** = Self-contained “box” of code for one task
 - **Goal**: Combine modules → build complex program
 - **3 Benefits*
-    1. **Reuse** proven code (don’t reinvent    
+    1. **Reuse** proven code (don’t reinvent)    
     2. **Organize** code into logical part    
     3. **Encapsulation** → expose only what’s needed, hide internal detail    
 - **Example**: `http` module split int
-    - **Request object** → packages & sends dat    
-    - **Response object** → stores & processes server dat    
+    - **Request object** → packages & sends data    
+    - **Response object** → stores & processes server data    
 - Higher-level modules (e.g., FTP) can use Request & Response without knowing implementation detail
 - **Encapsulation advantage**:
     - Simplifies top-level logic.    
@@ -182,124 +182,78 @@
 ### Creating Our Own Modules
 
 - **Each file** in Node = separate module.
-    
 - **Goal**: Organize code into smaller files (e.g., `https.js`, `request.js`, `response.js`).
-    
 - **Encapsulation**: Functions/vars private unless **exported**.
-    
 - **Export**:
-    
     ```js
-    module.exports = { send }; // shorthand if name matches
+module.exports = { send }; // shorthand if name matches
     ```
-    
 - **Import local modules**:
-    
     ```js
-    const request = require('./request'); // './' = current folder  
+const request = require('./request'); // './' = current folder  
     ```
     
 - **Relative paths**:
-    
     - `./` → current folder
-        
     - `../` → parent folder
-        
 - **`.js` extension** optional (Node checks `.js` → `.json` → `.node`).
-    
 - **Best practice**: Export only public API; keep internal details (e.g., encrypt/decrypt) private.
-    
 - **Workflow**:
-    
     - `request.js` → `send()` data (encrypt → send).
-        
     - `response.js` → `read()` data (decrypt).
-        
     - `https.js` → require both, call `send()` & `read()`.
-
 ### Exporting from Modules
 - **Export styles in Node**:
-    
     1. **Full object**:
-        
         ```js
         module.exports = { send, REQUEST_TIMEOUT: 500 };
         ```
-        
     2. **Add properties individually**:
-        
         ```js
         module.exports.send = send;  
         module.exports.REQUEST_TIMEOUT = 500;
         ```
-        
     3. **Shorthand**:
-        
         ```js
         exports.send = send; // `exports` ref → `module.exports`
         ```
-        
     4. **Single export** (function/class only):
-        
         ```js
         module.exports = send; // changes import usage
         ```
-        
 - **Best practice**:
-    
     - Use `module.exports = { ... }` at **bottom** → clear public API.
-        
     - Keeps interface in one place.
-        
 - **Destructuring on import** → import only what’s used:
-    
     ```js
     const { send } = require('./request');  
     const { read } = require('./response');
     ```
-    
     → Cleaner, explicit dependencies.
-    
 ### Common JS vs ECMAScript Modules
 
 - **CommonJS (CJS)**
-    
     - Introduced ~2009 (Node.js era).
-        
     - Used in Node.js & some server tech (e.g., MongoDB).
-        
     - Syntax:
-        
         ```js
         const mod = require('./module');  
         module.exports = {...}
         ```
-        
 - **ECMAScript Modules (ESM)**
-    
     - Part of official JavaScript spec (ES6 / 2015).
-        
     - Supported by browsers & V8 engine.
-        
     - Syntax:
-        
         ```js
         import mod from './module.js';  
         export const fn = () => {};
         ```
-        
 - **Node support**:
-    
     - Since v13.2 → supports ESM alongside CJS.
-        
-    - Benefits: unify frontend & backend module syntax, easier code sharing.
-        
+    - Benefits: unify frontend & backend module syntax, easier code sharing.    
 - **Reality**:
-    
-    - Most Node code still uses CommonJS (`require`).
-        
-    - Focus on CJS for now; ESM adoption growing.
-        
+    - Most Node code still uses CommonJS (`require`).    
+    - Focus on CJS for now; ESM adoption growing.    
 ### Creating Our Own ECMAScript Modules
 
 - **Switching to ES Modules (ESM)**
