@@ -316,27 +316,15 @@ const request = require('./request'); // './' = current folder
 ### Should we use `index.js`
 
 - **`index.js` debate**
-    
-    - Some devs love it for simplifying imports of multi-file modules.
-        
-    - Others prefer explicit file paths to avoid special-case behavior.
-        
+    - Some devs love it for simplifying imports of multi-file modules.    
+    - Others prefer explicit file paths to avoid special-case behavior.    
 - **Complexity:**
-    
-    - Adds extra branch to Node’s module resolution logic.
-        
-    - Cited by Node’s creator Ryan Dahl as one of his “10 regrets” (2018) for complicating module loading.
-        
+    - Adds extra branch to Node’s module resolution logic.    
+    - Cited by Node’s creator Ryan Dahl as one of his “10 regrets” (2018) for complicating module loading.    
 - **Recommendation:**
-    
-    - Good to understand if you see it in codebases.
-        
-    - Often better to avoid for clarity, especially in new projects.
-        
+    - Good to understand if you see it in codebases.    
+    - Often better to avoid for clarity, especially in new projects.    
 - **Not fatal:**
-    
-    - Using it won’t break projects, but can cause confusion for new contributors.
-        
+    - Using it won’t break projects, but can cause confusion for new contributors.    
 - **Takeaway:**
-    
     - Know the pros/cons so you can make an informed choice in team settings.
