@@ -98,3 +98,45 @@
 
 # Section 4: Node.js Fundamentals: Module System
 
+
+- **Purpose**: Reuse code instead of building everything from scratch; focus on unique app features.
+    
+- **Types of Modules**:
+    
+    1. **Built-in Modules** → Provided by Node (e.g., `http`, `fs`, `events`).
+        
+    2. **Local Modules** → Files/modules you create.
+        
+    3. **Third-Party Modules** → Shared by others via npm.
+        
+- **`require()`**:
+    
+    - Node-specific function (not in vanilla JS).
+        
+    - Syntax:
+        
+        ```js
+        const moduleName = require('module');
+        ```
+        
+    - Loads module → executes it → returns its exported content.
+        
+    - For **local files**:
+        
+        ```js
+        const myModule = require('./myModule.js');
+        ```
+        
+- **Best Practices**:
+    
+    - Store required module in a `const`.
+        
+    - Organize code into small, manageable modules for clarity and reuse.
+        
+- **Benefits**:
+    
+    - Code reusability.
+        
+    - Separation of concerns.
+        
+    - Easier maintenance & testing.
