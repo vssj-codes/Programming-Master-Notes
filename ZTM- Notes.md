@@ -5,6 +5,8 @@
 - [Section-3-Node-Funcdamentals-Internals](#section-3-node-funcdamentals-internals)
     + [Is Node Multi-Threadead?](#is-node-multi-threadead)
     + [The Event Loop](#the-event-loop)
+    + [31. Callback Queues](#31-callback-queues)
+    + [Phases of the Event Loop](#phases-of-the-event-loop)
 
 <!-- tocstop -->
 
@@ -36,4 +38,38 @@
     4. Delegate heavy work to OS or thread pool when needed.
 - After processing all current events → loop restarts.
 - Stops only when no code/events remain to run.
--
+
+### 31. Callback Queues
+
+1. Event loop (in libuv, C code) processes async events and their callbacks in a loop.
+2. Node enters the event loop automatically at program start, exits when no work remains.
+3. Async functions (e.g., `setTimeout`, FS read) run in OS or thread pool.
+4. When operation finishes → callback placed in **callback queue**.
+5. Queue = **FIFO** (First-In, First-Out): oldest callback runs first.
+6. New callbacks added at queue’s bottom; processed from top.
+7. Ensures fairness—callbacks run without interrupting each other.
+8. **Callback queue**, **event queue**, and **message queue** are interchangeable terms.
+
+### Phases of the Event Loop
+
+1. Event loop (libuv) has **multiple queues**, not one.
+    
+2. **4 main phases** for JS callbacks:
+    
+    1. **Timers** → `setTimeout`, `setInterval`.
+        
+    2. **I/O callbacks** → network, file ops, general async ops.
+        
+    3. **Set Immediate** → runs after I/O phase, before next loop tick.
+        
+    4. **Close callbacks** → cleanup after closing files/connections.
+        
+3. Each phase has its own queue (FIFO order).
+    
+4. **Set Immediate** ≠ instant; executes _after_ I/O callbacks.
+    
+5. Loop order: Timers → I/O → Set Immediate → Close → repeat.
+    
+6. Other phases (`idle`, `prepare`) exist but are internal to Node.
+    
+7. Purpose: ensures all async callbacks run in a fair, organized sequence.
