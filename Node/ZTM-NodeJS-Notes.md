@@ -257,13 +257,9 @@ const request = require('./request'); // './' = current folder
 ### Creating Our Own ECMAScript Modules
 
 - **Switching to ES Modules (ESM)**
-    
-    - Replace `require()` → `import ... from '...'`.
-        
-    - Replace `module.exports` → `export` keyword.
-        
+    - Replace `require()` → `import ... from '...'`.    
+    - Replace `module.exports` → `export` keyword.    
 - **Example:**
-    
     ```js
     // CJS: const mod = require('./mod');
     // ESM:
@@ -275,17 +271,11 @@ const request = require('./request'); // './' = current folder
     ```
     
 - **Terminology:** “Import” & “require” are often used interchangeably—be clear which syntax is used.
-    
 - **Node ESM rules:**
-    
-    - Must set `"type": "module"` in `package.json` **or** use `.mjs` extension.
-        
-    - File extension required in relative imports (`'./file.mjs'`).
-        
+    - Must set `"type": "module"` in `package.json` **or** use `.mjs` extension.    
+    - File extension required in relative imports (`'./file.mjs'`).    
 - **Why extensions?** Improves compatibility with browsers & runtimes like Deno.
-    
 - **Run:** Call Node with the `.mjs` entry file.
-    
 ### Module Caching
 
 - **Module caching in Node.js**
