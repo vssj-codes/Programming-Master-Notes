@@ -7,6 +7,7 @@
     + [The Event Loop](#the-event-loop)
     + [31. Callback Queues](#31-callback-queues)
     + [Phases of the Event Loop](#phases-of-the-event-loop)
+    + [What Is Node.js Best At?](#what-is-nodejs-best-at)
 
 <!-- tocstop -->
 
@@ -53,23 +54,29 @@
 ### Phases of the Event Loop
 
 1. Event loop (libuv) has **multiple queues**, not one.
-    
 2. **4 main phases** for JS callbacks:
-    
     1. **Timers** → `setTimeout`, `setInterval`.
-        
     2. **I/O callbacks** → network, file ops, general async ops.
-        
     3. **Set Immediate** → runs after I/O phase, before next loop tick.
-        
     4. **Close callbacks** → cleanup after closing files/connections.
-        
 3. Each phase has its own queue (FIFO order).
-    
 4. **Set Immediate** ≠ instant; executes _after_ I/O callbacks.
-    
 5. Loop order: Timers → I/O → Set Immediate → Close → repeat.
-    
 6. Other phases (`idle`, `prepare`) exist but are internal to Node.
-    
 7. Purpose: ensures all async callbacks run in a fair, organized sequence.
+
+### What Is Node.js Best At?
+
+1. **Best suited for**: I/O-heavy, network-heavy, real-time applications.
+2. **Strength**: Delegates I/O work to OS & hardware while keeping CPU free for coordination.
+3. **Not ideal for**: CPU-intensive tasks (e.g., video processing, machine learning).
+4. **Why**: Heavy CPU usage blocks the event loop, harming parallel task management.
+5. **Examples of good fits**:
+    - Web servers
+    - APIs
+    - Database coordination
+    - Real-time chat apps
+    - Video streaming services (e.g., Netflix uses Node.js)
+6. **Core role**: Acts as "glue" connecting services, databases, and APIs in modern web apps.
+7. **Philosophy**: Made for the modern web’s service-based architecture.
+
