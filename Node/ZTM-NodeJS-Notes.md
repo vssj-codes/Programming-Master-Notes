@@ -8,6 +8,7 @@
     + [Callback Queues](#callback-queues)
     + [Phases of the Event Loop](#phases-of-the-event-loop)
     + [What Is Node.js Best At?](#what-is-nodejs-best-at)
+    + [The Node Event Emitter](#the-node-event-emitter)
 
 <!-- tocstop -->
 
@@ -79,4 +80,16 @@
     - Video streaming services (e.g., Netflix uses Node.js)
 6. **Core role**: Acts as "glue" connecting services, databases, and APIs in modern web apps.
 7. **Philosophy**: Made for the modern web’s service-based architecture.
+### The Node Event Emitter
 
+**Micro Notes – Node.js EventEmitter**
+- **EventEmitter** (from `events` module) implements the **Observer Pattern** in Node.
+- Create:
+    
+    1. const EventEmitter = require('events');
+    2. const celeb = new EventEmitter();
+- **Listening**: `emitter.on(eventName, callback)` → Registers a listener (callback) for `eventName`. Multiple listeners allowed.
+- **Emitting**: `emitter.emit(eventName, ...args)` → Triggers all listeners for `eventName`, passing optional args.
+- Real-world: `process` is an EventEmitter (e.g., `process.on('exit', code => {...})`).
+- Can pass arguments to listeners for conditional handling.
+- Useful for async, decoupled communication between parts of an app.
