@@ -420,8 +420,3 @@
 - **Takeaway:**
     
     - Know the pros/cons so you can make an informed choice in team settings.
-        
-
----
-
-Do you want me to now merge **all the `require` vs `import`, ESM setup, and `index.js` lessons** into one tight ≤1000-character cheat sheet? That would give you a single quick-reference for all these module topics.
