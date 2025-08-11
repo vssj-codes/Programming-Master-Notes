@@ -9,6 +9,7 @@
     + [Phases of the Event Loop](#phases-of-the-event-loop)
     + [What Is Node.js Best At?](#what-is-nodejs-best-at)
     + [The Node Event Emitter](#the-node-event-emitter)
+- [Section 4: Node.js Fundamentals: Module System](#section-4-nodejs-fundamentals-module-system)
 
 <!-- tocstop -->
 
@@ -94,3 +95,6 @@
 - Real-world: `process` is an EventEmitter (e.g., `process.on('exit', code => {...})`).
 - Can pass arguments to listeners for conditional handling.
 - Useful for async, decoupled communication between parts of an app.
+
+# Section 4: Node.js Fundamentals: Module System
+
