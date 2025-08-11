@@ -13,6 +13,9 @@
     + [The `require` function](#the-require-function)
     + [Making HTTP Requests](#making-http-requests)
     + [Why use modules?](#why-use-modules)
+    + [Creating Our Own Modules](#creating-our-own-modules)
+    + [Exporting from Modules](#exporting-from-modules)
+    + [Common JS vs ECMASc](#common-js-vs-ecmasc)
 
 <!-- tocstop -->
 
@@ -184,4 +187,6 @@
         
     - Changes inside a module don’t break consumers (as long as public API stays same).
 
-###
+### Creating Our Own Modules
+### Exporting from Modules
+### Common JS vs ECMASc
