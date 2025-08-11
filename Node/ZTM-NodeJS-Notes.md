@@ -295,38 +295,24 @@ const request = require('./request'); // './' = current folder
 ### Using index.
 
 - **`index.js` special case**
-    
-    - If a folder has an `index.js`, `require('./folder')` loads that file automatically.
-        
+    - If a folder has an `index.js`, `require('./folder')` loads that file automatically.    
 - **Purpose:** Treat a folder as a single module entry point.
-    
 - **Usage:**
-    
-    - Inside `index.js`, export objects/functions from multiple files in the folder.
-        
-    - Example:
-        
+    - Inside `index.js`, export objects/functions from multiple files in the folder.    
+    - Example:    
         ```js
         module.exports = {
           request: require('./request'),
           response: require('./response')
         };
-        ```
-        
+        ```    
 - **Benefits:**
-    
-    - Cleaner imports (`require('./internals')` instead of long paths).
-        
-    - Centralized exports; consumers don’t need to know folder structure.
-        
+    - Cleaner imports (`require('./internals')` instead of long paths).    
+    - Centralized exports; consumers don’t need to know folder structure.    
 - **Advanced:**
-    
-    - Export specific functions directly (e.g., `send`, `read`).
-        
-    - Use spread syntax to merge exports from multiple modules.
-        
+    - Export specific functions directly (e.g., `send`, `read`).    
+    - Use spread syntax to merge exports from multiple modules.    
 - **Trade-off:** Explicit exports may be clearer for small projects.
-    
 ### Should we use `index.js`
 
 - **`index.js` debate**
