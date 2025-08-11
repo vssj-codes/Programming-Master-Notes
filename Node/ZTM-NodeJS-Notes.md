@@ -15,7 +15,10 @@
     + [Why use modules?](#why-use-modules)
     + [Creating Our Own Modules](#creating-our-own-modules)
     + [Exporting from Modules](#exporting-from-modules)
-    + [Common JS vs ECMASc](#common-js-vs-ecmasc)
+    + [Common JS vs ECMAScript Modules](#common-js-vs-ecmascript-modules)
+    + [Creating Our Own ECMAScript Modules](#creating-our-own-ecmascript-modules)
+    + [Module Caching](#module-caching)
+    + [Using index.js](#using-indexjs)
 
 <!-- tocstop -->
 
@@ -189,4 +192,8 @@
 
 ### Creating Our Own Modules
 ### Exporting from Modules
-### Common JS vs ECMASc
+### Common JS vs ECMAScript Modules
+### Creating Our Own ECMAScript Modules
+### Module Caching
+### Using index.js
+	### Should we use index.js
