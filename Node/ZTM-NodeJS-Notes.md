@@ -5,7 +5,7 @@
 - [Section-3-Node-Funcdamentals-Internals](#section-3-node-funcdamentals-internals)
     + [Is Node Multi-Threadead?](#is-node-multi-threadead)
     + [The Event Loop](#the-event-loop)
-    + [31. Callback Queues](#31-callback-queues)
+    + [Callback Queues](#callback-queues)
     + [Phases of the Event Loop](#phases-of-the-event-loop)
     + [What Is Node.js Best At?](#what-is-nodejs-best-at)
 
@@ -40,7 +40,7 @@
 - After processing all current events → loop restarts.
 - Stops only when no code/events remain to run.
 
-### 31. Callback Queues
+### Callback Queues
 
 1. Event loop (in libuv, C code) processes async events and their callbacks in a loop.
 2. Node enters the event loop automatically at program start, exits when no work remains.
