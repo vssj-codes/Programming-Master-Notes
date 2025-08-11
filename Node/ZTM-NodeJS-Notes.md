@@ -279,27 +279,17 @@ const request = require('./request'); // './' = current folder
 ### Module Caching
 
 - **Module caching in Node.js**
-    
-    - Whether using `require()` (CommonJS) or `import` (ESM), Node **caches loaded modules**.
-        
-    - Code in a module runs **only once**—subsequent imports fetch from cache, not re-execution.
-        
+    - Whether using `require()` (CommonJS) or `import` (ESM), Node **caches loaded modules**.    
+    - Code in a module runs **only once**—subsequent imports fetch from cache, not re-execution.    
 - **Why cache?**
-    
-    - Prevents duplicate work & repeated side effects.
-        
-    - Improves efficiency in large apps where the same module is used in multiple files.
-        
+    - Prevents duplicate work & repeated side effects.    
+    - Improves efficiency in large apps where the same module is used in multiple files.    
 - **Cache location:** Accessible via `require.cache` (shows paths, exports, load status, parent).
-    
 - **Example:**
-    
     ```js
     console.log(require.cache);
     ```
-    
 - **Important:** Modifying an imported object only changes it **locally**—other modules still see the cached original.
-    
 - **ESM equivalent:** Similar caching behavior applies.
 
 ### Using index.
