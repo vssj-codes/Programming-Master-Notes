@@ -84,10 +84,10 @@
 
 - **EventEmitter** (from `events` module) implements the **Observer Pattern** in Node.
 
-	```javascript
+```javascript
 	const EventEmitter = require('events');
-    const celeb = new EventEmitter();
-	```
+	const celeb = new EventEmitter();
+```
 
 - **Listening**: `emitter.on(eventName, callback)` → Registers a listener (callback) for `eventName`. Multiple listeners allowed.
 - **Emitting**: `emitter.emit(eventName, ...args)` → Triggers all listeners for `eventName`, passing optional args.
