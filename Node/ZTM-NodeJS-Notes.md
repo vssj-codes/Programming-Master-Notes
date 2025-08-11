@@ -178,8 +178,88 @@
 - **Encapsulation advantage**:
     - Simplifies top-level logic.    
     - Changes inside a module don’t break consumers (as long as public API stays same)
+
 ### Creating Our Own Modules
+
+- **Each file** in Node = separate module.
+    
+- **Goal**: Organize code into smaller files (e.g., `https.js`, `request.js`, `response.js`).
+    
+- **Encapsulation**: Functions/vars private unless **exported**.
+    
+- **Export**:
+    
+    ```js
+    module.exports = { send }; // shorthand if name matches
+    ```
+    
+- **Import local modules**:
+    
+    ```js
+    const request = require('./request'); // './' = current folder  
+    ```
+    
+- **Relative paths**:
+    
+    - `./` → current folder
+        
+    - `../` → parent folder
+        
+- **`.js` extension** optional (Node checks `.js` → `.json` → `.node`).
+    
+- **Best practice**: Export only public API; keep internal details (e.g., encrypt/decrypt) private.
+    
+- **Workflow**:
+    
+    - `request.js` → `send()` data (encrypt → send).
+        
+    - `response.js` → `read()` data (decrypt).
+        
+    - `https.js` → require both, call `send()` & `read()`.
+
 ### Exporting from Modules
+- **Export styles in Node**:
+    
+    1. **Full object**:
+        
+        ```js
+        module.exports = { send, REQUEST_TIMEOUT: 500 };
+        ```
+        
+    2. **Add properties individually**:
+        
+        ```js
+        module.exports.send = send;  
+        module.exports.REQUEST_TIMEOUT = 500;
+        ```
+        
+    3. **Shorthand**:
+        
+        ```js
+        exports.send = send; // `exports` ref → `module.exports`
+        ```
+        
+    4. **Single export** (function/class only):
+        
+        ```js
+        module.exports = send; // changes import usage
+        ```
+        
+- **Best practice**:
+    
+    - Use `module.exports = { ... }` at **bottom** → clear public API.
+        
+    - Keeps interface in one place.
+        
+- **Destructuring on import** → import only what’s used:
+    
+    ```js
+    const { send } = require('./request');  
+    const { read } = require('./response');
+    ```
+    
+    → Cleaner, explicit dependencies.
+    
 ### Common JS vs ECMAScript Modules
 ### Creating Our Own ECMAScript Modules
 ### Module Caching
