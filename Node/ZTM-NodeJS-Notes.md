@@ -19,6 +19,7 @@
     + [Creating Our Own ECMAScript Modules](#creating-our-own-ecmascript-modules)
     + [Module Caching](#module-caching)
     + [Using index.js](#using-indexjs)
+    + [Should we use `index.js`](#should-we-use-indexjs)
 
 <!-- tocstop -->
 
@@ -164,36 +165,23 @@
     - `.end()` in `request` vs `get`.
 
 ### Why use modules?
-- **Module** = Self-contained “box” of code for one task.
-    
-- **Goal**: Combine modules → build complex programs.
-    
-- **3 Benefits**:
-    
-    1. **Reuse** proven code (don’t reinvent).
-        
-    2. **Organize** code into logical parts.
-        
-    3. **Encapsulation** → expose only what’s needed, hide internal details.
-        
-- **Example**: `http` module split into:
-    
-    - **Request object** → packages & sends data.
-        
-    - **Response object** → stores & processes server data.
-        
-- Higher-level modules (e.g., FTP) can use Request & Response without knowing implementation details.
-    
+- **Module** = Self-contained “box” of code for one tas
+- **Goal**: Combine modules → build complex program
+- **3 Benefits*
+    1. **Reuse** proven code (don’t reinvent    
+    2. **Organize** code into logical part    
+    3. **Encapsulation** → expose only what’s needed, hide internal detail    
+- **Example**: `http` module split int
+    - **Request object** → packages & sends dat    
+    - **Response object** → stores & processes server dat    
+- Higher-level modules (e.g., FTP) can use Request & Response without knowing implementation detail
 - **Encapsulation advantage**:
-    
-    - Simplifies top-level logic.
-        
-    - Changes inside a module don’t break consumers (as long as public API stays same).
-
+    - Simplifies top-level logic.    
+    - Changes inside a module don’t break consumers (as long as public API stays same)
 ### Creating Our Own Modules
 ### Exporting from Modules
 ### Common JS vs ECMAScript Modules
 ### Creating Our Own ECMAScript Modules
 ### Module Caching
 ### Using index.js
-	### Should we use index.js
+### Should we use `index.js`
