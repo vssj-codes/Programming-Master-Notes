@@ -18,7 +18,7 @@
     + [Common JS vs ECMAScript Modules](#common-js-vs-ecmascript-modules)
     + [Creating Our Own ECMAScript Modules](#creating-our-own-ecmascript-modules)
     + [Module Caching](#module-caching)
-    + [Using index.js](#using-indexjs)
+    + [Using index.](#using-index)
     + [Should we use `index.js`](#should-we-use-indexjs)
 
 <!-- tocstop -->
@@ -358,5 +358,43 @@
     
 - **ESM equivalent:** Similar caching behavior applies.
 
-### Using index.js
+### Using index.
+
+- **`index.js` special case**
+    
+    - If a folder has an `index.js`, `require('./folder')` loads that file automatically.
+        
+- **Purpose:** Treat a folder as a single module entry point.
+    
+- **Usage:**
+    
+    - Inside `index.js`, export objects/functions from multiple files in the folder.
+        
+    - Example:
+        
+        ```js
+        module.exports = {
+          request: require('./request'),
+          response: require('./response')
+        };
+        ```
+        
+- **Benefits:**
+    
+    - Cleaner imports (`require('./internals')` instead of long paths).
+        
+    - Centralized exports; consumers don’t need to know folder structure.
+        
+- **Advanced:**
+    
+    - Export specific functions directly (e.g., `send`, `read`).
+        
+    - Use spread syntax to merge exports from multiple modules.
+        
+- **Trade-off:** Explicit exports may be clearer for small projects.
+    
+
+---
+
+Do you want me to now combine **all four** lessons you’ve given into one concise, ≤1000-character quick-reference? That would make a compact Node.js modules cheat sheet.
 ### Should we use `index.js`
