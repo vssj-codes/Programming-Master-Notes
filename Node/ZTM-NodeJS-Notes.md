@@ -154,7 +154,6 @@ req.end();
 - must call `.end()` to send request
 
 2. get(): shortcut for request() when only fetching data:
-    
 
 ```js
 https.get('https://www.google.com', (res) => {
@@ -164,34 +163,20 @@ https.get('https://www.google.com', (res) => {
 ```
 
 - automatically calls `.end()`
-    
 
 HTTP vs HTTPS:
-
 - `http` → non-secure
-    
 - `https` → secure (TLS/SSL)
-    
 - must match protocol with correct module
-    
 
 Best practices:
-
 - match protocol & module
-    
 - use destructuring for clarity
-    
 - handle `error` events on request & response
-    
 - modularize network logic for reuse
-    
 
 Key interview points:
-
 - difference between http & https modules
-    
 - EventEmitter in responses
-    
 - `.end()` required for request(), not for get()
-    
 - why destructuring is useful
