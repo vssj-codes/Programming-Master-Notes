@@ -12,14 +12,6 @@
 - [Section 4: Node.js Fundamentals: Module System](#section-4-nodejs-fundamentals-module-system)
     + [The `require` function](#the-require-function)
     + [Making HTTP Requests](#making-http-requests)
-      - [Node.js Built-in Modules — `http` & `https`](#nodejs-built-in-modules--http--https)
-      - [**`require()` & Destructuring**](#require--destructuring)
-      - [**Making Requests**](#making-requests)
-        * [**Using `request()`**](#using-request)
-        * [**Using `get()`** (Shortcut for `request()` with `req.end()`)](#using-get-shortcut-for-request-with-reqend)
-      - [**HTTP vs HTTPS**](#http-vs-https)
-      - [**Best Practices**](#best-practices)
-      - [**Key Interview Points**:](#key-interview-points)
 
 <!-- tocstop -->
 
@@ -132,59 +124,91 @@
     - Separation of concerns.
     - Easier maintenance & testing.
 ### Making HTTP Requests
-#### Node.js Built-in Modules — `http` & `https`
-- **Built-in Modules**: Provided by Node (no npm install needed) — e.g., `http`, `https`, `fs`, `crypto`, `ftp`.
-- **Goal**: Make HTTP/HTTPS requests without external libraries.
-#### **`require()` & Destructuring**
+Here’s the same content in a simpler, compact style for Obsidian:
+
+---
+
+Node.js Built-in Modules — http & https
+
+- Built-in modules: come with Node (`http`, `https`, `fs`, `crypto`, `ftp`) — no npm needed.
+    
+- Purpose: make HTTP/HTTPS requests without extra packages.
+    
+
+require & destructuring:
 
 ```js
 const http = require('http');
-const { request, get } = require('https'); // Destructuring for clarity
+const { request, get } = require('https');
 ```
 
-- `require()` loads the module → returns its exports.
-- **Destructuring**: Pick only needed functions → cleaner, explicit dependencies.
-#### **Making Requests**
+`require()` loads a module and returns its exports. Destructuring picks only needed functions.
 
-##### **Using `request()`**
+Making requests:
+
+1. request():
+    
 
 ```js
 const https = require('https');
-
 const req = https.request('https://www.google.com', (res) => {
-  res.on('data', (chunk) => console.log(`Data chunk: ${chunk}`));
+  res.on('data', chunk => console.log(`Data: ${chunk}`));
   res.on('end', () => console.log('No more data'));
 });
-req.end(); // Must call to send request
+req.end();
 ```
 
-- **Arguments**: `url | options` + `callback(response)`
-- **Callback** receives a `response` object (an **EventEmitter**).
-- Common events:
-    - `'data'` → chunk of response
-    - `'end'` → no more data
-##### **Using `get()`** (Shortcut for `request()` with `req.end()`)
+- args: `url/options` + `callback(response)`
+    
+- response is EventEmitter → events: `data` (chunk), `end` (no more data)
+    
+- must call `.end()` to send request
+    
+
+2. get(): shortcut for request() when only fetching data:
+    
 
 ```js
 https.get('https://www.google.com', (res) => {
-  res.on('data', (chunk) => console.log(`Data chunk: ${chunk}`));
+  res.on('data', chunk => console.log(`Data: ${chunk}`));
   res.on('end', () => console.log('No more data'));
 });
 ```
 
-- Use when **only fetching data** (GET request).
-- Automatically calls `.end()` internally
-#### **HTTP vs HTTPS**
-- `http` → Non-secure.
-- `https` → Secure (encrypted via TLS/SSL).
-- Must match URL protocol with correct module.
-#### **Best Practices**
-- Always match protocol (`http` vs `https`).
-- Use destructuring for clarity & modularity.
-- Listen for `'error'` events on requests & responses to avoid crashes.
-- Modularize network logic for reuse.
-#### **Key Interview Points**:
-- Difference between `http` & `https` modules.
-- EventEmitter usage in responses.
-- Why `.end()` is required in `request()` but not in `get()`.
-- Advantages of destructuring from `require()`.
+- automatically calls `.end()`
+    
+
+HTTP vs HTTPS:
+
+- `http` → non-secure
+    
+- `https` → secure (TLS/SSL)
+    
+- must match protocol with correct module
+    
+
+Best practices:
+
+- match protocol & module
+    
+- use destructuring for clarity
+    
+- handle `error` events on request & response
+    
+- modularize network logic for reuse
+    
+
+Key interview points:
+
+- difference between http & https modules
+    
+- EventEmitter in responses
+    
+- `.end()` required for request(), not for get()
+    
+- why destructuring is useful
+    
+
+---
+
+Do you want me to now merge this with the **previous require() and module basics** notes so you have a single unified “Node Modules” Obsidian page? That way you won’t have to flip between two notes during prep.
