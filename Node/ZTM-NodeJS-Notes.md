@@ -261,7 +261,102 @@
     → Cleaner, explicit dependencies.
     
 ### Common JS vs ECMAScript Modules
+
+- **CommonJS (CJS)**
+    
+    - Introduced ~2009 (Node.js era).
+        
+    - Used in Node.js & some server tech (e.g., MongoDB).
+        
+    - Syntax:
+        
+        ```js
+        const mod = require('./module');  
+        module.exports = {...}
+        ```
+        
+- **ECMAScript Modules (ESM)**
+    
+    - Part of official JavaScript spec (ES6 / 2015).
+        
+    - Supported by browsers & V8 engine.
+        
+    - Syntax:
+        
+        ```js
+        import mod from './module.js';  
+        export const fn = () => {};
+        ```
+        
+- **Node support**:
+    
+    - Since v13.2 → supports ESM alongside CJS.
+        
+    - Benefits: unify frontend & backend module syntax, easier code sharing.
+        
+- **Reality**:
+    
+    - Most Node code still uses CommonJS (`require`).
+        
+    - Focus on CJS for now; ESM adoption growing.
+        
 ### Creating Our Own ECMAScript Modules
+
+- **Switching to ES Modules (ESM)**
+    
+    - Replace `require()` → `import ... from '...'`.
+        
+    - Replace `module.exports` → `export` keyword.
+        
+- **Example:**
+    
+    ```js
+    // CJS: const mod = require('./mod');
+    // ESM:
+    import mod from './mod.mjs';
+    
+    // CJS: module.exports = fn;
+    // ESM:
+    export const fn = () => {};
+    ```
+    
+- **Terminology:** “Import” & “require” are often used interchangeably—be clear which syntax is used.
+    
+- **Node ESM rules:**
+    
+    - Must set `"type": "module"` in `package.json` **or** use `.mjs` extension.
+        
+    - File extension required in relative imports (`'./file.mjs'`).
+        
+- **Why extensions?** Improves compatibility with browsers & runtimes like Deno.
+    
+- **Run:** Call Node with the `.mjs` entry file.
+    
 ### Module Caching
+
+- **Module caching in Node.js**
+    
+    - Whether using `require()` (CommonJS) or `import` (ESM), Node **caches loaded modules**.
+        
+    - Code in a module runs **only once**—subsequent imports fetch from cache, not re-execution.
+        
+- **Why cache?**
+    
+    - Prevents duplicate work & repeated side effects.
+        
+    - Improves efficiency in large apps where the same module is used in multiple files.
+        
+- **Cache location:** Accessible via `require.cache` (shows paths, exports, load status, parent).
+    
+- **Example:**
+    
+    ```js
+    console.log(require.cache);
+    ```
+    
+- **Important:** Modifying an imported object only changes it **locally**—other modules still see the cached original.
+    
+- **ESM equivalent:** Similar caching behavior applies.
+
 ### Using index.js
 ### Should we use `index.js`
