@@ -12,14 +12,6 @@
 - [Section 4: Node.js Fundamentals: Module System](#section-4-nodejs-fundamentals-module-system)
     + [The `require` function](#the-require-function)
     + [Making HTTP Requests](#making-http-requests)
-    + [HTTP](#http)
-      - [`require()` & Destructuring](#require--destructuring)
-      - [**Making Requests**](#making-requests)
-      - [`request()` (Manual `.end()`)](#request-manual-end)
-      - [`get()` (Auto `.end()`)](#get-auto-end)
-      - [HTTP vs HTTPS](#http-vs-https)
-      - [Best Practices](#best-practices)
-      - [**Interview Hot Points**:](#interview-hot-points)
 
 <!-- tocstop -->
 
@@ -133,122 +125,28 @@
     - Easier maintenance & testing.
 ### Making HTTP Requests
 
-- Built-in modules: come with Node (`http`, `https`, `fs`, `crypto`, `ftp`) — no npm needed.
-- Purpose: make HTTP/HTTPS requests without extra packages.
+Built-in (no npm) → e.g., `http`, `https`, `fs`, `crypto`. Used for HTTP/HTTPS reqs.
 
-require & destructuring:
+`require()` loads exports; destructure for clarity:
 
 ```js
-const http = require('http');
 const { request, get } = require('https');
 ```
 
-`require()` loads a module and returns its exports. Destructuring picks only needed functions.
-
-Making requests:
-1. request()
+**`request(url, cb)`** → `res` is EventEmitter (`'data'`, `'end'`, `'error'`), needs `.end()`:
 
 ```js
-const https = require('https');
-const req = https.request('https://www.google.com', (res) => {
-  res.on('data', chunk => console.log(`Data: ${chunk}`));
-  res.on('end', () => console.log('No more data'));
-});
+const req = request('https://ex.com', res=>{
+  res.on('data', c=>console.log(c));
+  res.on('end', ()=>console.log('done'));
+});  
 req.end();
 ```
 
-- args: `url/options` + `callback(response)`
-- response is EventEmitter → events: `data` (chunk), `end` (no more data)
-- must call `.end()` to send request
+**`get(url, cb)`** → shortcut for GET, auto `.end()`.
 
-2. get(): shortcut for request() when only fetching data:
+`http`=plain, `https`=TLS/SSL. Match protocol to module.
 
-```js
-https.get('https://www.google.com', (res) => {
-  res.on('data', chunk => console.log(`Data: ${chunk}`));
-  res.on('end', () => console.log('No more data'));
-});
-```
+**Best:** handle `'error'`, modularize, destructure imports.
 
-- automatically calls `.end()`
-
-HTTP vs HTTPS:
-- `http` → non-secure
-- `https` → secure (TLS/SSL)
-- must match protocol with correct module
-
-Best practices:
-- match protocol & module
-- use destructuring for clarity
-- handle `error` events on request & response
-- modularize network logic for reuse
-
-Key interview points:
-- difference between http & https modules
-- EventEmitter in responses
-- `.end()` required for request(), not for get()
-- why destructuring is useful
-
-### HTTP
-
-**Built-in Modules** = No `npm install` needed → e.g., `http`, `https`, `fs`, `crypto`.  
-**Purpose** = Make HTTP/HTTPS requests without external libs.
-
-#### `require()` & Destructuring
-
-```js
-const http = require('http');
-const { request, get } = require('https'); // pick only what you use
-```
-
-- `require()` → loads exports.
-- Destructuring = clean, explicit deps.
-
-#### **Making Requests**
-
-#### `request()` (Manual `.end()`)
-
-```js
-const https = require('https');
-const req = https.request('https://www.google.com', (res) => {
-  res.on('data', chunk => console.log(`Chunk: ${chunk}`));
-  res.on('end', () => console.log('Done'));
-});
-req.end();
-```
-
-- Args: `url | options`, `callback(res)`.
-    
-- `res` = EventEmitter → events: `'data'`, `'end'`, `'error'`.
-    
-
-#### `get()` (Auto `.end()`)
-
-```js
-https.get('https://www.google.com', (res) => { ... });
-```
-
-- Use for **GET only**.
-    
-- Calls `.end()` internally.
-    
-
----
-
-#### HTTP vs HTTPS
-
-- `http` → no encryption.
-- `https` → TLS/SSL encrypted.
-- Match URL protocol to module.
-#### Best Practices
-
-- Match protocol exactly.
-- Always handle `'error'`.
-- Modularize request logic.
-- Use destructuring for clarity.
-#### **Interview Hot Points**:
-
-- `http` vs `https` difference.
-- EventEmitter in `res`.
-- Why `.end()` needed in `request()` but not `get()`.
-- Benefit of destructuring `require()`.
+**Interview:** http vs https, EventEmitter in res, why `.end()` in `request` not `get`.
