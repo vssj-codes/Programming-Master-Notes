@@ -12,6 +12,7 @@
 - [Section 4: Node.js Fundamentals: Module System](#section-4-nodejs-fundamentals-module-system)
     + [The `require` function](#the-require-function)
     + [Making HTTP Requests](#making-http-requests)
+    + [Why use modules?](#why-use-modules)
 
 <!-- tocstop -->
 
@@ -125,28 +126,62 @@
     - Easier maintenance & testing.
 ### Making HTTP Requests
 
-Built-in (no npm) → e.g., `http`, `https`, `fs`, `crypto`. Used for HTTP/HTTPS reqs.
+- **Built-in Modules**: No npm; e.g., `http`, `https`, `fs`, `crypto`.
+- **Purpose**: Make HTTP/HTTPS requests.
+- **Import**:
+    ```js
+    const { request, get } = require('https');
+    ```
+    
+- **`request(url, cb)`**:
+    - `res` = EventEmitter → `'data'`, `'end'`, `'error'`.    
+    - Must call `.end()`.
+        
+    ```js
+    const req = request('https://ex.com', r=>{
+      r.on('data', c=>console.log(c));
+      r.on('end', ()=>console.log('done'));
+    }); req.end();
+    ```
+- **`get(url, cb)`**: GET-only shortcut, auto `.end()`.
+- **http vs https**: plain vs TLS/SSL encrypted; match module to UR
+- **Best Practices**:
+    
+    - Match protocol.
+    - Handle `'error'`.
+    - Modularize logic.
+    - Use destructuring for clarity.
+- **Interview Hot Points**:
+    
+    - Diff `http`/`https`.
+    - EventEmitter in `res`.
+    - `.end()` in `request` vs `get`.
 
-`require()` loads exports; destructure for clarity:
+### Why use modules?
+- **Module** = Self-contained “box” of code for one task.
+    
+- **Goal**: Combine modules → build complex programs.
+    
+- **3 Benefits**:
+    
+    1. **Reuse** proven code (don’t reinvent).
+        
+    2. **Organize** code into logical parts.
+        
+    3. **Encapsulation** → expose only what’s needed, hide internal details.
+        
+- **Example**: `http` module split into:
+    
+    - **Request object** → packages & sends data.
+        
+    - **Response object** → stores & processes server data.
+        
+- Higher-level modules (e.g., FTP) can use Request & Response without knowing implementation details.
+    
+- **Encapsulation advantage**:
+    
+    - Simplifies top-level logic.
+        
+    - Changes inside a module don’t break consumers (as long as public API stays same).
 
-```js
-const { request, get } = require('https');
-```
-
-**`request(url, cb)`** → `res` is EventEmitter (`'data'`, `'end'`, `'error'`), needs `.end()`:
-
-```js
-const req = request('https://ex.com', res=>{
-  res.on('data', c=>console.log(c));
-  res.on('end', ()=>console.log('done'));
-});  
-req.end();
-```
-
-**`get(url, cb)`** → shortcut for GET, auto `.end()`.
-
-`http`=plain, `https`=TLS/SSL. Match protocol to module.
-
-**Best:** handle `'error'`, modularize, destructure imports.
-
-**Interview:** http vs https, EventEmitter in res, why `.end()` in `request` not `get`.
+###
