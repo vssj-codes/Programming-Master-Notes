@@ -124,16 +124,9 @@
     - Separation of concerns.
     - Easier maintenance & testing.
 ### Making HTTP Requests
-Here’s the same content in a simpler, compact style for Obsidian:
-
----
-
-Node.js Built-in Modules — http & https
 
 - Built-in modules: come with Node (`http`, `https`, `fs`, `crypto`, `ftp`) — no npm needed.
-    
 - Purpose: make HTTP/HTTPS requests without extra packages.
-    
 
 require & destructuring:
 
@@ -145,9 +138,7 @@ const { request, get } = require('https');
 `require()` loads a module and returns its exports. Destructuring picks only needed functions.
 
 Making requests:
-
-1. request():
-    
+1. request()
 
 ```js
 const https = require('https');
@@ -159,11 +150,8 @@ req.end();
 ```
 
 - args: `url/options` + `callback(response)`
-    
 - response is EventEmitter → events: `data` (chunk), `end` (no more data)
-    
 - must call `.end()` to send request
-    
 
 2. get(): shortcut for request() when only fetching data:
     
@@ -207,8 +195,3 @@ Key interview points:
 - `.end()` required for request(), not for get()
     
 - why destructuring is useful
-    
-
----
-
-Do you want me to now merge this with the **previous require() and module basics** notes so you have a single unified “Node Modules” Obsidian page? That way you won’t have to flip between two notes during prep.
