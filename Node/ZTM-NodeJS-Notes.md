@@ -10,6 +10,16 @@
     + [What Is Node.js Best At?](#what-is-nodejs-best-at)
     + [The Node Event Emitter](#the-node-event-emitter)
 - [Section 4: Node.js Fundamentals: Module System](#section-4-nodejs-fundamentals-module-system)
+    + [The `require` function](#the-require-function)
+    + [Making HTTP Requests](#making-http-requests)
+      - [Node.js Built-in Modules — `http` & `https`](#nodejs-built-in-modules--http--https)
+      - [**`require()` & Destructuring**](#require--destructuring)
+      - [**Making Requests**](#making-requests)
+        * [**Using `request()`**](#using-request)
+        * [**Using `get()`** (Shortcut for `request()` with `req.end()`)](#using-get-shortcut-for-request-with-reqend)
+      - [**HTTP vs HTTPS**](#http-vs-https)
+      - [**Best Practices**](#best-practices)
+      - [**Key Interview Points**:](#key-interview-points)
 
 <!-- tocstop -->
 
@@ -97,7 +107,7 @@
 - Useful for async, decoupled communication between parts of an app.
 
 # Section 4: Node.js Fundamentals: Module System
-
+### The `require` function
 - **Purpose**: Reuse code instead of building everything from scratch; focus on unique app features.
 - **Types of Modules**:
     1. **Built-in Modules** → Provided by Node (e.g., `http`, `fs`, `events`).
@@ -121,3 +131,60 @@
     - Code reusability.
     - Separation of concerns.
     - Easier maintenance & testing.
+### Making HTTP Requests
+#### Node.js Built-in Modules — `http` & `https`
+- **Built-in Modules**: Provided by Node (no npm install needed) — e.g., `http`, `https`, `fs`, `crypto`, `ftp`.
+- **Goal**: Make HTTP/HTTPS requests without external libraries.
+#### **`require()` & Destructuring**
+
+```js
+const http = require('http');
+const { request, get } = require('https'); // Destructuring for clarity
+```
+
+- `require()` loads the module → returns its exports.
+- **Destructuring**: Pick only needed functions → cleaner, explicit dependencies.
+#### **Making Requests**
+
+##### **Using `request()`**
+
+```js
+const https = require('https');
+
+const req = https.request('https://www.google.com', (res) => {
+  res.on('data', (chunk) => console.log(`Data chunk: ${chunk}`));
+  res.on('end', () => console.log('No more data'));
+});
+req.end(); // Must call to send request
+```
+
+- **Arguments**: `url | options` + `callback(response)`
+- **Callback** receives a `response` object (an **EventEmitter**).
+- Common events:
+    - `'data'` → chunk of response
+    - `'end'` → no more data
+##### **Using `get()`** (Shortcut for `request()` with `req.end()`)
+
+```js
+https.get('https://www.google.com', (res) => {
+  res.on('data', (chunk) => console.log(`Data chunk: ${chunk}`));
+  res.on('end', () => console.log('No more data'));
+});
+```
+
+- Use when **only fetching data** (GET request).
+- Automatically calls `.end()` internally
+#### **HTTP vs HTTPS**
+- `http` → Non-secure.
+- `https` → Secure (encrypted via TLS/SSL).
+- Must match URL protocol with correct module.
+#### **Best Practices**
+- Always match protocol (`http` vs `https`).
+- Use destructuring for clarity & modularity.
+- Listen for `'error'` events on requests & responses to avoid crashes.
+- Modularize network logic for reuse.
+#### **Key Interview Points**:
+- Difference between `http` & `https` modules.
+- EventEmitter usage in responses.
+- Why `.end()` is required in `request()` but not in `get()`.
+- Advantages of destructuring from `require()`.
