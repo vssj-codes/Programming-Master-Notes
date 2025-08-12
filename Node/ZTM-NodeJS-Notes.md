@@ -20,6 +20,17 @@
     + [Module Caching](#module-caching)
     + [Using index.](#using-index)
     + [Should we use `index.js`](#should-we-use-indexjs)
+- [Section 5: Package Management](#section-5-package-management)
+    + [48. NPM: The Node Package Manager](#48-npm-the-node-package-manager)
+    + [49. Creating Our First NPM Package](#49-creating-our-first-npm-package)
+    + [50. Packages And The NPM Registry](#50-packages-and-the-npm-registry)
+    + [51. Using Third Party Modules](#51-using-third-party-modules)
+    + [52. The node_modules Folder](#52-the-node_modules-folder)
+    + [53. Semantic Versioning](#53-semantic-versioning)
+    + [54. package-lock.json and Versioning](#54-package-lockjson-and-versioning)
+    + [55. Vulnerabilities In Dependencies](#55-vulnerabilities-in-dependencies)
+    + [56. Installing NPM Tools: nodemon](#56-installing-npm-tools-nodemon)
+    + [57. LinkedIn Endorsements](#57-linkedin-endorsements)
 
 <!-- tocstop -->
 
@@ -328,3 +339,25 @@ const request = require('./request'); // './' = current folder
     - Using it won’t break projects, but can cause confusion for new contributors.    
 - **Takeaway:**
     - Know the pros/cons so you can make an informed choice in team settings.
+# Section 5: Package Management
+### 48. NPM: The Node Package Manager
+    
+### 49. Creating Our First NPM Package
+    
+
+### 50. Packages And The NPM Registry
+    
+    
+### 51. Using Third Party Modules
+    
+### 52. The node_modules Folder
+    
+### 53. Semantic Versioning
+
+### 54. package-lock.json and Versioning
+
+### 55. Vulnerabilities In Dependencies
+    
+### 56. Installing NPM Tools: nodemon
+    
+### 57. LinkedIn Endorsements
