@@ -3,19 +3,19 @@
 <!-- toc -->
 
 - [1. Strings](#1-strings)
-- [2. Integers and Floats - Working with Numeric Data](#2-integers-and-floats---working-with-numeric-data)
+- [2. Integers and Floats](#2-integers-and-floats)
   * [Key Insights](#key-insights)
   * [Code Snippets](#code-snippets)
-- [Python Tutorial for Beginners 4: Lists, Tuples, and Sets - YouTube](#python-tutorial-for-beginners-4-lists-tuples-and-sets---youtube)
+- [3. Lists, Tuples, and Sets](#3-lists-tuples-and-sets)
   * [Key Insights](#key-insights-1)
     + [Lists](#lists)
     + [Tuples](#tuples)
     + [Sets](#sets)
     + [Creating Empty Collections](#creating-empty-collections)
   * [Code Snippets](#code-snippets-1)
-- [Python Tutorial for Beginners 5: Dictionaries - Working with Key-Value Pairs](#python-tutorial-for-beginners-5-dictionaries---working-with-key-value-pairs)
+- [4. Dictionaries](#4-dictionaries)
     + [Key Interview Points](#key-interview-points)
-- [Python Tutorial for Beginners 6: Conditionals and Booleans - If, Else, and Elif Statements](#python-tutorial-for-beginners-6-conditionals-and-booleans---if-else-and-elif-statements)
+- [5. Conditionals and Booleans - If, Else, and Elif Statements](#5-conditionals-and-booleans---if-else-and-elif-statements)
       - [Key Insights](#key-insights-2)
       - [Code Snippets](#code-snippets-2)
 - [Python Tutorial for Beginners 7: Loops and Iterations - For/While Loops](#python-tutorial-for-beginners-7-loops-and-iterations---forwhile-loops)
@@ -133,7 +133,7 @@ f_string_message = f"{greeting}, {name}!"
 ```
 ___
 
-# 2. Integers and Floats - Working with Numeric Data
+# 2. Integers and Floats 
 
 ## Key Insights
 
@@ -246,7 +246,7 @@ These insights and code snippets will help you understand and work with numeric 
 
 ___
 
-# Python Tutorial for Beginners 4: Lists, Tuples, and Sets - YouTube
+# 3. Lists, Tuples, and Sets
 
 ## Key Insights
 
@@ -377,7 +377,7 @@ empty_tuple = ()
 empty_set = set()
 ```
 ___
-# Python Tutorial for Beginners 5: Dictionaries - Working with Key-Value Pairs
+# 4. Dictionaries
 
 - **Introduction to Dictionaries**
   - Dictionaries in Python store key-value pairs.
@@ -461,7 +461,7 @@ ___
 
 ___
 
-# Python Tutorial for Beginners 6: Conditionals and Booleans - If, Else, and Elif Statements
+# 5. Conditionals and Booleans - If, Else, and Elif Statements
 
 #### Key Insights
 
