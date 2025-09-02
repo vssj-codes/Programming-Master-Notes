@@ -2,7 +2,7 @@
 
 <!-- toc -->
 
-- [Python Tutorial for Beginners 2: Strings - Working with Textual Data](#python-tutorial-for-beginners-2-strings---working-with-textual-data)
+- [2. Strings](#2-strings)
 - [Python Tutorial for Beginners 3: Integers and Floats - Working with Numeric Data](#python-tutorial-for-beginners-3-integers-and-floats---working-with-numeric-data)
   * [Key Insights](#key-insights)
   * [Code Snippets](#code-snippets)
@@ -13,7 +13,7 @@
     + [Sets](#sets)
     + [Creating Empty Collections](#creating-empty-collections)
   * [Code Snippets](#code-snippets-1)
-    + [Python Tutorial for Beginners 5: Dictionaries - Working with Key-Value Pairs](#python-tutorial-for-beginners-5-dictionaries---working-with-key-value-pairs)
+- [Python Tutorial for Beginners 5: Dictionaries - Working with Key-Value Pairs](#python-tutorial-for-beginners-5-dictionaries---working-with-key-value-pairs)
     + [Key Interview Points](#key-interview-points)
     + [Python Tutorial for Beginners 6: Conditionals and Booleans - If, Else, and Elif Statements](#python-tutorial-for-beginners-6-conditionals-and-booleans---if-else-and-elif-statements)
       - [Key Insights](#key-insights-2)
@@ -29,7 +29,7 @@
 
 ---
 
-# Python Tutorial for Beginners 2: Strings - Working with Textual Data
+# 2. Strings
 
 **Key Insights:**
 
@@ -377,8 +377,7 @@ empty_tuple = ()
 empty_set = set()
 ```
 ___
-
-### Python Tutorial for Beginners 5: Dictionaries - Working with Key-Value Pairs
+# Python Tutorial for Beginners 5: Dictionaries - Working with Key-Value Pairs
 
 - **Introduction to Dictionaries**
   - Dictionaries in Python store key-value pairs.
