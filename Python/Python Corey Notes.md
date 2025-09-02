@@ -39,11 +39,32 @@
       - [Key Insights](#key-insights-6)
       - [Code Snippets](#code-snippets-6)
       - [Usage Tips](#usage-tips)
-- [Generators](#generators)
+- [17. Closures](#17-closures)
     + [Key Insights](#key-insights-7)
+    + [Python Example](#python-example)
+    + [JavaScript Example](#javascript-example)
+    + [Practical Python Example](#practical-python-example)
+    + [Conclusion](#conclusion)
+    + [Programming Terms: First-Class Functions](#programming-terms-first-class-functions)
+      - [Key Insights:](#key-insights)
+      - [Summary:](#summary)
+  * [Programming Terms: Mutable vs Immutable](#programming-terms-mutable-vs-immutable)
+    + [Key Insights](#key-insights-8)
+    + [Examples and Explanation](#examples-and-explanation)
+      - [Immutable Example](#immutable-example)
+      - [Mutable Example](#mutable-example)
+    + [Importance of Knowing the Difference](#importance-of-knowing-the-difference)
+    + [Conclusion](#conclusion-1)
+    + [Programming Terms: Memoization](#programming-terms-memoization)
+- [18. Idempotence](#18-idempotence)
+  * [Key Insights](#key-insights-9)
+  * [HTTP Methods](#http-methods)
+  * [Interview Preparation](#interview-preparation)
+- [19. Generators](#19-generators)
+    + [Key Insights](#key-insights-10)
     + [Code Snippets for Interviews](#code-snippets-for-interviews)
 - [Decorators](#decorators)
-  * [Key Insights](#key-insights-8)
+  * [Key Insights](#key-insights-11)
     + [Introduction](#introduction)
     + [Pre-requisites](#pre-requisites)
     + [Example Recap: Closures](#example-recap-closures)
@@ -56,10 +77,10 @@
     + [Real-world Usage](#real-world-usage)
   * [Summary](#summary)
 - [Decorators With Arguments](#decorators-with-arguments)
-      - [Key Insights:](#key-insights)
-      - [Summary:](#summary)
-- [Namedtuple](#namedtuple)
       - [Key Insights:](#key-insights-1)
+      - [Summary:](#summary-1)
+- [Namedtuple](#namedtuple)
+      - [Key Insights:](#key-insights-2)
       - [Code Snippets:](#code-snippets)
       - [Why Use Namedtuples?](#why-use-namedtuples)
       - [Conclusion:](#conclusion)
@@ -1429,7 +1450,533 @@ print("Is File:", os.path.isfile(file_path))
 - Manage environment variables with `os.environ`.
 - Use `os.path` for robust path manipulations.
 ___
-# Generators 
+
+# 17. Closures
+
+### Key Insights
+
+- **Closure Definition**:
+  - A closure is a record storing a function together with an environment.
+  - It maps each free variable of the function with the value or storage location to which the name was bound when the closure was created.
+  - Closures allow functions to access captured variables through the closure's reference, even when invoked outside their scope.
+
+### Python Example
+
+- **Outer Function with Inner Function**:
+  - Outer function defines a variable.
+  - Inner function uses that variable, making it a free variable.
+  - The inner function is returned, preserving the outer function's scope.
+  
+  ```python
+  def outer_function():
+      message = "Hi"
+      def inner_function():
+          print(message)  # Free variable
+      return inner_function
+
+  my_func = outer_function()
+  my_func()  # Outputs: Hi
+  ```
+
+- **Returning Inner Function Without Executing**:
+  - Outer function returns inner function without executing it.
+  - The returned function can be executed later, preserving access to the outer function's scope.
+
+  ```python
+  def outer_function():
+      message = "Hi"
+      def inner_function():
+          print(message)
+      return inner_function
+
+  my_func = outer_function()
+  my_func()  # Outputs: Hi
+  ```
+
+- **Parameterized Outer Function**:
+  - Outer function takes a parameter and sets the free variable.
+  - Multiple instances of the inner function can be created with different scopes.
+
+  ```python
+  def outer_function(msg):
+      message = msg
+      def inner_function():
+          print(message)
+      return inner_function
+
+  hi_func = outer_function("Hi")
+  hello_func = outer_function("Hello")
+  hi_func()  # Outputs: Hi
+  hello_func()  # Outputs: Hello
+  ```
+
+### JavaScript Example
+
+- **Function with Nested Function**:
+  - Outer function takes a parameter.
+  - Inner function uses the outer function's parameter as a free variable.
+  - Inner function is returned, preserving access to the outer function's scope.
+
+  ```javascript
+  function htmlTag(tag) {
+      function wrapText(msg) {
+          console.log(`<${tag}>${msg}</${tag}>`);
+      }
+      return wrapText;
+  }
+
+  const printH1 = htmlTag('h1');
+  printH1('Hello World');  // Outputs: <h1>Hello World</h1>
+  ```
+
+- **Parameterized Inner Function**:
+  - Inner function takes its own parameter.
+  - Both outer and inner function parameters are used within the inner function.
+
+  ```javascript
+  function htmlTag(tag) {
+      return function wrapText(msg) {
+          console.log(`<${tag}>${msg}</${tag}>`);
+      };
+  }
+
+  const printH1 = htmlTag('h1');
+  const printP = htmlTag('p');
+  printH1('Hello World');  // Outputs: <h1>Hello World</h1>
+  printP('Hello World');  // Outputs: <p>Hello World</p>
+  ```
+
+### Practical Python Example
+
+- **Logger Example with Closures**:
+  - Outer function takes another function as a parameter.
+  - Inner function logs details and executes the passed function.
+  - Useful for logging, but better implemented with Python decorators.
+
+  ```python
+  def logger(func):
+      def log_func(*args):
+          print(f'Running {func.__name__} with arguments {args}')
+          result = func(*args)
+          print(result)
+          return result
+      return log_func
+
+  def add(x, y):
+      return x + y
+
+  def subtract(x, y):
+      return x - y
+
+  add_logger = logger(add)
+  sub_logger = logger(subtract)
+
+  add_logger(3, 3)  # Outputs: Running add with arguments (3, 3) 6
+  sub_logger(10, 5)  # Outputs: Running subtract with arguments (10, 5) 5
+  ```
+
+### Conclusion
+
+- **Closure Recap**:
+  - Closures are inner functions that remember and have access to variables in their scope, even after the outer function has finished executing.
+  - They are useful for various applications, such as function factories, and can replace more complex constructs like decorators in simpler scenarios.
+  - Understanding closures in different languages helps solidify the concept beyond just syntax.
+
+___
+### Programming Terms: First-Class Functions
+
+#### Key Insights:
+- **First-Class Functions Definition**:
+  - A programming language is said to have first-class functions if it treats functions as first-class citizens.
+  - First-class citizens in programming are entities that support all operations generally available to other entities, such as being passed as arguments, returned from functions, and assigned to variables.
+
+- **Assigning Functions to Variables**:
+  - You can assign a function to a variable without executing it.
+  - Example in Python:
+    ```python
+    def square(x):
+        return x * x
+
+    f = square  # Assigning function to variable
+    print(f(5))  # Output: 25
+    ```
+  - Example in JavaScript:
+    ```javascript
+    function square(x) {
+        return x * x;
+    }
+
+    let f = square;  // Assigning function to variable
+    console.log(f(5));  // Output: 25
+    ```
+
+- **Passing Functions as Arguments (Higher-Order Functions)**:
+  - A higher-order function is a function that accepts other functions as arguments or returns a function as a result.
+  - Example using a custom map function in Python:
+    ```python
+    def my_map(func, arr):
+        result = []
+        for item in arr:
+            result.append(func(item))
+        return result
+
+    def square(x):
+        return x * x
+
+    squares = my_map(square, [1, 2, 3, 4, 5])
+    print(squares)  # Output: [1, 4, 9, 16, 25]
+    ```
+  - Example in JavaScript:
+    ```javascript
+    function myMap(func, arr) {
+        let result = [];
+        for (let i = 0; i < arr.length; i++) {
+            result.push(func(arr[i]));
+        }
+        return result;
+    }
+
+    function square(x) {
+        return x * x;
+    }
+
+    let squares = myMap(square, [1, 2, 3, 4, 5]);
+    console.log(squares);  // Output: [1, 4, 9, 16, 25]
+    ```
+
+- **Returning Functions from Functions**:
+  - Functions can return other functions, creating closures.
+  - Example of a logger function in Python:
+    ```python
+    def logger(msg):
+        def log_message():
+            print(f"Log: {msg}")
+        return log_message
+
+    log_hi = logger("Hi")
+    log_hi()  # Output: Log: Hi
+    ```
+  - Example in JavaScript:
+    ```javascript
+    function logger(msg) {
+        function logMessage() {
+            console.log(`Log: ${msg}`);
+        }
+        return logMessage;
+    }
+
+    let logHi = logger("Hi");
+    logHi();  // Output: Log: Hi
+    ```
+
+- **Use Case: Custom HTML Tag Function**:
+  - Demonstrates returning a function from another function.
+  - Example in Python:
+    ```python
+    def html_tag(tag):
+        def wrap_text(msg):
+            print(f"<{tag}>{msg}</{tag}>")
+        return wrap_text
+
+    print_h1 = html_tag("h1")
+    print_h1("Test Headline")  # Output: <h1>Test Headline</h1>
+    ```
+  - Example in JavaScript:
+    ```javascript
+    function htmlTag(tag) {
+        function wrapText(msg) {
+            console.log(`<${tag}>${msg}</${tag}>`);
+        }
+        return wrapText;
+    }
+
+    let printH1 = htmlTag("h1");
+    printH1("Test Headline");  // Output: <h1>Test Headline</h1>
+    ```
+
+#### Summary:
+Understanding first-class functions is crucial as it lays the foundation for understanding higher-order functions, currying, closures, and other advanced programming concepts. This knowledge allows you to treat functions like any other variable, making your code more flexible and reusable.
+___
+## Programming Terms: Mutable vs Immutable
+
+### Key Insights
+
+- **Definition**
+  - **Immutable Object**: An object whose state cannot be modified after it is created (e.g., strings in Python).
+  - **Mutable Object**: An object whose state can be modified after it is created (e.g., lists in Python).
+
+### Examples and Explanation
+
+#### Immutable Example
+- **String in Python**
+  ```python
+  a = "Corey"
+  print(a)  # Output: Corey
+  a = "John"
+  print(a)  # Output: John
+  ```
+  - Reassigning `a` to a new value creates a new string object.
+  - Memory addresses before and after reassignment differ, indicating a new object is created.
+
+- **Memory Address Check**
+  ```python
+  a = "Corey"
+  print(id(a))  # Memory address of "Corey"
+  a = "John"
+  print(id(a))  # Memory address of "John"
+  ```
+
+- **Attempt to Modify String**
+  ```python
+  a = "Corey"
+  a[0] = "C"  # Raises TypeError: 'str' object does not support item assignment
+  ```
+
+#### Mutable Example
+- **List in Python**
+  ```python
+  a = [1, 2, 3, 4, 5]
+  print(a)  # Output: [1, 2, 3, 4, 5]
+  a[0] = 6
+  print(a)  # Output: [6, 2, 3, 4, 5]
+  ```
+  - Modifying the list does not create a new object; the memory address remains the same.
+
+- **Memory Address Check**
+  ```python
+  a = [1, 2, 3, 4, 5]
+  print(id(a))  # Memory address of list
+  a[0] = 6
+  print(id(a))  # Same memory address after modification
+  ```
+
+### Importance of Knowing the Difference
+
+- **Avoiding Errors**
+  - Understanding mutable and immutable objects helps avoid errors related to unexpected modifications.
+  
+- **Memory Efficiency**
+  - Immutable objects can lead to performance issues due to creation of multiple objects in memory.
+  - Example: String concatenation in loops.
+    ```python
+    employees = ["John", "Jane", "Doe"]
+    output = "<ul>"
+    for employee in employees:
+        output += f"<li>{employee}</li>"
+    output += "</ul>"
+    print(output)
+    ```
+    - This approach creates a new string object in each iteration, leading to performance overhead with large lists.
+
+- **Alternative for Performance**
+  - Use mutable objects like lists for efficient memory management in performance-critical applications.
+    ```python
+    employees = ["John", "Jane", "Doe"]
+    output = ["<ul>"]
+    for employee in employees:
+        output.append(f"<li>{employee}</li>")
+    output.append("</ul>")
+    print("".join(output))
+    ```
+
+### Conclusion
+- Understanding mutable and immutable objects is crucial for writing efficient and error-free code.
+- It impacts both performance and memory usage, especially in large-scale applications.
+- Examples from other languages (e.g., Java's `String` vs. `StringBuffer`) highlight the universal relevance of these concepts.
+___
+### Programming Terms: Memoization
+
+**Key Insights:**
+- **Definition:**
+  - Memoization is an optimization technique used to speed up computer programs by storing results of expensive function calls and returning cached results when the same inputs occur again.
+
+- **Purpose:**
+  - Reduces redundant calculations by caching previously computed results.
+  - Enhances performance by avoiding repetitive computations.
+
+- **Concept:**
+  - **Expensive Function:** A function that takes significant time/resources to compute.
+  - **Cache:** Storage for previously computed results.
+
+- **Implementation in Python:**
+  - Use a dictionary to store computed results.
+  - Check if the input is already in the cache before performing computations.
+  - Store results in the cache after computation.
+
+**Code Snippet:**
+```python
+import time
+
+# Dictionary to cache results
+EF_cache = {}
+
+def expensive_func(num):
+    if num in EF_cache:
+        return EF_cache[num]
+    
+    # Simulate expensive computation
+    print(f"Computing {num}")
+    time.sleep(1)
+    result = num * num
+    
+    # Store the result in the cache
+    EF_cache[num] = result
+    return result
+
+# Test the function
+print(expensive_func(4))  # Computed and cached
+print(expensive_func(10)) # Computed and cached
+print(expensive_func(4))  # Retrieved from cache
+print(expensive_func(10)) # Retrieved from cache
+```
+
+**Explanation:**
+1. **Function Definition:**
+   - `expensive_func(num)` computes the square of `num` and caches the result.
+   - It checks if `num` is in `EF_cache`. If yes, it returns the cached result.
+   - If no, it computes the result, stores it in `EF_cache`, and then returns it.
+
+2. **Output:**
+   - The first call with `4` and `10` performs the computation and caches the results.
+   - The subsequent calls with the same values retrieve the results from the cache, reducing computation time.
+
+**Benefits:**
+- Reduces computation time from four seconds to two seconds in the example.
+- Particularly useful for functions with expensive calculations.
+
+**Advanced Use:**
+- Memoization can be automated using decorators in Python.
+- Applicable across various programming languages.
+
+**Conclusion:**
+- Memoization is a valuable technique to optimize code performance.
+- Essential for reducing redundancy in computationally intensive tasks.
+- Useful to explore different techniques for implementing memoization in your preferred programming language.
+___
+# 18. Idempotence
+
+## Key Insights
+
+- **Definition**: Idempotence is a property of certain operations in mathematics and computer science that can be applied multiple times without changing the result beyond the initial application.
+  - Example: `f(f(x)) = f(x)`
+
+- **Function Example**: 
+  - **Non-idempotent Function**: 
+    ```python
+    def add_10(num):
+        return num + 10
+
+    result = add_10(10)  # Output: 20
+    result = add_10(result)  # Output: 30
+    ```
+    - Explanation: The result changes with each application, thus `add_10` is not idempotent.
+
+  - **Idempotent Function**: 
+    ```python
+    abs_value = abs(-10)  # Output: 10
+    abs_value = abs(abs_value)  # Output: 10
+    ```
+    - Explanation: The result remains the same regardless of repeated applications, thus `abs` is idempotent.
+
+- **Assignment Example**: 
+  ```python
+  a = 10
+  ```
+  - Explanation: No matter how many times `a = 10` is executed, the result remains the same, making it an idempotent operation.
+
+## HTTP Methods
+
+- **Idempotent Methods**:
+  - **GET**: 
+    - Retrieves the same resource each time without changing any data.
+  - **PUT**:
+    - Updates a resource to the same state repeatedly without further changes.
+  - **DELETE**:
+    - Removes a resource; subsequent delete operations have no additional effect since the resource is already deleted.
+
+- **Non-idempotent Method**:
+  - **POST**:
+    - Used for creating resources or performing actions that change the server's state each time it is called (e.g., casting a vote).
+
+## Interview Preparation
+
+- **Idempotence Concept**: 
+  - Idempotence refers to an operation that produces the same result if executed multiple times.
+  - In programming, idempotent operations help maintain consistency and predictability in system behavior.
+  
+- **HTTP Methods**:
+  - Be familiar with which HTTP methods are idempotent (GET, PUT, DELETE) and which are not (POST).
+  - Understand how idempotence applies to resource manipulation in RESTful APIs.
+
+By understanding these concepts and examples, you can effectively discuss idempotence in technical interviews.### Programming Terms: Idempotence
+
+**Key Insights:**
+- **Definition:**
+  - Idempotence refers to the property of certain operations in mathematics and computer science that can be applied multiple times without changing the result beyond the initial application.
+  - Formally, if \( f(x) \) is idempotent, then \( f(f(x)) = f(x) \).
+
+- **Example of Non-idempotent Function:**
+  - A function `add_10` in Python:
+    ```python
+    def add_10(num):
+        return num + 10
+
+    result = add_10(10)  # Result is 20
+    result = add_10(result)  # Result is 30
+    ```
+  - Since `add_10(10)` returns 20 and `add_10(20)` returns 30, this function is not idempotent.
+
+- **Example of Idempotent Function:**
+  - The built-in Python function `abs`:
+    ```python
+    result = abs(-10)  # Result is 10
+    result = abs(result)  # Result is 10
+    ```
+  - `abs` function remains the same when applied multiple times.
+
+- **Idempotent Statements:**
+  - A simple assignment operation:
+    ```python
+    a = 10
+    a = 10  # Running this multiple times will not change the value of 'a'
+    ```
+  - This statement is idempotent as it consistently assigns the same value to `a`.
+
+- **HTTP Methods and Idempotence:**
+  - **Idempotent Methods:**
+    - **GET:** Fetches data without changing the state. Reloading the page gives the same result.
+    - **PUT:** Updates a resource to the same value multiple times without changing the result.
+    - **DELETE:** Removing a resource. Once deleted, further delete operations do not change the state (e.g., deleting an already deleted user).
+  - **Non-idempotent Methods:**
+    - **POST:** Often used for creating resources or performing actions that change the server state. Repeated calls can lead to different results (e.g., incrementing a vote count).
+
+**Code Snippets:**
+- **Non-idempotent Function Example:**
+  ```python
+  def add_10(num):
+      return num + 10
+
+  result = add_10(10)  # Result: 20
+  result = add_10(result)  # Result: 30
+  ```
+
+- **Idempotent Function Example:**
+  ```python
+  result = abs(-10)  # Result: 10
+  result = abs(result)  # Result: 10
+  ```
+
+- **Idempotent Assignment Statement:**
+  ```python
+  a = 10
+  a = 10  # Idempotent: No change in value of 'a'
+  ```
+
+**Interview Insights:**
+- Be prepared to explain the concept of idempotence with both theoretical and practical examples.
+- Highlight the importance of idempotence in various HTTP methods and how it affects API design.
+- Provide clear examples to differentiate between idempotent and non-idempotent operations.
+# 19. Generators 
 
 ### Key Insights
 
