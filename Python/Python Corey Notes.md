@@ -87,7 +87,21 @@
 - [23. Using Try/Except Blocks for Error Handling](#23-using-tryexcept-blocks-for-error-handling)
       - [Key Insights](#key-insights-12)
       - [Code Snippets](#code-snippets-7)
-- [24.](#24)
+- [24. Regex](#24-regex)
+    + [Introduction](#introduction-1)
+    + [Basic Concepts](#basic-concepts)
+    + [Writing Patterns](#writing-patterns)
+    + [Special Characters and Meta Characters](#special-characters-and-meta-characters)
+    + [Anchors](#anchors)
+    + [Escaping Special Characters](#escaping-special-characters)
+    + [Quantifiers](#quantifiers)
+    + [Character Sets and Ranges](#character-sets-and-ranges)
+    + [Groups and Capturing](#groups-and-capturing)
+    + [Example: Matching Phone Numbers](#example-matching-phone-numbers)
+    + [Practical Example: Matching Email Addresses](#practical-example-matching-email-addresses)
+    + [Using Flags](#using-flags)
+    + [Capturing Groups with Back References](#capturing-groups-with-back-references)
+    + [Summary](#summary-1)
 
 <!-- tocstop -->
 
@@ -2490,4 +2504,92 @@ ____
        print(e)
    ```
 
-# 24.
+# 24. Regex
+### Introduction
+- Regular expressions (regex) are used to search for and match specific patterns of text.
+- In Python, the `re` module is used for regex operations.
+
+### Basic Concepts
+- **Importing the `re` module**: `import re`
+- **Raw Strings**: Prefixed with `r` to prevent Python from interpreting backslashes as escape characters.
+
+### Writing Patterns
+- **Literal Match**: To search for a specific text, use `re.compile(r'pattern')`.
+- **Example**:
+  ```python
+  pattern = re.compile(r'ABC')
+  matches = pattern.finditer(text_to_search)
+  for match in matches:
+      print(match)
+  ```
+
+### Special Characters and Meta Characters
+- **`.`**: Matches any character except a newline.
+- **`\d`**: Matches any digit.
+- **`\D`**: Matches any non-digit.
+- **`\w`**: Matches any word character (alphanumeric + underscore).
+- **`\W`**: Matches any non-word character.
+- **`\s`**: Matches any whitespace character.
+- **`\S`**: Matches any non-whitespace character.
+
+### Anchors
+- **`^`**: Matches the start of a string.
+- **`$`**: Matches the end of a string.
+- **`\b`**: Matches a word boundary.
+- **`\B`**: Matches a non-word boundary.
+
+### Escaping Special Characters
+- Use a backslash `\` to escape special characters.
+- **Example**: To match a period, use `\.`.
+
+### Quantifiers
+- **`*`**: Matches 0 or more repetitions.
+- **`+`**: Matches 1 or more repetitions.
+- **`?`**: Matches 0 or 1 repetition.
+- **`{n}`**: Matches exactly `n` repetitions.
+- **`{n,m}`**: Matches between `n` and `m` repetitions.
+
+### Character Sets and Ranges
+- **`[abc]`**: Matches any one of the characters `a`, `b`, or `c`.
+- **`[a-z]`**: Matches any one character from `a` to `z`.
+- **`[^abc]`**: Matches any character except `a`, `b`, or `c`.
+
+### Groups and Capturing
+- Use parentheses `()` to create groups.
+- **Example**: To match `Mr.` or `Ms.`, use `(Mr|Ms)\.`.
+
+### Example: Matching Phone Numbers
+```python
+pattern = re.compile(r'\d{3}[.-]\d{3}[.-]\d{4}')
+matches = pattern.finditer(text_to_search)
+for match in matches:
+    print(match)
+```
+
+### Practical Example: Matching Email Addresses
+```python
+pattern = re.compile(r'[a-zA-Z0-9._+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+')
+matches = pattern.finditer(emails)
+for match in matches:
+    print(match)
+```
+
+### Using Flags
+- **`re.IGNORECASE`**: Ignore case while matching.
+- **`re.MULTILINE`**: Match start and end of each line.
+- **`re.VERBOSE`**: Allow whitespace and comments within the pattern.
+
+### Capturing Groups with Back References
+- Use `group()` method to access specific groups in the match object.
+- **Example**:
+  ```python
+  pattern = re.compile(r'(https?://)?(www\.)?(\w+)(\.\w+)')
+  matches = pattern.finditer(urls)
+  for match in matches:
+      print(match.group(3) + match.group(4))
+  ```
+
+### Summary
+- Regular expressions are powerful for text searching and manipulation.
+- Practice and familiarity with different patterns and quantifiers are essential.
+- Use the `re` module methods like `finditer`, `findall`, `match`, and `search` to work with regex in Python.
