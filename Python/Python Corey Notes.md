@@ -126,7 +126,7 @@
   * [OOP 4: Inheritance - Creating Subclasses](#oop-4-inheritance---creating-subclasses)
     + [Key Insights](#key-insights-15)
     + [Code Snippets](#code-snippets-10)
-- [Special (Magic/Dunder) Methods](#special-magicdunder-methods)
+- [25. Special (Magic/Dunder) Methods](#25-special-magicdunder-methods)
       - [Key Insights:](#key-insights-4)
 - [Property Decorators - Getters, Setters, and Deleters](#property-decorators---getters-setters-and-deleters)
 
@@ -3061,7 +3061,7 @@ ___
   ```
 ___
 
-# Special (Magic/Dunder) Methods
+# 25. Special (Magic/Dunder) Methods
 
 #### Key Insights:
 
