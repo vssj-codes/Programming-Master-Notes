@@ -25,7 +25,7 @@
       - [Key Insights](#key-insights-4)
       - [Code Snippets](#code-snippets-4)
 - [8. Import Modules and Exploring The Standard Library](#8-import-modules-and-exploring-the-standard-library)
-- [9. Variable Scope - (LEGB,and Global/Nonlocal Statements](#9-variable-scope---legband-globalnonlocal-statements)
+- [9. Variable Scope (LEGB, Global/Nonlocal)](#9-variable-scope-legb-globalnonlocal)
 - [10. Slicing Lists and Strings](#10-slicing-lists-and-strings)
 - [11. Comprehensions](#11-comprehensions)
 - [12. Sorting Lists, Tuples, and Objects](#12-sorting-lists-tuples-and-objects)
@@ -887,7 +887,7 @@ ___
 ___
 # 8. Import Modules and Exploring The Standard Library
 
-# 9. Variable Scope - (LEGB,and Global/Nonlocal Statements
+# 9. Variable Scope (LEGB, Global/Nonlocal)
 
 # 10. Slicing Lists and Strings
 
