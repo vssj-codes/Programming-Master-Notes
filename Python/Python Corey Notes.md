@@ -39,31 +39,32 @@
       - [Key Insights](#key-insights-6)
       - [Code Snippets](#code-snippets-6)
       - [Usage Tips](#usage-tips)
-- [17. Closures](#17-closures)
+- [17. Programming Terms](#17-programming-terms)
+  * [Closures](#closures)
     + [Key Insights](#key-insights-7)
     + [Python Example](#python-example)
     + [JavaScript Example](#javascript-example)
     + [Practical Python Example](#practical-python-example)
     + [Conclusion](#conclusion)
-    + [Programming Terms: First-Class Functions](#programming-terms-first-class-functions)
+  * [First-Class Functions](#first-class-functions)
       - [Key Insights:](#key-insights)
       - [Summary:](#summary)
-  * [Programming Terms: Mutable vs Immutable](#programming-terms-mutable-vs-immutable)
+  * [Mutable vs Immutable](#mutable-vs-immutable)
     + [Key Insights](#key-insights-8)
     + [Examples and Explanation](#examples-and-explanation)
       - [Immutable Example](#immutable-example)
       - [Mutable Example](#mutable-example)
     + [Importance of Knowing the Difference](#importance-of-knowing-the-difference)
     + [Conclusion](#conclusion-1)
-    + [Programming Terms: Memoization](#programming-terms-memoization)
-- [18. Idempotence](#18-idempotence)
-  * [Key Insights](#key-insights-9)
+  * [Memoization](#memoization)
+  * [Idempotence](#idempotence)
+    + [Key Insights](#key-insights-9)
   * [HTTP Methods](#http-methods)
   * [Interview Preparation](#interview-preparation)
-- [19. Generators](#19-generators)
+- [18. Generators](#18-generators)
     + [Key Insights](#key-insights-10)
     + [Code Snippets for Interviews](#code-snippets-for-interviews)
-- [20. Decorators](#20-decorators)
+- [19. Decorators](#19-decorators)
   * [Key Insights](#key-insights-11)
     + [Introduction](#introduction)
     + [Pre-requisites](#pre-requisites)
@@ -76,18 +77,18 @@
     + [Code Snippet: Decorator with Arguments](#code-snippet-decorator-with-arguments)
     + [Real-world Usage](#real-world-usage)
   * [Summary](#summary)
-- [21. Decorators With Arguments](#21-decorators-with-arguments)
+- [20. Decorators With Arguments](#20-decorators-with-arguments)
       - [Key Insights:](#key-insights-1)
       - [Summary:](#summary-1)
-- [22. Namedtuple](#22-namedtuple)
+- [21. Namedtuple](#21-namedtuple)
       - [Key Insights:](#key-insights-2)
       - [Code Snippets:](#code-snippets)
       - [Why Use Namedtuples?](#why-use-namedtuples)
       - [Conclusion:](#conclusion)
-- [23. Using Try/Except Blocks for Error Handling](#23-using-tryexcept-blocks-for-error-handling)
+- [22. Using Try/Except Blocks for Error Handling](#22-using-tryexcept-blocks-for-error-handling)
       - [Key Insights](#key-insights-12)
       - [Code Snippets](#code-snippets-7)
-- [24. Regex](#24-regex)
+- [23. Regex](#23-regex)
     + [Introduction](#introduction-1)
     + [Basic Concepts](#basic-concepts)
     + [Writing Patterns](#writing-patterns)
@@ -102,7 +103,7 @@
     + [Using Flags](#using-flags)
     + [Capturing Groups with Back References](#capturing-groups-with-back-references)
     + [Summary](#summary-1)
-- [25. OOP](#25-oop)
+- [24. OOP](#24-oop)
   * [OOP 1: Classes and Instances](#oop-1-classes-and-instances)
       - [Key Insights:](#key-insights-3)
       - [Example Code:](#example-code)
@@ -125,9 +126,9 @@
   * [OOP 4: Inheritance - Creating Subclasses](#oop-4-inheritance---creating-subclasses)
     + [Key Insights](#key-insights-15)
     + [Code Snippets](#code-snippets-10)
-    + [Python OOP Tutorial 5: Special (Magic/Dunder) Methods](#python-oop-tutorial-5-special-magicdunder-methods)
+- [Special (Magic/Dunder) Methods](#special-magicdunder-methods)
       - [Key Insights:](#key-insights-4)
-    + [Python OOP Tutorial 6: Property Decorators - Getters, Setters, and Deleters](#python-oop-tutorial-6-property-decorators---getters-setters-and-deleters)
+- [Property Decorators - Getters, Setters, and Deleters](#property-decorators---getters-setters-and-deleters)
 
 <!-- tocstop -->
 
@@ -1495,7 +1496,9 @@ print("Is File:", os.path.isfile(file_path))
 - Use `os.path` for robust path manipulations.
 ___
 
-# 17. Closures
+# 17. Programming Terms
+
+## Closures
 
 ### Key Insights
 
@@ -1627,7 +1630,7 @@ ___
   - Understanding closures in different languages helps solidify the concept beyond just syntax.
 
 ___
-### Programming Terms: First-Class Functions
+## First-Class Functions
 
 #### Key Insights:
 - **First-Class Functions Definition**:
@@ -1741,7 +1744,7 @@ ___
 #### Summary:
 Understanding first-class functions is crucial as it lays the foundation for understanding higher-order functions, currying, closures, and other advanced programming concepts. This knowledge allows you to treat functions like any other variable, making your code more flexible and reusable.
 ___
-## Programming Terms: Mutable vs Immutable
+## Mutable vs Immutable
 
 ### Key Insights
 
@@ -1828,7 +1831,7 @@ ___
 - It impacts both performance and memory usage, especially in large-scale applications.
 - Examples from other languages (e.g., Java's `String` vs. `StringBuffer`) highlight the universal relevance of these concepts.
 ___
-### Programming Terms: Memoization
+## Memoization
 
 **Key Insights:**
 - **Definition:**
@@ -1897,9 +1900,9 @@ print(expensive_func(10)) # Retrieved from cache
 - Essential for reducing redundancy in computationally intensive tasks.
 - Useful to explore different techniques for implementing memoization in your preferred programming language.
 ___
-# 18. Idempotence
+## Idempotence
 
-## Key Insights
+### Key Insights
 
 - **Definition**: Idempotence is a property of certain operations in mathematics and computer science that can be applied multiple times without changing the result beyond the initial application.
   - Example: `f(f(x)) = f(x)`
@@ -2020,7 +2023,7 @@ By understanding these concepts and examples, you can effectively discuss idempo
 - Be prepared to explain the concept of idempotence with both theoretical and practical examples.
 - Highlight the importance of idempotence in various HTTP methods and how it affects API design.
 - Provide clear examples to differentiate between idempotent and non-idempotent operations.
-# 19. Generators 
+# 18. Generators 
 
 ### Key Insights
 
@@ -2158,7 +2161,7 @@ By understanding these concepts and examples, you can effectively discuss idempo
   ```
   ___
 
-#  20. Decorators 
+#  19. Decorators 
 ## Key Insights
 
 ### Introduction
@@ -2252,7 +2255,7 @@ greet("Alice")
 - They are widely used in Python frameworks, such as Flask and Django, for various purposes like route handling and middleware.
 ___
 
-# 21. Decorators With Arguments
+# 20. Decorators With Arguments
 
 #### Key Insights:
 - **Introduction to Decorators with Arguments**
@@ -2343,7 +2346,7 @@ ___
 - Decorators can enhance the functionality of existing functions by adding pre- and post-execution logic.
 - This technique is useful in frameworks like Flask for routing and can be customized for various use cases.
 ___
-# 22. Namedtuple 
+# 21. Namedtuple 
 
 #### Key Insights:
 
@@ -2398,7 +2401,7 @@ ___
 Namedtuples are a valuable tool in Python for creating readable, immutable data structures with minimal overhead. They provide the best of both tuples and dictionaries, making your code cleaner and easier to maintain.
 ____
 
-# 23. Using Try/Except Blocks for Error Handling
+# 22. Using Try/Except Blocks for Error Handling
 
 #### Key Insights
 - **Try/Except Blocks**
@@ -2530,7 +2533,7 @@ ____
        print(e)
    ```
 
-# 24. Regex
+# 23. Regex
 ### Introduction
 - Regular expressions (regex) are used to search for and match specific patterns of text.
 - In Python, the `re` module is used for regex operations.
@@ -2620,7 +2623,7 @@ for match in matches:
 - Practice and familiarity with different patterns and quantifiers are essential.
 - Use the `re` module methods like `finditer`, `findall`, `match`, and `search` to work with regex in Python.
 
-# 25. OOP
+# 24. OOP
 ## OOP 1: Classes and Instances
 
 #### Key Insights:
@@ -3058,7 +3061,7 @@ ___
   ```
 ___
 
-### Python OOP Tutorial 5: Special (Magic/Dunder) Methods
+# Special (Magic/Dunder) Methods
 
 #### Key Insights:
 
@@ -3127,7 +3130,7 @@ ___
 - **Useful Links**
   - Python documentation for special methods: [Python Data Model](https://docs.python.org/3/reference/datamodel.html#special-method-names)
 ___
-### Python OOP Tutorial 6: Property Decorators - Getters, Setters, and Deleters
+# Property Decorators - Getters, Setters, and Deleters
 
 **Key Insights:**
 
