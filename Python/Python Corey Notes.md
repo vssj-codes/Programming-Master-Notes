@@ -32,9 +32,9 @@
 - [13. String Formatting - Advanced Operations for Dicts, Lists, Numbers, and Dates](#13-string-formatting---advanced-operations-for-dicts-lists-numbers-and-dates)
     + [Key Insights](#key-insights-5)
     + [Code Snippets](#code-snippets-5)
-- [Python Tutorial: Datetime Module - How to Work with Dates, Times, Timedeltas, and Timezones](#python-tutorial-datetime-module---how-to-work-with-dates-times-timedeltas-and-timezones)
+- [Datetime Module](#datetime-module)
       - [Key Concepts:](#key-concepts)
-- [Python Tutorial: Context Managers - Efficiently Managing Resources](#python-tutorial-context-managers---efficiently-managing-resources)
+- [Context Managers](#context-managers)
 
 <!-- tocstop -->
 
@@ -1053,7 +1053,7 @@ ___
     print("Detailed date: {:%B %d, %Y fell on a %A and was the %j day of the year}".format(date))
     ```
 
-# Python Tutorial: Datetime Module - How to Work with Dates, Times, Timedeltas, and Timezones
+# Datetime Module
 
 #### Key Concepts:
 
@@ -1163,7 +1163,7 @@ ___
     print(dt)
     ```
 ___
-# Python Tutorial: Context Managers - Efficiently Managing Resources
+# Context Managers
 
 **Key Insights:**
 
