@@ -35,6 +35,10 @@
 - [14. Datetime Module](#14-datetime-module)
       - [Key Concepts:](#key-concepts)
 - [15. Context Managers](#15-context-managers)
+- [16. OS Module](#16-os-module)
+      - [Key Insights](#key-insights-6)
+      - [Code Snippets](#code-snippets-6)
+      - [Usage Tips](#usage-tips)
 
 <!-- tocstop -->
 
@@ -1248,3 +1252,156 @@ ___
 - They automate setup and teardown processes, reducing the chance of resource leaks.
 - Custom context managers can be created using either classes or functions with the `@contextmanager` decorator.
 - Practical examples include file handling and directory management, demonstrating the flexibility and utility of context managers.
+# 16. OS Module
+
+#### Key Insights
+- **OS Module Introduction**
+  - Allows interaction with the underlying operating system.
+  - Can navigate the file system, get file information, change environment variables, move files, etc.
+  
+- **Importing and Exploring the OS Module**
+  - Import with `import os`.
+  - Use `dir(os)` to list all attributes and methods.
+
+- **Current Working Directory**
+  - Get the current directory with `os.getcwd()`.
+  ```python
+  import os
+  print(os.getcwd())  # Outputs the current working directory
+  ```
+
+- **Changing Directory**
+  - Change the current directory with `os.chdir(path)`.
+  ```python
+  os.chdir('/path/to/directory')
+  print(os.getcwd())  # Outputs the new current working directory
+  ```
+
+- **Listing Files and Directories**
+  - List files and folders in the current directory with `os.listdir()`.
+  ```python
+  print(os.listdir())  # Lists all files and folders in the current directory
+  ```
+
+- **Creating Directories**
+  - Create a single directory with `os.mkdir(path)`.
+  - Create intermediate directories with `os.makedirs(path)`.
+  ```python
+  os.mkdir('new_folder')
+  os.makedirs('new_folder/sub_folder')
+  ```
+
+- **Deleting Directories**
+  - Remove a single directory with `os.rmdir(path)`.
+  - Remove directories recursively with `os.removedirs(path)`.
+  ```python
+  os.rmdir('new_folder')
+  os.removedirs('new_folder/sub_folder')
+  ```
+
+- **Renaming Files or Directories**
+  - Rename using `os.rename(old_name, new_name)`.
+  ```python
+  os.rename('old_file.txt', 'new_file.txt')
+  ```
+
+- **Getting File Information**
+  - Get file status with `os.stat(path)`.
+  ```python
+  file_info = os.stat('new_file.txt')
+  print(file_info.st_size)  # Outputs file size in bytes
+  print(file_info.st_mtime)  # Outputs last modification time
+  ```
+
+- **Traversing Directory Tree**
+  - Use `os.walk(path)` to traverse directories.
+  ```python
+  for dirpath, dirnames, filenames in os.walk('/path/to/start'):
+      print('Directory:', dirpath)
+      print('Subdirectories:', dirnames)
+      print('Files:', filenames)
+  ```
+
+- **Environment Variables**
+  - Access environment variables with `os.environ`.
+  ```python
+  home_directory = os.environ.get('HOME')
+  print(home_directory)  # Outputs the home directory path
+  ```
+
+- **Path Manipulation**
+  - Join paths with `os.path.join()`.
+  - Get base name and directory name with `os.path.basename()` and `os.path.dirname()`.
+  - Check existence with `os.path.exists()`.
+  - Check if directory or file with `os.path.isdir()` and `os.path.isfile()`.
+  ```python
+  file_path = os.path.join(home_directory, 'new_file.txt')
+  print(os.path.basename(file_path))  # Outputs 'new_file.txt'
+  print(os.path.dirname(file_path))  # Outputs the directory path
+  print(os.path.exists(file_path))  # Checks if path exists
+  print(os.path.isdir(file_path))  # Checks if it's a directory
+  print(os.path.isfile(file_path))  # Checks if it's a file
+  ```
+
+#### Code Snippets
+
+```python
+import os
+from datetime import datetime
+
+# Get current working directory
+print("Current Directory:", os.getcwd())
+
+# Change directory
+os.chdir('/path/to/new_directory')
+print("Changed Directory:", os.getcwd())
+
+# List files and directories
+print("List Directory:", os.listdir())
+
+# Create directories
+os.mkdir('new_folder')
+os.makedirs('new_folder/sub_folder')
+
+# Delete directories
+os.rmdir('new_folder')
+os.removedirs('new_folder/sub_folder')
+
+# Rename file
+os.rename('old_file.txt', 'new_file.txt')
+
+# Get file information
+file_info = os.stat('new_file.txt')
+print("File Size:", file_info.st_size)
+print("Last Modified:", datetime.fromtimestamp(file_info.st_mtime))
+
+# Traverse directory tree
+for dirpath, dirnames, filenames in os.walk('/path/to/start'):
+    print('Directory:', dirpath)
+    print('Subdirectories:', dirnames)
+    print('Files:', filenames)
+
+# Get environment variable
+home_directory = os.environ.get('HOME')
+print("Home Directory:", home_directory)
+
+# Path manipulation
+file_path = os.path.join(home_directory, 'new_file.txt')
+print("File Path:", file_path)
+print("Base Name:", os.path.basename(file_path))
+print("Directory Name:", os.path.dirname(file_path))
+print("Path Exists:", os.path.exists(file_path))
+print("Is Directory:", os.path.isdir(file_path))
+print("Is File:", os.path.isfile(file_path))
+```
+
+#### Usage Tips
+- Use `os.getcwd()` and `os.chdir()` to manage current working directory.
+- Employ `os.listdir()` for listing directory contents.
+- Create and delete directories with `os.mkdir()`/`os.makedirs()` and `os.rmdir()`/`os.removedirs()`.
+- Rename files and directories using `os.rename()`.
+- Retrieve file metadata with `os.stat()`.
+- Traverse directories with `os.walk()`.
+- Manage environment variables with `os.environ`.
+- Use `os.path` for robust path manipulations.
+___
