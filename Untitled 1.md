@@ -15,13 +15,13 @@
   * [Code Snippets](#code-snippets-1)
 - [4. Dictionaries](#4-dictionaries)
     + [Key Interview Points](#key-interview-points)
-- [5. Conditionals and Booleans - If, Else, and Elif Statements](#5-conditionals-and-booleans---if-else-and-elif-statements)
+- [5. Conditionals and Booleans](#5-conditionals-and-booleans)
       - [Key Insights](#key-insights-2)
       - [Code Snippets](#code-snippets-2)
-- [Python Tutorial for Beginners 7: Loops and Iterations - For/While Loops](#python-tutorial-for-beginners-7-loops-and-iterations---forwhile-loops)
+- [6. Loops and Iterations](#6-loops-and-iterations)
     + [Key Insights](#key-insights-3)
     + [Code Snippets](#code-snippets-3)
-- [Python Tutorial for Beginners 8: Functions](#python-tutorial-for-beginners-8-functions)
+- [7. Functions](#7-functions)
       - [Key Insights](#key-insights-4)
       - [Code Snippets](#code-snippets-4)
 
@@ -461,7 +461,7 @@ ___
 
 ___
 
-# 5. Conditionals and Booleans - If, Else, and Elif Statements
+# 5. Conditionals and Booleans
 
 #### Key Insights
 
@@ -589,7 +589,7 @@ ___
       print("Evaluates to False")
   ```
 ___
-# Python Tutorial for Beginners 7: Loops and Iterations - For/While Loops
+# 6. Loops and Iterations
 
 ### Key Insights
 
@@ -724,7 +724,7 @@ while True:
         break
 ```
 ___
-# Python Tutorial for Beginners 8: Functions
+# 7. Functions
 
 #### Key Insights
 
