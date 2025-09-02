@@ -25,16 +25,16 @@
       - [Key Insights](#key-insights-4)
       - [Code Snippets](#code-snippets-4)
 - [8. Import Modules and Exploring The Standard Library](#8-import-modules-and-exploring-the-standard-library)
-- [9. Variable Scope - Understanding the LEGB Rule and Global/Nonlocal Statements](#9-variable-scope---understanding-the-legb-rule-and-globalnonlocal-statements)
+- [9. Variable Scope - (LEGB,and Global/Nonlocal Statements](#9-variable-scope---legband-globalnonlocal-statements)
 - [10. Slicing Lists and Strings](#10-slicing-lists-and-strings)
 - [11. Comprehensions](#11-comprehensions)
 - [12. Sorting Lists, Tuples, and Objects](#12-sorting-lists-tuples-and-objects)
-- [13. String Formatting - Advanced Operations for Dicts, Lists, Numbers, and Dates](#13-string-formatting---advanced-operations-for-dicts-lists-numbers-and-dates)
+- [13. String Formatting](#13-string-formatting)
     + [Key Insights](#key-insights-5)
     + [Code Snippets](#code-snippets-5)
-- [Datetime Module](#datetime-module)
+- [14. Datetime Module](#14-datetime-module)
       - [Key Concepts:](#key-concepts)
-- [Context Managers](#context-managers)
+- [15. Context Managers](#15-context-managers)
 
 <!-- tocstop -->
 
@@ -887,7 +887,7 @@ ___
 ___
 # 8. Import Modules and Exploring The Standard Library
 
-# 9. Variable Scope - Understanding the LEGB Rule and Global/Nonlocal Statements
+# 9. Variable Scope - (LEGB,and Global/Nonlocal Statements
 
 # 10. Slicing Lists and Strings
 
@@ -895,7 +895,7 @@ ___
 
 # 12. Sorting Lists, Tuples, and Objects
 
-# 13. String Formatting - Advanced Operations for Dicts, Lists, Numbers, and Dates
+# 13. String Formatting
 
 ### Key Insights
 
@@ -1053,7 +1053,7 @@ ___
     print("Detailed date: {:%B %d, %Y fell on a %A and was the %j day of the year}".format(date))
     ```
 
-# Datetime Module
+# 14. Datetime Module
 
 #### Key Concepts:
 
@@ -1163,7 +1163,7 @@ ___
     print(dt)
     ```
 ___
-# Context Managers
+# 15. Context Managers
 
 **Key Insights:**
 
