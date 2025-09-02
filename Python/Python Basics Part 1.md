@@ -24,6 +24,14 @@
 - [7. Functions](#7-functions)
       - [Key Insights](#key-insights-4)
       - [Code Snippets](#code-snippets-4)
+- [8. Import Modules and Exploring The Standard Library](#8-import-modules-and-exploring-the-standard-library)
+- [9. Variable Scope - Understanding the LEGB Rule and Global/Nonlocal Statements](#9-variable-scope---understanding-the-legb-rule-and-globalnonlocal-statements)
+- [10. Slicing Lists and Strings](#10-slicing-lists-and-strings)
+- [11. Comprehensions](#11-comprehensions)
+- [12. Sorting Lists, Tuples, and Objects](#12-sorting-lists-tuples-and-objects)
+- [13. String Formatting - Advanced Operations for Dicts, Lists, Numbers, and Dates](#13-string-formatting---advanced-operations-for-dicts-lists-numbers-and-dates)
+    + [Key Insights](#key-insights-5)
+    + [Code Snippets](#code-snippets-5)
 
 <!-- tocstop -->
 
@@ -874,3 +882,170 @@ ___
     print(days_in_month(2019, 2))  # 28
     ```
 ___
+# 8. Import Modules and Exploring The Standard Library
+
+# 9. Variable Scope - Understanding the LEGB Rule and Global/Nonlocal Statements
+
+# 10. Slicing Lists and Strings
+
+# 11. Comprehensions
+
+# 12. Sorting Lists, Tuples, and Objects
+
+# 13. String Formatting - Advanced Operations for Dicts, Lists, Numbers, and Dates
+
+### Key Insights
+
+- **Basic String Formatting**
+    
+    - String concatenation can be replaced with the `.format()` method for better readability and manageability.
+        
+    - Using placeholders `{}` in strings and passing values to `.format()` replaces these placeholders with the provided values.
+        
+    - Placeholders can be explicitly numbered for clarity and reuse.
+        
+        ```python
+        name = "Alice"
+        age = 30
+        print("Name: {}, Age: {}".format(name, age))
+        print("Name: {0}, Age: {1}".format(name, age))
+        ```
+        
+- **Formatting with Dictionaries**
+    
+    - You can pass a dictionary to `.format()` and access its keys within placeholders.
+        
+        ```python
+        person = {"name": "Alice", "age": 30}
+        print("Name: {0[name]}, Age: {0[age]}".format(person))
+        ```
+        
+- **Formatting with Lists**
+    
+    - Lists can be similarly accessed by their indices within placeholders.
+        
+        ```python
+        values = ["Alice", 30]
+        print("Name: {0[0]}, Age: {0[1]}".format(values))
+        ```
+        
+- **Class Attributes Formatting**
+    
+    - Accessing class attributes using the dot notation in placeholders.
+        
+        ```python
+        class Person:
+            def __init__(self, name, age):
+                self.name = name
+                self.age = age
+        
+        p = Person("Alice", 30)
+        print("Name: {0.name}, Age: {0.age}".format(p))
+        ```
+        
+- **Keyword Arguments in Format**
+    
+    - Directly passing keyword arguments to `.format()` for readability.
+        
+        ```python
+        print("Name: {name}, Age: {age}".format(name="Alice", age=30))
+        ```
+        
+    - Unpacking dictionaries to pass as keyword arguments.
+        
+        ```python
+        person = {"name": "Alice", "age": 30}
+        print("Name: {name}, Age: {age}".format(**person))
+        ```
+        
+- **Number Formatting**
+    
+    - Padding numbers with zeros using formatting options.
+        
+        ```python
+        for i in range(1, 11):
+            print("{:02}".format(i))
+        ```
+        
+    - Formatting decimals to specific places.
+        
+        ```python
+        pi = 3.141592653589793
+        print("Pi to 2 decimal places: {:.2f}".format(pi))
+        ```
+        
+    - Adding commas as thousand separators.
+        
+        ```python
+        large_number = 1234567890
+        print("Formatted number: {:,}".format(large_number))
+        ```
+        
+- **Date Formatting**
+    
+    - Using the `datetime` module for advanced date formatting.
+        
+        ```python
+        from datetime import datetime
+        date = datetime(2016, 9, 24)
+        print("Formatted date: {:%B %d, %Y}".format(date))
+        ```
+        
+    - Combining multiple date format options.
+        
+        ```python
+        print("Detailed date: {:%B %d, %Y fell on a %A and was the %j day of the year}".format(date))
+        ```
+        
+
+### Code Snippets
+
+1. **String Formatting with Placeholders:**
+    
+    ```python
+    name = "Alice"
+    age = 30
+    print("Name: {}, Age: {}".format(name, age))
+    ```
+    
+2. **Dictionary and List Access in Format:**
+    
+    ```python
+    person = {"name": "Alice", "age": 30}
+    print("Name: {0[name]}, Age: {0[age]}".format(person))
+    
+    values = ["Alice", 30]
+    print("Name: {0[0]}, Age: {0[1]}".format(values))
+    ```
+    
+3. **Class Attributes Formatting:**
+    
+    ```python
+    class Person:
+        def __init__(self, name, age):
+            self.name = name
+            self.age = age
+    
+    p = Person("Alice", 30)
+    print("Name: {0.name}, Age: {0.age}".format(p))
+    ```
+    
+4. **Number and Decimal Formatting:**
+    
+    ```python
+    for i in range(1, 11):
+        print("{:02}".format(i))
+    
+    pi = 3.141592653589793
+    print("Pi to 2 decimal places: {:.2f}".format(pi))
+    ```
+    
+5. **Date Formatting:**
+    
+    ```python
+    from datetime import datetime
+    date = datetime(2016, 9, 24)
+    print("Formatted date: {:%B %d, %Y}".format(date))
+    
+    print("Detailed date: {:%B %d, %Y fell on a %A and was the %j day of the year}".format(date))
+    ```
