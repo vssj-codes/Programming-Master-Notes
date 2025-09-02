@@ -128,7 +128,7 @@
     + [Code Snippets](#code-snippets-10)
 - [25. Special (Magic/Dunder) Methods](#25-special-magicdunder-methods)
       - [Key Insights:](#key-insights-4)
-- [Property Decorators - Getters, Setters, and Deleters](#property-decorators---getters-setters-and-deleters)
+- [26. Property Decorators - Getters, Setters, and Deleters](#26-property-decorators---getters-setters-and-deleters)
 
 <!-- tocstop -->
 
@@ -2161,7 +2161,7 @@ By understanding these concepts and examples, you can effectively discuss idempo
   ```
   ___
 
-#  19. Decorators 
+# 19. Decorators 
 ## Key Insights
 
 ### Introduction
@@ -3130,7 +3130,7 @@ ___
 - **Useful Links**
   - Python documentation for special methods: [Python Data Model](https://docs.python.org/3/reference/datamodel.html#special-method-names)
 ___
-# Property Decorators - Getters, Setters, and Deleters
+# 26. Property Decorators - Getters, Setters, and Deleters
 
 **Key Insights:**
 
