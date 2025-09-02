@@ -84,6 +84,10 @@
       - [Code Snippets:](#code-snippets)
       - [Why Use Namedtuples?](#why-use-namedtuples)
       - [Conclusion:](#conclusion)
+- [23. Using Try/Except Blocks for Error Handling](#23-using-tryexcept-blocks-for-error-handling)
+      - [Key Insights](#key-insights-12)
+      - [Code Snippets](#code-snippets-7)
+- [24.](#24)
 
 <!-- tocstop -->
 
@@ -2353,3 +2357,137 @@ ___
 #### Conclusion:
 Namedtuples are a valuable tool in Python for creating readable, immutable data structures with minimal overhead. They provide the best of both tuples and dictionaries, making your code cleaner and easier to maintain.
 ____
+
+# 23. Using Try/Except Blocks for Error Handling
+
+#### Key Insights
+- **Try/Except Blocks**
+  - Use try/except blocks to handle errors and exceptions.
+  - Structure: `try`, `except`, `else`, `finally`.
+
+- **Basic Usage**
+  - `try`: Place code that might throw an error.
+  - `except`: Handle the exception.
+  - Example:
+    ```python
+    try:
+        open("test_file.txt")
+    except:
+        print("Sorry, this file does not exist.")
+    ```
+
+- **Specific Exceptions**
+  - Catch specific exceptions to handle anticipated errors precisely.
+  - Example:
+    ```python
+    try:
+        open("test_file.txt")
+    except FileNotFoundError as e:
+        print(e)
+    ```
+
+- **Multiple Exceptions**
+  - Handle multiple exceptions by placing more specific ones first.
+  - Example:
+    ```python
+    try:
+        open("test_file.txt")
+    except FileNotFoundError as e:
+        print(e)
+    except Exception as e:
+        print("Sorry, something went wrong:", e)
+    ```
+
+- **Else Clause**
+  - Runs if no exceptions are raised in the `try` block.
+  - Example:
+    ```python
+    try:
+        f = open("test_file.txt")
+    except FileNotFoundError as e:
+        print(e)
+    else:
+        print(f.read())
+        f.close()
+    ```
+
+- **Finally Clause**
+  - Runs regardless of whether an exception was raised.
+  - Useful for cleanup actions like closing files or connections.
+  - Example:
+    ```python
+    try:
+        f = open("test_file.txt")
+    except FileNotFoundError as e:
+        print(e)
+    else:
+        print(f.read())
+    finally:
+        print("Executing the finally clause.")
+    ```
+
+- **Raising Exceptions**
+  - Manually raise exceptions using the `raise` statement.
+  - Example:
+    ```python
+    try:
+        f = open("corrupt_file.txt")
+        if f.name == "corrupt_file.txt":
+            raise Exception("Error: Corrupt file")
+    except Exception as e:
+        print(e)
+    ```
+
+#### Code Snippets
+1. **Basic Try/Except**
+   ```python
+   try:
+       open("test_file.txt")
+   except FileNotFoundError:
+       print("Sorry, this file does not exist.")
+   ```
+
+2. **Multiple Specific Exceptions**
+   ```python
+   try:
+       open("test_file.txt")
+   except FileNotFoundError as e:
+       print(e)
+   except Exception as e:
+       print("Sorry, something went wrong:", e)
+   ```
+
+3. **Using Else Clause**
+   ```python
+   try:
+       f = open("test_file.txt")
+   except FileNotFoundError as e:
+       print(e)
+   else:
+       print(f.read())
+       f.close()
+   ```
+
+4. **Using Finally Clause**
+   ```python
+   try:
+       f = open("test_file.txt")
+   except FileNotFoundError as e:
+       print(e)
+   else:
+       print(f.read())
+   finally:
+       print("Executing the finally clause.")
+   ```
+
+5. **Raising Custom Exceptions**
+   ```python
+   try:
+       f = open("corrupt_file.txt")
+       if f.name == "corrupt_file.txt":
+           raise Exception("Error: Corrupt file")
+   except Exception as e:
+       print(e)
+   ```
+
+# 24.
