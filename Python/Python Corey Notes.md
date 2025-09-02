@@ -39,6 +39,30 @@
       - [Key Insights](#key-insights-6)
       - [Code Snippets](#code-snippets-6)
       - [Usage Tips](#usage-tips)
+- [Generators](#generators)
+    + [Key Insights](#key-insights-7)
+    + [Code Snippets for Interviews](#code-snippets-for-interviews)
+- [Decorators](#decorators)
+  * [Key Insights](#key-insights-8)
+    + [Introduction](#introduction)
+    + [Pre-requisites](#pre-requisites)
+    + [Example Recap: Closures](#example-recap-closures)
+    + [Code Snippet: Closures Example](#code-snippet-closures-example)
+    + [Understanding Decorators](#understanding-decorators)
+    + [Basic Decorator Example](#basic-decorator-example)
+    + [Code Snippet: Basic Decorator Example](#code-snippet-basic-decorator-example)
+    + [Using Decorators with Arguments](#using-decorators-with-arguments)
+    + [Code Snippet: Decorator with Arguments](#code-snippet-decorator-with-arguments)
+    + [Real-world Usage](#real-world-usage)
+  * [Summary](#summary)
+- [Decorators With Arguments](#decorators-with-arguments)
+      - [Key Insights:](#key-insights)
+      - [Summary:](#summary)
+- [Namedtuple](#namedtuple)
+      - [Key Insights:](#key-insights-1)
+      - [Code Snippets:](#code-snippets)
+      - [Why Use Namedtuples?](#why-use-namedtuples)
+      - [Conclusion:](#conclusion)
 
 <!-- tocstop -->
 
@@ -1405,3 +1429,380 @@ print("Is File:", os.path.isfile(file_path))
 - Manage environment variables with `os.environ`.
 - Use `os.path` for robust path manipulations.
 ___
+# Generators 
+
+### Key Insights
+
+- **Definition and Basics**:
+  - **Function Example**: Demonstrates a function `square_numbers` that computes squares of numbers in a list.
+  - **Traditional Approach**: Uses a list to store and return results.
+  - **Generator Conversion**: Simplifies the function using `yield` instead of appending to a list, creating a generator.
+
+- **Advantages of Generators**:
+  - **Memory Efficiency**: Generators yield one item at a time, not storing the entire result in memory.
+  - **Performance**: Generators have better performance with large data sets as they don't hold all values in memory.
+  - **Code Readability**: More readable than list-based approaches, eliminating the need for intermediate lists.
+
+- **Implementation Details**:
+  - **Basic Generator Example**:
+    ```python
+    def square_numbers(nums):
+        for num in nums:
+            yield num * num
+    ```
+  - **Using `next()`**: Fetches the next value from the generator.
+    ```python
+    nums = square_numbers([1, 2, 3, 4, 5])
+    print(next(nums))  # Output: 1
+    print(next(nums))  # Output: 4
+    ```
+
+- **Generator Expressions**:
+  - **List Comprehension vs. Generator**: Convert list comprehension to a generator by replacing square brackets with parentheses.
+    ```python
+    nums = (x * x for x in [1, 2, 3, 4, 5])
+    print(list(nums))  # Output: [1, 4, 9, 16, 25]
+    ```
+
+- **Handling Exhaustion**:
+  - **StopIteration Exception**: Raised when a generator has no more items to yield.
+  - **For Loop Handling**: Automatically handles generator exhaustion without raising exceptions.
+    ```python
+    for num in nums:
+        print(num)
+    ```
+
+- **Performance Comparison**:
+  - **Memory Usage**: Generators use significantly less memory compared to lists.
+  - **Timing Example**:
+    ```python
+    import time
+    
+    def list_function(num_people):
+        result = []
+        for _ in range(num_people):
+            person = {
+                'id': _,
+                'name': 'Name',
+                'major': 'Major'
+            }
+            result.append(person)
+        return result
+    
+    def generator_function(num_people):
+        for _ in range(num_people):
+            person = {
+                'id': _,
+                'name': 'Name',
+                'major': 'Major'
+            }
+            yield person
+    
+    start_time = time.time()
+    people_list = list_function(1000000)
+    print(f"List function took {time.time() - start_time} seconds")
+    
+    start_time = time.time()
+    people_generator = generator_function(1000000)
+    print(f"Generator function took {time.time() - start_time} seconds")
+    ```
+
+- **Converting Generators to Lists**:
+  - **List Conversion**: Possible but negates performance benefits.
+    ```python
+    nums = (x * x for x in range(1000000))
+    nums_list = list(nums)  # Converts generator to list
+    ```
+
+### Code Snippets for Interviews
+
+- **Basic Generator**:
+  ```python
+  def square_numbers(nums):
+      for num in nums:
+          yield num * num
+  ```
+
+- **Using `next()` with Generators**:
+  ```python
+  nums = square_numbers([1, 2, 3, 4, 5])
+  print(next(nums))  # Output: 1
+  print(next(nums))  # Output: 4
+  ```
+
+- **Generator Expression**:
+  ```python
+  nums = (x * x for x in range(10))
+  ```
+
+- **Handling Exhaustion in a Loop**:
+  ```python
+  for num in nums:
+      print(num)
+  ```
+
+- **Performance Comparison Example**:
+  ```python
+  import time
+  
+  def list_function(num_people):
+      result = []
+      for _ in range(num_people):
+          person = {'id': _, 'name': 'Name', 'major': 'Major'}
+          result.append(person)
+      return result
+  
+  def generator_function(num_people):
+      for _ in range(num_people):
+          person = {'id': _, 'name': 'Name', 'major': 'Major'}
+          yield person
+  
+  start_time = time.time()
+  people_list = list_function(1000000)
+  print(f"List function took {time.time() - start_time} seconds")
+  
+  start_time = time.time()
+  people_generator = generator_function(1000000)
+  print(f"Generator function took {time.time() - start_time} seconds")
+  ```
+  ___
+
+#  Decorators 
+## Key Insights
+
+### Introduction
+- Decorators are a slightly more advanced topic in Python.
+- They allow you to dynamically alter the functionality of your functions.
+
+### Pre-requisites
+- Understanding of first-class functions and closures is necessary.
+- First-class functions: Functions treated like any other object (can be passed as arguments, returned, and assigned to variables).
+- Closures: Inner functions that remember and have access to variables local to the scope in which they were created.
+
+### Example Recap: Closures
+- **Outer Function**: Contains a local variable (`message`) and an inner function.
+- **Inner Function**: Accesses and prints the `message` variable, which is a free variable (not defined within the inner function but accessible).
+  
+### Code Snippet: Closures Example
+```python
+def outer_function():
+    message = "Hello, World!"
+    
+    def inner_function():
+        print(message)
+        
+    return inner_function()
+
+outer_function()
+# Output: Hello, World!
+```
+
+### Understanding Decorators
+- Decorators in Python are functions that modify the behavior of another function.
+- They allow you to wrap another function to extend or alter its behavior.
+
+### Basic Decorator Example
+1. **Defining a Decorator**:
+   - A decorator is a function that takes another function as an argument and returns a new function.
+   - Example: A simple decorator that prints a message before and after a function execution.
+
+### Code Snippet: Basic Decorator Example
+```python
+def my_decorator(func):
+    def wrapper():
+        print("Something is happening before the function is called.")
+        func()
+        print("Something is happening after the function is called.")
+    return wrapper
+
+@my_decorator
+def say_hello():
+    print("Hello!")
+
+say_hello()
+# Output:
+# Something is happening before the function is called.
+# Hello!
+# Something is happening after the function is called.
+```
+
+### Using Decorators with Arguments
+- Decorators can also be used with functions that accept arguments.
+- Modify the wrapper function to accept any number of arguments and keyword arguments.
+
+### Code Snippet: Decorator with Arguments
+```python
+def my_decorator(func):
+    def wrapper(*args, **kwargs):
+        print("Before the function call")
+        result = func(*args, **kwargs)
+        print("After the function call")
+        return result
+    return wrapper
+
+@my_decorator
+def greet(name):
+    print(f"Hello, {name}!")
+
+greet("Alice")
+# Output:
+# Before the function call
+# Hello, Alice!
+# After the function call
+```
+
+### Real-world Usage
+- **Logging**: Automatically log function calls.
+- **Authorization**: Check if a user is authorized to use an endpoint.
+- **Caching**: Cache the results of expensive function calls.
+
+## Summary
+- Decorators enhance the functionality of your functions in a clean and readable way.
+- They are widely used in Python frameworks, such as Flask and Django, for various purposes like route handling and middleware.
+___
+
+# Decorators With Arguments
+
+#### Key Insights:
+- **Introduction to Decorators with Arguments**
+  - Decorators are functions that modify the behavior of other functions.
+  - This tutorial focuses on creating decorators that accept arguments.
+
+- **Basic Decorator Recap**
+  - A simple decorator function wraps another function to add pre- and post-execution code.
+  - Example:
+    ```python
+    def my_decorator(func):
+        def wrapper(*args, **kwargs):
+            print("Before the function runs")
+            result = func(*args, **kwargs)
+            print("After the function runs")
+            return result
+        return wrapper
+    ```
+
+- **Decorator with Arguments**
+  - To create a decorator that accepts arguments, an additional outer function is used.
+  - This outer function accepts the argument and returns the actual decorator.
+  - Example structure:
+    ```python
+    def decorator_with_args(arg):
+        def actual_decorator(func):
+            def wrapper(*args, **kwargs):
+                print(f"Decorator argument: {arg}")
+                result = func(*args, **kwargs)
+                return result
+            return wrapper
+        return actual_decorator
+    ```
+
+- **Applying the Decorator with Arguments**
+  - The outer function's argument can be used inside the wrapper function.
+  - Example usage:
+    ```python
+    @decorator_with_args("Hello")
+    def say_hello(name):
+        print(f"Hello, {name}")
+    
+    say_hello("Alice")
+    # Output:
+    # Decorator argument: Hello
+    # Hello, Alice
+    ```
+
+- **Real-World Example: Flask Route Decorators**
+  - Flask uses decorators to define routes, passing the URL path as an argument.
+  - Example:
+    ```python
+    from flask import Flask
+    app = Flask(__name__)
+
+    @app.route('/hello')
+    def hello():
+        return "Hello, World!"
+    ```
+
+- **Customizable Prefix Example**
+  - A decorator that adds a customizable prefix to print statements.
+  - Example:
+    ```python
+    def prefix_decorator(prefix):
+        def decorator(func):
+            def wrapper(*args, **kwargs):
+                print(f"{prefix} Before function")
+                result = func(*args, **kwargs)
+                print(f"{prefix} After function")
+                return result
+            return wrapper
+        return decorator
+
+    @prefix_decorator("LOG:")
+    def display_info(name, age):
+        print(f"Name: {name}, Age: {age}")
+
+    display_info("Alice", 30)
+    # Output:
+    # LOG: Before function
+    # Name: Alice, Age: 30
+    # LOG: After function
+    ```
+
+#### Summary:
+- Understanding decorators with arguments involves creating an outer function to accept the argument.
+- Decorators can enhance the functionality of existing functions by adding pre- and post-execution logic.
+- This technique is useful in frameworks like Flask for routing and can be customized for various use cases.
+___
+# Namedtuple 
+
+#### Key Insights:
+
+- **Introduction to Namedtuples**
+  - Namedtuples are lightweight objects that behave like tuples but are more readable.
+  - Useful for representing data where readability and immutability are important.
+
+- **Comparison with Regular Tuples**
+  - Regular tuples: `(55, 155, 255)`
+  - Accessing elements by index: `color[0]` returns `55`
+  - Lack of readability: future readers may not understand the meaning of the values.
+
+- **Comparison with Dictionaries**
+  - Dictionaries: `{'red': 55, 'green': 155, 'blue': 255}`
+  - Accessing elements by key: `color['red']` returns `55`
+  - More typing required; less concise for multiple instances.
+
+- **Advantages of Namedtuples**
+  - Combines the immutability of tuples and readability of dictionaries.
+  - Easier to create multiple instances without repetitive typing.
+  - Allows accessing elements by name using dot notation.
+
+#### Code Snippets:
+
+- **Creating a Namedtuple**
+  ```python
+  from collections import namedtuple
+
+  Color = namedtuple('Color', ['red', 'green', 'blue'])
+  ```
+
+- **Using a Namedtuple**
+  ```python
+  # Creating an instance
+  color = Color(55, 155, 255)
+
+  # Accessing values
+  print(color.red)   # Output: 55
+  print(color[0])    # Output: 55
+
+  # Creating another instance
+  white = Color(255, 255, 255)
+  print(white.blue)  # Output: 255
+  ```
+
+#### Why Use Namedtuples?
+- **Readability**: More intuitive and easier to understand code.
+- **Immutability**: Values cannot be changed, preserving data integrity.
+- **Efficiency**: Less typing compared to dictionaries when creating multiple instances.
+
+#### Conclusion:
+Namedtuples are a valuable tool in Python for creating readable, immutable data structures with minimal overhead. They provide the best of both tuples and dictionaries, making your code cleaner and easier to maintain.
+____
