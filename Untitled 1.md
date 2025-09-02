@@ -2,8 +2,8 @@
 
 <!-- toc -->
 
-- [2. Strings](#2-strings)
-- [Python Tutorial for Beginners 3: Integers and Floats - Working with Numeric Data](#python-tutorial-for-beginners-3-integers-and-floats---working-with-numeric-data)
+- [1. Strings](#1-strings)
+- [2. Integers and Floats - Working with Numeric Data](#2-integers-and-floats---working-with-numeric-data)
   * [Key Insights](#key-insights)
   * [Code Snippets](#code-snippets)
 - [Python Tutorial for Beginners 4: Lists, Tuples, and Sets - YouTube](#python-tutorial-for-beginners-4-lists-tuples-and-sets---youtube)
@@ -15,13 +15,13 @@
   * [Code Snippets](#code-snippets-1)
 - [Python Tutorial for Beginners 5: Dictionaries - Working with Key-Value Pairs](#python-tutorial-for-beginners-5-dictionaries---working-with-key-value-pairs)
     + [Key Interview Points](#key-interview-points)
-    + [Python Tutorial for Beginners 6: Conditionals and Booleans - If, Else, and Elif Statements](#python-tutorial-for-beginners-6-conditionals-and-booleans---if-else-and-elif-statements)
+- [Python Tutorial for Beginners 6: Conditionals and Booleans - If, Else, and Elif Statements](#python-tutorial-for-beginners-6-conditionals-and-booleans---if-else-and-elif-statements)
       - [Key Insights](#key-insights-2)
       - [Code Snippets](#code-snippets-2)
-  * [Python Tutorial for Beginners 7: Loops and Iterations - For/While Loops](#python-tutorial-for-beginners-7-loops-and-iterations---forwhile-loops)
+- [Python Tutorial for Beginners 7: Loops and Iterations - For/While Loops](#python-tutorial-for-beginners-7-loops-and-iterations---forwhile-loops)
     + [Key Insights](#key-insights-3)
     + [Code Snippets](#code-snippets-3)
-    + [Python Tutorial for Beginners 8: Functions](#python-tutorial-for-beginners-8-functions)
+- [Python Tutorial for Beginners 8: Functions](#python-tutorial-for-beginners-8-functions)
       - [Key Insights](#key-insights-4)
       - [Code Snippets](#code-snippets-4)
 
@@ -29,7 +29,7 @@
 
 ---
 
-# 2. Strings
+# 1. Strings
 
 **Key Insights:**
 
@@ -133,7 +133,7 @@ f_string_message = f"{greeting}, {name}!"
 ```
 ___
 
-# Python Tutorial for Beginners 3: Integers and Floats - Working with Numeric Data
+# 2. Integers and Floats - Working with Numeric Data
 
 ## Key Insights
 
@@ -461,7 +461,7 @@ ___
 
 ___
 
-### Python Tutorial for Beginners 6: Conditionals and Booleans - If, Else, and Elif Statements
+# Python Tutorial for Beginners 6: Conditionals and Booleans - If, Else, and Elif Statements
 
 #### Key Insights
 
@@ -589,7 +589,7 @@ ___
       print("Evaluates to False")
   ```
 ___
-## Python Tutorial for Beginners 7: Loops and Iterations - For/While Loops
+# Python Tutorial for Beginners 7: Loops and Iterations - For/While Loops
 
 ### Key Insights
 
@@ -724,7 +724,7 @@ while True:
         break
 ```
 ___
-### Python Tutorial for Beginners 8: Functions
+# Python Tutorial for Beginners 8: Functions
 
 #### Key Insights
 
