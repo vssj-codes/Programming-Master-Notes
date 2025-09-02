@@ -63,7 +63,7 @@
 - [19. Generators](#19-generators)
     + [Key Insights](#key-insights-10)
     + [Code Snippets for Interviews](#code-snippets-for-interviews)
-- [Decorators](#decorators)
+- [20. Decorators](#20-decorators)
   * [Key Insights](#key-insights-11)
     + [Introduction](#introduction)
     + [Pre-requisites](#pre-requisites)
@@ -76,10 +76,10 @@
     + [Code Snippet: Decorator with Arguments](#code-snippet-decorator-with-arguments)
     + [Real-world Usage](#real-world-usage)
   * [Summary](#summary)
-- [Decorators With Arguments](#decorators-with-arguments)
+- [21. Decorators With Arguments](#21-decorators-with-arguments)
       - [Key Insights:](#key-insights-1)
       - [Summary:](#summary-1)
-- [Namedtuple](#namedtuple)
+- [22. Namedtuple](#22-namedtuple)
       - [Key Insights:](#key-insights-2)
       - [Code Snippets:](#code-snippets)
       - [Why Use Namedtuples?](#why-use-namedtuples)
@@ -2114,7 +2114,7 @@ By understanding these concepts and examples, you can effectively discuss idempo
   ```
   ___
 
-#  Decorators 
+#  20. Decorators 
 ## Key Insights
 
 ### Introduction
@@ -2208,7 +2208,7 @@ greet("Alice")
 - They are widely used in Python frameworks, such as Flask and Django, for various purposes like route handling and middleware.
 ___
 
-# Decorators With Arguments
+# 21. Decorators With Arguments
 
 #### Key Insights:
 - **Introduction to Decorators with Arguments**
@@ -2299,7 +2299,7 @@ ___
 - Decorators can enhance the functionality of existing functions by adding pre- and post-execution logic.
 - This technique is useful in frameworks like Flask for routing and can be customized for various use cases.
 ___
-# Namedtuple 
+# 22. Namedtuple 
 
 #### Key Insights:
 
