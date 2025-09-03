@@ -18,6 +18,10 @@
       - [Important-Notes](#important-notes-3)
       - [Code-Snippet](#code-snippet-3)
       - [Key-Takeaway](#key-takeaway-3)
+- [f-Strings](#f-strings)
+      - [Important-Notes](#important-notes-4)
+      - [Code-Snippet](#code-snippet-4)
+      - [Key-Takeaway](#key-takeaway-4)
 
 <!-- tocstop -->
 
@@ -299,3 +303,58 @@ except MyError as e:
 * **Use `try/except` for safe code execution.**
 * **`else` runs if no error, `finally` always runs.**
 * **`raise` + custom exceptions = explicit error handling.**
+
+---
+# f-Strings
+
+#### Important-Notes
+
+* Prefix string with `f` or `F`.
+* Place expressions inside `{}`.
+* Faster and cleaner than `format()` or `%`.
+* Supports variables, expressions, and function calls.
+* Format specifiers: `{value:.2f}`, `{value:>5}`, `{value:<5}`, etc.
+
+#### Code-Snippet
+
+```python
+name = "Vamsi"
+age = 31
+
+# 1. Basic usage
+print(f"My name is {name} and I am {age} years old")
+# Output: My name is Vamsi and I am 31 years old
+
+# 2. Expressions inside {}
+print(f"Next year I will be {age + 1}")
+# Output: Next year I will be 32
+
+# 3. Function calls
+print(f"Uppercase name: {name.upper()}")
+# Output: Uppercase name: VAMSI
+
+# 4. Numbers formatting
+pi = 3.14159
+print(f"Pi rounded: {pi:.2f}")
+# Output: Pi rounded: 3.14
+
+# 5. Alignment & width
+num = 7
+print(f"[{num:>5}]")  # right align
+print(f"[{num:<5}]")  # left align
+print(f"[{num:^5}]")  # center align
+# Output:
+# [    7]
+# [7    ]
+# [  7  ]
+
+# 6. Debugging (Python 3.8+)
+print(f"{age=}")
+# Output: age=31
+```
+
+#### Key-Takeaway
+
+* f-strings → concise & powerful formatting.
+* Support **variables, expressions, functions, and formatting options** directly inside `{}`.
+
