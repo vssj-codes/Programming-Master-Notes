@@ -6,6 +6,10 @@
       - [Important-Notes](#important-notes)
       - [Code-Snippet](#code-snippet)
       - [Key-Takeaway](#key-takeaway)
+- [CSV-Module](#csv-module)
+      - [Important-Notes](#important-notes-1)
+      - [Code-Snippet](#code-snippet-1)
+      - [Key-Takeaway](#key-takeaway-1)
 
 <!-- tocstop -->
 
@@ -62,3 +66,82 @@ print(random.betavariate(2, 5))  # Output: 0.145...   (Beta)
 * `choice` / `sample` → pick items.
 * `shuffle` → reorder list.
 * `seed` → reproducibility for debugging.
+
+# CSV-Module
+
+#### Important-Notes
+
+* `csv.reader` → read rows from CSV.
+* `csv.DictReader` → read rows as dictionaries (keys = headers).
+* `csv.writer` → write rows to CSV.
+* `csv.DictWriter` → write dictionaries (keys = headers).
+* Always open files with `newline=''` when using `csv`.
+
+#### Code-Snippet
+
+```python
+import csv
+
+# 1. Writing CSV (rows)
+rows = [
+    ["name", "age", "city"],
+    ["Alice", 25, "Delhi"],
+    ["Bob", 30, "Mumbai"]
+]
+
+with open("people.csv", "w", newline="") as f:
+    writer = csv.writer(f)
+    writer.writerows(rows)
+
+# File 'people.csv' created with:
+# name,age,city
+# Alice,25,Delhi
+# Bob,30,Mumbai
+
+
+# 2. Reading CSV (rows)
+with open("people.csv", "r") as f:
+    reader = csv.reader(f)
+    for row in reader:
+        print(row)
+
+# Output:
+# ['name', 'age', 'city']
+# ['Alice', '25', 'Delhi']
+# ['Bob', '30', 'Mumbai']
+
+
+# 3. Reading CSV (as dicts)
+with open("people.csv", "r") as f:
+    reader = csv.DictReader(f)
+    for row in reader:
+        print(row["name"], row["city"])
+
+# Output:
+# Alice Delhi
+# Bob Mumbai
+
+
+# 4. Writing CSV (dicts)
+people = [
+    {"name": "Charlie", "age": 28, "city": "Chennai"},
+    {"name": "Diana", "age": 22, "city": "Hyderabad"}
+]
+
+with open("people_dict.csv", "w", newline="") as f:
+    fieldnames = ["name", "age", "city"]
+    writer = csv.DictWriter(f, fieldnames=fieldnames)
+    writer.writeheader()
+    writer.writerows(people)
+
+# File 'people_dict.csv' created with:
+# name,age,city
+# Charlie,28,Chennai
+# Diana,22,Hyderabad
+```
+
+#### Key-Takeaway
+
+* Use `reader`/`writer` for lists.
+* Use `DictReader`/`DictWriter` for dictionaries with headers.
+* Always open CSV files with `newline=''` to avoid blank lines.
