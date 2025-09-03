@@ -10,6 +10,10 @@
       - [Important-Notes](#important-notes-1)
       - [Code-Snippet](#code-snippet-1)
       - [Key-Takeaway](#key-takeaway-1)
+- [RegEx-Module](#regex-module)
+      - [Important-Notes](#important-notes-2)
+      - [Code-Snippet](#code-snippet-2)
+      - [Key-Takeaway](#key-takeaway-2)
 
 <!-- tocstop -->
 
@@ -145,3 +149,62 @@ with open("people_dict.csv", "w", newline="") as f:
 * Use `reader`/`writer` for lists.
 * Use `DictReader`/`DictWriter` for dictionaries with headers.
 * Always open CSV files with `newline=''` to avoid blank lines.
+
+# RegEx-Module
+
+#### Important-Notes
+
+* Import: `import re`
+* `re.match` → matches from start of string.
+* `re.search` → finds first occurrence anywhere.
+* `re.findall` → returns all matches (list).
+* `re.finditer` → returns iterator of match objects, case-sensitive
+* `re.sub` → replace text.
+* `re.split` → split by regex pattern.
+  
+* Common patterns:
+  * `\d` = digit, `\w` = word char, `\s` = whitespace
+  * `+` = 1+ times, `*` = 0+ times, `?` = 0/1 time
+  * `^` = start, `$` = end
+
+#### Code-Snippet
+
+```python
+import re
+
+text = "My phone is 98765 and office is 12345"
+
+# 1. Match from start
+m = re.match(r"My", text)
+print(m.group())  # Output: My
+
+# 2. Search anywhere
+s = re.search(r"\d+", text)
+print(s.group())  # Output: 98765
+
+# 3. Find all
+all_nums = re.findall(r"\d+", text)
+print(all_nums)  # Output: ['98765', '12345']
+
+# 4. Find iter
+for match in re.finditer(r"\d+", text):
+    print(match.group())
+# Output:
+# 98765
+# 12345
+
+# 5. Replace
+masked = re.sub(r"\d", "*", text)
+print(masked)  # Output: My phone is ***** and office is *****
+
+# 6. Split
+parts = re.split(r"\s", text)
+print(parts)  
+# Output: ['My', 'phone', 'is', '98765', 'and', 'office', 'is', '12345']
+```
+
+#### Key-Takeaway
+
+* Use `search`/`findall` to locate patterns.
+* `sub` replaces, `split` tokenizes.
+* Master **quantifiers + character classes** for most tasks.
