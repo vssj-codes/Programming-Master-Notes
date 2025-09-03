@@ -22,6 +22,10 @@
       - [Important-Notes](#important-notes-4)
       - [Code-Snippet](#code-snippet-4)
       - [Key-Takeaway](#key-takeaway-4)
+- [Generators](#generators)
+      - [Important-Notes](#important-notes-5)
+      - [Code-Snippet](#code-snippet-5)
+      - [Key-Takeaway](#key-takeaway-5)
 
 <!-- tocstop -->
 
@@ -358,3 +362,57 @@ print(f"{age=}")
 * f-strings → concise & powerful formatting.
 * Support **variables, expressions, functions, and formatting options** directly inside `{}`.
 
+---
+# Generators
+
+#### Important-Notes
+
+* Defined using `yield` instead of `return`.
+* Produce values **one by one** → lazy evaluation.
+* Save memory (don’t store entire sequence).
+* Can be created with **generator functions** or **generator expressions**.
+
+#### Code-Snippet
+
+```python
+# 1. Generator function with yield
+def gen_nums():
+    for i in range(3):
+        yield i
+
+g = gen_nums()
+print(next(g))  # Output: 0
+print(next(g))  # Output: 1
+print(next(g))  # Output: 2
+# print(next(g)) -> Raises StopIteration
+
+# 2. Generator expression
+squares = (x * x for x in range(4))
+print(list(squares))
+# Output: [0, 1, 4, 9]
+
+# 3. Iterating generator
+def countdown(n):
+    while n > 0:
+        yield n
+        n -= 1
+
+for num in countdown(3):
+    print(num)
+# Output:
+# 3
+# 2
+# 1
+
+# 4. Memory efficiency
+import sys
+nums_list = [x for x in range(1000)]
+nums_gen = (x for x in range(1000))
+
+print(sys.getsizeof(nums_list))  # Output: ~9000+
+print(sys.getsizeof(nums_gen))   # Output: ~112
+```
+
+#### Key-Takeaway
+
+* Use generators for **large datasets or infinite streams** → efficient in memory and performance.
