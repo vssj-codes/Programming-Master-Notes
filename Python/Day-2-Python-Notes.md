@@ -155,17 +155,32 @@ with open("people_dict.csv", "w", newline="") as f:
 #### Important-Notes
 
 * Import: `import re`
-* `re.match` → matches from start of string.
-* `re.search` → finds first occurrence anywhere.
-* `re.findall` → returns all matches (list).
-* `re.finditer` → returns iterator of match objects, case-sensitive
-* `re.sub` → replace text.
-* `re.split` → split by regex pattern.
-  
-* Common patterns:
-  * `\d` = digit, `\w` = word char, `\s` = whitespace
-  * `+` = 1+ times, `*` = 0+ times, `?` = 0/1 time
-  * `^` = start, `$` = end
+* **Functions**:
+
+  * `match` → from start
+  * `search` → first match
+  * `findall` → all matches as list
+  * `finditer` → iterator of match objects
+  * `sub` → replace
+  * `split` → split by regex
+* **Character sets & rules**:
+
+  * `.` → any char except newline
+  * `\d` → digit, `\D` → non-digit
+  * `\w` → word char (letters, digits, `_`), `\W` → non-word
+  * `\s` → whitespace, `\S` → non-whitespace
+  * `[abc]` → a or b or c
+  * `[^abc]` → not a, b, c
+  * `[0-9]` → any digit
+  * `[a-zA-Z]` → any letter
+* **Quantifiers**:
+
+  * `+` = 1+ times
+  * `*` = 0+ times
+  * `?` = 0 or 1
+  * `{n}` = exactly n
+  * `{n,}` = n or more
+  * `{n,m}` = between n and m
 
 #### Code-Snippet
 
@@ -175,36 +190,39 @@ import re
 text = "My phone is 98765 and office is 12345"
 
 # 1. Match from start
-m = re.match(r"My", text)
-print(m.group())  # Output: My
+print(re.match(r"My", text).group())  
+# Output: My
 
 # 2. Search anywhere
-s = re.search(r"\d+", text)
-print(s.group())  # Output: 98765
+print(re.search(r"\d+", text).group())  
+# Output: 98765
 
-# 3. Find all
-all_nums = re.findall(r"\d+", text)
-print(all_nums)  # Output: ['98765', '12345']
+# 3. Find all numbers
+print(re.findall(r"\d+", text))  
+# Output: ['98765', '12345']
 
-# 4. Find iter
-for match in re.finditer(r"\d+", text):
-    print(match.group())
-# Output:
-# 98765
-# 12345
+# 4. Character sets
+print(re.findall(r"[aeiou]", "hello world"))  
+# Output: ['e', 'o', 'o']
+
+print(re.findall(r"[^0-9]", "a1b2c3"))  
+# Output: ['a', 'b', 'c']
 
 # 5. Replace
-masked = re.sub(r"\d", "*", text)
-print(masked)  # Output: My phone is ***** and office is *****
+print(re.sub(r"\d", "*", text))  
+# Output: My phone is ***** and office is *****
 
-# 6. Split
-parts = re.split(r"\s", text)
-print(parts)  
+# 6. Split by spaces
+print(re.split(r"\s", text))  
 # Output: ['My', 'phone', 'is', '98765', 'and', 'office', 'is', '12345']
+
+# 7. Quantifiers
+print(re.findall(r"a{2,3}", "caaabb aa aaaa"))  
+# Output: ['aaa', 'aa', 'aaa']
 ```
 
 #### Key-Takeaway
 
-* Use `search`/`findall` to locate patterns.
-* `sub` replaces, `split` tokenizes.
-* Master **quantifiers + character classes** for most tasks.
+* `\d, \w, \s` cover most needs.
+* Use `[ ]` for custom sets, `[^ ]` for negation.
+* Quantifiers control repetition (`+`, `*`, `{n,m}`).
