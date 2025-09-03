@@ -26,14 +26,17 @@
       - [Important-Notes](#important-notes-5)
       - [Code-Snippet](#code-snippet-5)
       - [Key-Takeaway](#key-takeaway-5)
-- [Generators](#generators)
+- [Iterator-vs-Iterable](#iterator-vs-iterable)
       - [Important-Notes](#important-notes-6)
-      - [Code-Snippet](#code-snippet-6)
       - [Key-Takeaway](#key-takeaway-6)
-- [Iterators vs Generators](#iterators-vs-generators)
+- [Generators](#generators)
       - [Important-Notes](#important-notes-7)
-      - [Code-Snippet](#code-snippet-7)
+      - [Code-Snippet](#code-snippet-6)
       - [Key-Takeaway](#key-takeaway-7)
+- [Iterators vs Generators](#iterators-vs-generators)
+      - [Important-Notes](#important-notes-8)
+      - [Code-Snippet](#code-snippet-7)
+      - [Key-Takeaway](#key-takeaway-8)
 
 <!-- tocstop -->
 
@@ -433,6 +436,45 @@ for n in cd:
 * Implement `__iter__` and `__next__` to build custom iterators.
 
 ---
+
+# Iterator-vs-Iterable
+
+#### Important-Notes
+
+* **Iterable**: any object you can loop over (list, tuple, dict, str, etc.).
+
+  * Must implement `__iter__()` (returns an iterator).
+* **Iterator**: the object returned by `iter(iterable)`.
+
+  * Must implement `__iter__()` and `__next__()`.
+* `for` loop calls `iter(iterable)` → gets iterator → repeatedly calls `next()`.
+
+**Runnable Snippet**
+
+```python
+# Iterable (list)
+nums = [10, 20, 30]      # list is iterable
+it = iter(nums)          # convert iterable -> iterator
+
+print(next(it))  # Output: 10
+print(next(it))  # Output: 20
+print(next(it))  # Output: 30
+# print(next(it)) -> StopIteration
+
+# Check which is iterable / iterator
+from collections.abc import Iterable, Iterator
+
+print(isinstance(nums, Iterable))   # Output: True
+print(isinstance(nums, Iterator))   # Output: False
+print(isinstance(it, Iterator))     # Output: True
+```
+
+#### Key-Takeaway
+
+* **Iterable** = can be looped over (provides `__iter__`).
+* **Iterator** = does the actual iteration (`__next__`).
+* `iter(iterable)` converts iterable → iterator.
+
 # Generators
 
 #### Important-Notes
