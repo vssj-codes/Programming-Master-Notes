@@ -22,10 +22,18 @@
       - [Important-Notes](#important-notes-4)
       - [Code-Snippet](#code-snippet-4)
       - [Key-Takeaway](#key-takeaway-4)
-- [Generators](#generators)
+- [Iterators](#iterators)
       - [Important-Notes](#important-notes-5)
       - [Code-Snippet](#code-snippet-5)
       - [Key-Takeaway](#key-takeaway-5)
+- [Generators](#generators)
+      - [Important-Notes](#important-notes-6)
+      - [Code-Snippet](#code-snippet-6)
+      - [Key-Takeaway](#key-takeaway-6)
+- [Iterators vs Generators](#iterators-vs-generators)
+      - [Important-Notes](#important-notes-7)
+      - [Code-Snippet](#code-snippet-7)
+      - [Key-Takeaway](#key-takeaway-7)
 
 <!-- tocstop -->
 
@@ -363,6 +371,68 @@ print(f"{age=}")
 * Support **variables, expressions, functions, and formatting options** directly inside `{}`.
 
 ---
+
+# Iterators
+
+#### Important-Notes
+
+* Iterator = object with `__iter__()` and `__next__()` methods.
+* `iter(obj)` → returns iterator, `next(it)` → next element.
+* Iterators remember their state.
+* Looping (`for`) internally uses `iter()` and `next()`.
+* Custom iterators can be built with classes.
+
+#### Code-Snippet
+
+```python
+# 1. Built-in iterator
+nums = [1, 2, 3]
+it = iter(nums)
+print(next(it))  # Output: 1
+print(next(it))  # Output: 2
+print(next(it))  # Output: 3
+# print(next(it)) -> Raises StopIteration
+
+
+# 2. For-loop uses iter() internally
+for n in nums:
+    print(n)
+# Output:
+# 1
+# 2
+# 3
+
+
+# 3. Custom iterator class
+class CountDown:
+    def __init__(self, start):
+        self.current = start
+    
+    def __iter__(self):
+        return self
+    
+    def __next__(self):
+        if self.current <= 0:
+            raise StopIteration
+        val = self.current
+        self.current -= 1
+        return val
+
+cd = CountDown(3)
+for n in cd:
+    print(n)
+# Output:
+# 3
+# 2
+# 1
+```
+
+#### Key-Takeaway
+
+* Iterators power loops in Python.
+* Implement `__iter__` and `__next__` to build custom iterators.
+
+---
 # Generators
 
 #### Important-Notes
@@ -416,3 +486,59 @@ print(sys.getsizeof(nums_gen))   # Output: ~112
 #### Key-Takeaway
 
 * Use generators for **large datasets or infinite streams** → efficient in memory and performance.
+
+---
+# Iterators vs Generators
+
+#### Important-Notes
+
+* Both are used for **lazy evaluation** (one item at a time).
+* **Iterators**: require `__iter__` + `__next__`.
+* **Generators**: created with `yield` or generator expressions.
+* Generators auto-handle `__iter__` and `__next__`.
+* Generators are shorter & more readable for most use cases.
+
+#### Code-Snippet
+
+```python
+# Iterator Example
+class CountDownIter:
+    def __init__(self, start):
+        self.current = start
+    def __iter__(self):
+        return self
+    def __next__(self):
+        if self.current <= 0:
+            raise StopIteration
+        val = self.current
+        self.current -= 1
+        return val
+
+for n in CountDownIter(3):
+    print("Iterator:", n)
+# Output:
+# Iterator: 3
+# Iterator: 2
+# Iterator: 1
+
+
+# Generator Example
+def countdown_gen(n):
+    while n > 0:
+        yield n
+        n -= 1
+
+for n in countdown_gen(3):
+    print("Generator:", n)
+# Output:
+# Generator: 3
+# Generator: 2
+# Generator: 1
+```
+
+#### Key-Takeaway
+
+* **Iterator** = manual, more boilerplate (`__iter__`, `__next__`).
+* **Generator** = compact, uses `yield`, preferred in most cases.
+
+---
