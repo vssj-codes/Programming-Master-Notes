@@ -52,7 +52,7 @@
     + [Code Snippets](#code-snippets-7)
 - [14. Datetime Module](#14-datetime-module)
       - [Key Concepts:](#key-concepts)
-- [15. Context Managers](#15-context-managers)
+- [15.-Context-Managers](#15-context-managers)
 - [16. OS Module](#16-os-module)
       - [Key Insights](#key-insights-10)
       - [Code Snippets](#code-snippets-8)
@@ -1939,7 +1939,7 @@ ___
     print(dt)
     ```
 ___
-# 15. Context Managers
+# 15.-Context-Managers
 
 **Key Insights:**
 
