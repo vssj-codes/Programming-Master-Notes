@@ -14,6 +14,10 @@
       - [Important-Notes](#important-notes-2)
       - [Code-Snippet](#code-snippet-2)
       - [Key-Takeaway](#key-takeaway-2)
+- [Error-Handling](#error-handling)
+      - [Important-Notes](#important-notes-3)
+      - [Code-Snippet](#code-snippet-3)
+      - [Key-Takeaway](#key-takeaway-3)
 
 <!-- tocstop -->
 
@@ -226,3 +230,72 @@ print(re.findall(r"a{2,3}", "caaabb aa aaaa"))
 * `\d, \w, \s` cover most needs.
 * Use `[ ]` for custom sets, `[^ ]` for negation.
 * Quantifiers control repetition (`+`, `*`, `{n,m}`).
+
+# Error-Handling
+
+#### Important-Notes
+
+* **Use `try`…`except` to catch errors.**
+* **`else` block runs if no exception.**
+* **`finally` always runs (cleanup).**
+* **`raise` → manually raise exception.**
+* **Custom exceptions → subclass `Exception`.**
+
+#### Code-Snippet
+
+```python
+# 1. Basic try-except
+try:
+    x = 10 / 0
+except ZeroDivisionError as e:
+    print("Error:", e)
+# Output: Error: division by zero
+
+# 2. Multiple excepts
+try:
+    num = int("abc")
+except ValueError:
+    print("ValueError occurred")
+except TypeError:
+    print("TypeError occurred")
+# Output: ValueError occurred
+
+# 3. Else + Finally
+try:
+    print("Hello")
+except:
+    print("Something went wrong")
+else:
+    print("No errors!")
+finally:
+    print("Always runs")
+# Output:
+# Hello
+# No errors!
+# Always runs
+
+# 4. Raise exception
+def check_age(age):
+    if age < 18:
+        raise ValueError("Age must be 18+")
+    return "Allowed"
+
+print(check_age(20))  
+# Output: Allowed
+
+# 5. Custom Exception
+class MyError(Exception):
+    pass
+
+try:
+    raise MyError("Something custom went wrong")
+except MyError as e:
+    print("Caught:", e)
+# Output: Caught: Something custom went wrong
+```
+
+#### Key-Takeaway
+
+* **Use `try/except` for safe code execution.**
+* **`else` runs if no error, `finally` always runs.**
+* **`raise` + custom exceptions = explicit error handling.**
