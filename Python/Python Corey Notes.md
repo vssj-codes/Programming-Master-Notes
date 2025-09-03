@@ -53,6 +53,11 @@
 - [14. Datetime Module](#14-datetime-module)
       - [Key Concepts:](#key-concepts)
 - [15.-Context-Managers](#15-context-managers)
+    + [Opening Files](#opening-files)
+    + [Reading from Files](#reading-from-files)
+    + [File Position (Seeking and Telling)](#file-position-seeking-and-telling)
+    + [Writing to Files](#writing-to-files)
+    + [Copying Files](#copying-files)
 - [16. OS Module](#16-os-module)
       - [Key Insights](#key-insights-10)
       - [Code Snippets](#code-snippets-8)
@@ -1940,6 +1945,154 @@ ___
     ```
 ___
 # 15.-Context-Managers
+
+### Opening Files
+
+- **Best Practice: Context Manager**
+    
+    - It is highly recommended to use a **context manager** with the `with` keyword to open files.
+    - **Benefit**: This automatically handles closing the file for you, even if errors occur, which prevents resource leaks.
+    - After the `with` block is exited, the file object is closed. Attempting to read or write will cause a `ValueError`.
+    
+    ```
+    # 'r' is for read mode
+    with open('test.txt', 'r') as f:
+        # work with file 'f' inside this block
+        pass
+    
+    # The file is now automatically closed
+    print(f.closed) # Returns True
+    ```
+    
+- **Manual Open/Close (Not Recommended)**
+    
+    - You can open a file by assigning `open()` to a variable, but you must remember to explicitly call `f.close()` when you are finished.
+    - Forgetting to close the file can lead to running over the maximum allowed file descriptors and cause application errors.
+    
+    ```
+    f = open('test.txt', 'r')
+    # ... do work ...
+    f.close()
+    ```
+    
+- **File Modes**
+    
+    - **`'r'`**: Read mode (this is the default).
+    - **`'w'`**: Write mode. **Overwrites the file** if it exists, or creates it if it doesn't.
+    - **`'a'`**: Append mode. Adds content to the end of an existing file.
+    - **`'r+'`**: Read and Write mode.
+
+### Reading from Files
+
+- **Reading the Entire File (`.read()`)**
+    
+    - Reads all contents of a file into a single string.
+    - This is fine for small files, but can consume too much memory with very large files.
+    
+    ```
+    with open('test.txt', 'r') as f:
+        f_contents = f.read()
+        print(f_contents)
+    ```
+    
+- **Reading Line by Line**
+    
+    - **`.readlines()`**: Returns a list where each element is a line from the file.
+    - **`.readline()`**: Reads a single line. Each subsequent call reads the next line in the file.
+- **Efficiently Reading Large Files**
+    
+    - **Method 1: Iteration**
+        
+        - This is the most common and efficient method for large files as it reads the file one line at a time without loading it all into memory.
+        
+        ```
+        with open('test.txt', 'r') as f:
+            for line in f:
+                print(line, end='')
+        ```
+        
+    - **Method 2: Reading in Chunks**
+        
+        - You can specify a number of characters to read at a time. Use a `while` loop to continue reading chunks until the end of the file is reached (when `.read()` returns an empty string).
+        
+        ```
+        with open('test.txt', 'r') as f:
+            size_to_read = 10
+            f_contents = f.read(size_to_read)
+            while len(f_contents) > 0:
+                print(f_contents, end='*')
+                f_contents = f.read(size_to_read)
+        ```
+        
+
+### File Position (Seeking and Telling)
+
+- **`.tell()`**: Returns an integer representing the current position of the cursor in the file.
+    
+- **`.seek()`**: Moves the cursor to a specified position. `f.seek(0)` moves the cursor to the beginning of the file.
+    
+    ```
+    with open('test.txt', 'r') as f:
+        f_contents = f.read(10) # Read first 10 characters
+        print(f.tell()) # Prints the current position (10)
+    
+        f.seek(0) # Move cursor back to the start
+    
+        f_contents_2 = f.read(10) # Read the same 10 characters again
+        print(f_contents_2)
+    ```
+    
+
+### Writing to Files
+
+- **Opening in Write Mode (`'w'`)**
+    
+    - If you open a file in `'w'` mode that doesn't exist, it will be created.
+    - **Caution**: If the file _does_ exist, its contents will be completely overwritten.
+- **Writing Content**
+    
+    - Use the **`.write()`** method to write a string to the file.
+    - You cannot write to a file that was opened in read-only mode (`'r'`).
+    
+    ```
+    # This creates test2.txt and overwrites it if it exists
+    with open('test2.txt', 'w') as f:
+        f.write('Test')
+        f.seek(0) # Go back to the beginning
+        f.write('R') # Overwrites just the first character
+    ```
+    
+
+### Copying Files
+
+- **Copying a Text File**
+    
+    - Nest `with` statements to open the source file for reading and the destination file for writing simultaneously.
+    - Iterate through the source file and write each line to the destination file.
+    
+    ```
+    with open('test.txt', 'r') as rf:
+        with open('test_copy.txt', 'w') as wf:
+            for line in rf:
+                wf.write(line)
+    ```
+    
+- **Copying Non-Text Files (e.g., Images)**
+    
+    - To work with images or other non-text files, you must open them in **binary mode** by appending `'b'` to the mode string (e.g., `'rb'` or `'wb'`).
+    - Failing to use binary mode for these files will result in a `UnicodeDecodeError`.
+    - The most reliable way to copy large binary files is by reading and writing them in chunks.
+    
+    ```
+    # Copying an image file in chunks
+    with open('bronx.jpeg', 'rb') as rf:
+        with open('bronx_copy.jpeg', 'wb') as wf:
+            chunk_size = 496 # Note: The source uses this value, 4096 is also common
+            rf_chunk = rf.read(chunk_size)
+            while len(rf_chunk) > 0:
+                wf.write(rf_chunk)
+                rf_chunk = rf.read(chunk_size)
+    ```
 
 **Key Insights:**
 
