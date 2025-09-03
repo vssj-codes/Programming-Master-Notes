@@ -58,11 +58,13 @@
     + [File Position (Seeking and Telling)](#file-position-seeking-and-telling)
     + [Writing to Files](#writing-to-files)
     + [Copying Files](#copying-files)
-- [16. OS Module](#16-os-module)
+- [Random-Module](#random-module)
+    + [Key-Takeaway](#key-takeaway)
+- [OS Module](#os-module)
       - [Key Insights](#key-insights-10)
       - [Code Snippets](#code-snippets-8)
       - [Usage Tips](#usage-tips)
-- [17. Programming Terms](#17-programming-terms)
+- [Programming Terms](#programming-terms)
   * [Closures](#closures)
     + [Key Insights](#key-insights-11)
     + [Python Example](#python-example)
@@ -84,10 +86,10 @@
     + [Key Insights](#key-insights-13)
   * [HTTP Methods](#http-methods)
   * [Interview Preparation](#interview-preparation)
-- [18. Generators](#18-generators)
+- [Generators](#generators)
     + [Key Insights](#key-insights-14)
     + [Code Snippets for Interviews](#code-snippets-for-interviews)
-- [19. Decorators](#19-decorators)
+- [Decorators](#decorators)
   * [Key Insights](#key-insights-15)
     + [Introduction](#introduction)
     + [Pre-requisites](#pre-requisites)
@@ -100,18 +102,18 @@
     + [Code Snippet: Decorator with Arguments](#code-snippet-decorator-with-arguments)
     + [Real-world Usage](#real-world-usage)
   * [Summary](#summary-2)
-- [20. Decorators With Arguments](#20-decorators-with-arguments)
+- [Decorators With Arguments](#decorators-with-arguments)
       - [Key Insights:](#key-insights-2)
       - [Summary:](#summary-1)
-- [21. Namedtuple](#21-namedtuple)
+- [Namedtuple](#namedtuple)
       - [Key Insights:](#key-insights-3)
       - [Code Snippets:](#code-snippets)
       - [Why Use Namedtuples?](#why-use-namedtuples)
       - [Conclusion:](#conclusion)
-- [22. Using Try/Except Blocks for Error Handling](#22-using-tryexcept-blocks-for-error-handling)
+- [Using Try/Except Blocks for Error Handling](#using-tryexcept-blocks-for-error-handling)
       - [Key Insights](#key-insights-16)
       - [Code Snippets](#code-snippets-9)
-- [23. Regex](#23-regex)
+- [Regex](#regex)
     + [Introduction](#introduction-1)
     + [Basic Concepts](#basic-concepts)
     + [Writing Patterns](#writing-patterns)
@@ -126,7 +128,7 @@
     + [Using Flags](#using-flags)
     + [Capturing Groups with Back References](#capturing-groups-with-back-references)
     + [Summary](#summary-3)
-- [24. OOP](#24-oop)
+- [OOP](#oop)
   * [OOP 1: Classes and Instances](#oop-1-classes-and-instances)
       - [Key Insights:](#key-insights-4)
       - [Example Code:](#example-code)
@@ -149,9 +151,9 @@
   * [OOP 4: Inheritance - Creating Subclasses](#oop-4-inheritance---creating-subclasses)
     + [Key Insights](#key-insights-19)
     + [Code Snippets](#code-snippets-12)
-- [25. Special (Magic/Dunder) Methods](#25-special-magicdunder-methods)
+- [Special (Magic/Dunder) Methods](#special-magicdunder-methods)
       - [Key Insights:](#key-insights-5)
-- [26. Property Decorators - Getters, Setters, and Deleters](#26-property-decorators---getters-setters-and-deleters)
+- [Property Decorators - Getters, Setters, and Deleters](#property-decorators---getters-setters-and-deleters)
 
 <!-- tocstop -->
 
@@ -2177,7 +2179,63 @@ ___
 - They automate setup and teardown processes, reducing the chance of resource leaks.
 - Custom context managers can be created using either classes or functions with the `@contextmanager` decorator.
 - Practical examples include file handling and directory management, demonstrating the flexibility and utility of context managers.
-# 16. OS Module
+
+# Random-Module
+
+- Import → `import random`
+    
+
+**1. Generate Random Numbers**
+
+```python
+random.random()      # float [0.0, 1.0)
+random.uniform(1, 5) # float [1, 5]
+random.randint(1, 10) # int [1, 10]
+random.randrange(1, 10, 2) # int, step of 2
+```
+
+**2. Choice & Sampling**
+
+```python
+items = [1, 2, 3, 4, 5]
+random.choice(items)      # single element
+random.choices(items, k=3) # list with replacement
+random.sample(items, 3)   # list without replacement
+```
+
+**3. Shuffle**
+
+```python
+random.shuffle(items)  # in-place shuffle
+```
+
+**4. Seed (reproducibility)**
+
+```python
+random.seed(42)
+```
+
+**5. Distributions**
+
+```python
+random.gauss(mu=0, sigma=1)   # Gaussian
+random.expovariate(lambd=1)   # Exponential
+random.betavariate(alpha, beta)
+```
+
+### Key-Takeaway
+
+- `random.random()` → basic float.
+    
+- `randint`/`uniform` → numbers in range.
+    
+- `choice`/`sample` → pick items.
+    
+- `shuffle` → reorder list.
+    
+- `seed` → fixed results (useful for debugging).
+
+# OS Module
 
 #### Key Insights
 - **OS Module Introduction**
@@ -2331,7 +2389,7 @@ print("Is File:", os.path.isfile(file_path))
 - Use `os.path` for robust path manipulations.
 ___
 
-# 17. Programming Terms
+# Programming Terms
 
 ## Closures
 
@@ -2858,7 +2916,7 @@ By understanding these concepts and examples, you can effectively discuss idempo
 - Be prepared to explain the concept of idempotence with both theoretical and practical examples.
 - Highlight the importance of idempotence in various HTTP methods and how it affects API design.
 - Provide clear examples to differentiate between idempotent and non-idempotent operations.
-# 18. Generators 
+# Generators 
 
 ### Key Insights
 
@@ -2996,7 +3054,7 @@ By understanding these concepts and examples, you can effectively discuss idempo
   ```
   ___
 
-# 19. Decorators 
+# Decorators 
 ## Key Insights
 
 ### Introduction
@@ -3090,7 +3148,7 @@ greet("Alice")
 - They are widely used in Python frameworks, such as Flask and Django, for various purposes like route handling and middleware.
 ___
 
-# 20. Decorators With Arguments
+# Decorators With Arguments
 
 #### Key Insights:
 - **Introduction to Decorators with Arguments**
@@ -3181,7 +3239,7 @@ ___
 - Decorators can enhance the functionality of existing functions by adding pre- and post-execution logic.
 - This technique is useful in frameworks like Flask for routing and can be customized for various use cases.
 ___
-# 21. Namedtuple 
+# Namedtuple 
 
 #### Key Insights:
 
@@ -3236,7 +3294,7 @@ ___
 Namedtuples are a valuable tool in Python for creating readable, immutable data structures with minimal overhead. They provide the best of both tuples and dictionaries, making your code cleaner and easier to maintain.
 ____
 
-# 22. Using Try/Except Blocks for Error Handling
+# Using Try/Except Blocks for Error Handling
 
 #### Key Insights
 - **Try/Except Blocks**
@@ -3368,7 +3426,7 @@ ____
        print(e)
    ```
 
-# 23. Regex
+# Regex
 ### Introduction
 - Regular expressions (regex) are used to search for and match specific patterns of text.
 - In Python, the `re` module is used for regex operations.
@@ -3458,7 +3516,7 @@ for match in matches:
 - Practice and familiarity with different patterns and quantifiers are essential.
 - Use the `re` module methods like `finditer`, `findall`, `match`, and `search` to work with regex in Python.
 
-# 24. OOP
+# OOP
 ## OOP 1: Classes and Instances
 
 #### Key Insights:
@@ -3896,7 +3954,7 @@ ___
   ```
 ___
 
-# 25. Special (Magic/Dunder) Methods
+# Special (Magic/Dunder) Methods
 
 #### Key Insights:
 
@@ -3965,7 +4023,7 @@ ___
 - **Useful Links**
   - Python documentation for special methods: [Python Data Model](https://docs.python.org/3/reference/datamodel.html#special-method-names)
 ___
-# 26. Property Decorators - Getters, Setters, and Deleters
+# Property Decorators - Getters, Setters, and Deleters
 
 **Key Insights:**
 
