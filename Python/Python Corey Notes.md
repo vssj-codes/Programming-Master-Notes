@@ -3893,6 +3893,7 @@ ___
     class Developer(Employee):
         def __init__(self, first, last, pay, prog_lang):
             super().__init__(first, last, pay)
+            # Employee.__init__(self, first,last,pay)
             self.prog_lang = prog_lang
     ```
 
