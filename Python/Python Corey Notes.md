@@ -148,7 +148,7 @@
       - [Alternative Constructor Using Class Method](#alternative-constructor-using-class-method)
       - [Static Method Example](#static-method-example)
     + [Additional Notes](#additional-notes)
-  * [OOP 4: Inheritance - Creating Subclasses](#oop-4-inheritance---creating-subclasses)
+  * [OOP-4:-Inheritance-Creating-Subclasses](#oop-4-inheritance-creating-subclasses)
     + [Key Insights](#key-insights-19)
     + [Code Snippets](#code-snippets-12)
   * [OOP 5: Special (Magic/Dunder) Methods](#oop-5--special-magicdunder-methods)
@@ -3860,7 +3860,7 @@ print(Employee.is_workday(my_date))  # Output: True (if it's a weekday)
   - Utility functions that are related to the class but don’t modify its state.
   - Examples: Date manipulation, validation functions.
 ___
-## OOP 4: Inheritance - Creating Subclasses
+## OOP-4:-Inheritance-Creating-Subclasses
 
 ### Key Insights
 - **Inheritance in Python**:
