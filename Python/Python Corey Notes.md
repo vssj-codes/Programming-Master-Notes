@@ -3589,7 +3589,7 @@ for match in matches:
         def fullname(self):
             return f"{self.first} {self.last}"
     ```
-
+- If we forget to write self in method signature `def fullname()`, we will get error saying fullname accepts 0 positional arguments, but 1 was given => instance is passed to instance method
 - **Using Instance Methods:**
   - Call methods on instances.
 
