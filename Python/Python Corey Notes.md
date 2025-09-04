@@ -151,7 +151,7 @@
   * [OOP-4:-Inheritance-Creating-Subclasses](#oop-4-inheritance-creating-subclasses)
     + [Key Insights](#key-insights-19)
     + [Code Snippets](#code-snippets-12)
-  * [OOP 5: Special (Magic/Dunder) Methods](#oop-5--special-magicdunder-methods)
+  * [OOP-5:-Special-(Magic/Dunder)-Methods](#oop-5-special-magicdunder-methods)
       - [Key Insights:](#key-insights-5)
   * [OOP 6: Property Decorators - Getters, Setters, and Deleters](#oop-6-property-decorators---getters-setters-and-deleters)
 
@@ -3957,11 +3957,9 @@ ___
   ```
 ___
 
-## OOP 5:  Special (Magic/Dunder) Methods
+## OOP-5:-Special-(Magic/Dunder)-Methods
 
 #### Key Insights:
-
-- **Special (Magic/Dunder) Methods Overview**
   - Special methods in Python allow us to emulate built-in behavior and implement operator overloading.
   - These methods are surrounded by double underscores (e.g., `__init__`).
   - Commonly referred to as "dunder" methods.
