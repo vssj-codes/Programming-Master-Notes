@@ -3749,7 +3749,8 @@ print(Employee.num_of_employees)  # Output: 2
       @classmethod
       def set_raise_amount(cls, amount):
           cls.raise_amount = amount
-          
+      
+      #used as constructor    
       @classmethod
       def from_string(cls, emp_str):
           first, last, pay = emp_str.split('-')
