@@ -3875,6 +3875,7 @@ ___
         pass
     ```
   - Subclasses inherit all attributes and methods from the parent class.
+  - We can see method resolution order in `print(help(Developer))` 
 
 - **Overriding Methods**:
   - Subclasses can override methods from the parent class to provide specific functionality.
