@@ -129,7 +129,7 @@
     + [Capturing Groups with Back References](#capturing-groups-with-back-references)
     + [Summary](#summary-3)
 - [OOP](#oop)
-  * [OOP 1: Classes and Instances](#oop-1-classes-and-instances)
+  * [OOP-1:-Classes-and-Instances](#oop-1-classes-and-instances)
       - [Key Insights:](#key-insights-4)
       - [Example Code:](#example-code)
   * [OOP 2: Class Variables](#oop-2-class-variables)
@@ -151,9 +151,9 @@
   * [OOP 4: Inheritance - Creating Subclasses](#oop-4-inheritance---creating-subclasses)
     + [Key Insights](#key-insights-19)
     + [Code Snippets](#code-snippets-12)
-- [Special (Magic/Dunder) Methods](#special-magicdunder-methods)
+  * [OOP 5: Special (Magic/Dunder) Methods](#oop-5--special-magicdunder-methods)
       - [Key Insights:](#key-insights-5)
-- [Property Decorators - Getters, Setters, and Deleters](#property-decorators---getters-setters-and-deleters)
+  * [OOP 6: Property Decorators - Getters, Setters, and Deleters](#oop-6-property-decorators---getters-setters-and-deleters)
 
 <!-- tocstop -->
 
@@ -3517,7 +3517,7 @@ for match in matches:
 - Use the `re` module methods like `finditer`, `findall`, `match`, and `search` to work with regex in Python.
 
 # OOP
-## OOP 1: Classes and Instances
+## OOP-1:-Classes-and-Instances
 
 #### Key Insights:
 
@@ -3635,7 +3635,7 @@ print(emp2.fullname())
 print(Employee.fullname(emp1))
 ```
 ___
-##  OOP 2: Class Variables
+## OOP 2: Class Variables
 
 ### Key Insights
 
@@ -3859,7 +3859,7 @@ print(Employee.is_workday(my_date))  # Output: True (if it's a weekday)
   - Utility functions that are related to the class but don’t modify its state.
   - Examples: Date manipulation, validation functions.
 ___
-##  OOP 4: Inheritance - Creating Subclasses
+## OOP 4: Inheritance - Creating Subclasses
 
 ### Key Insights
 - **Inheritance in Python**:
@@ -3954,7 +3954,7 @@ ___
   ```
 ___
 
-# Special (Magic/Dunder) Methods
+## OOP 5:  Special (Magic/Dunder) Methods
 
 #### Key Insights:
 
@@ -4023,7 +4023,7 @@ ___
 - **Useful Links**
   - Python documentation for special methods: [Python Data Model](https://docs.python.org/3/reference/datamodel.html#special-method-names)
 ___
-# Property Decorators - Getters, Setters, and Deleters
+## OOP 6: Property Decorators - Getters, Setters, and Deleters
 
 **Key Insights:**
 
