@@ -46,6 +46,9 @@
     + [Multiprocessing Refactor](#multiprocessing-refactor)
   * [6. Switching Between Threads and Processes](#6-switching-between-threads-and-processes)
   * [Quick Takeaways](#quick-takeaways)
+- [Python AsyncIO – Micro Notes](#python-asyncio-%E2%80%93-micro-notes)
+  * [1. What is AsyncIO?](#1-what-is-asyncio)
+  * [2. Core Components: Event Loop, `async`/`await`](#2-core-components-event-loop-asyncawait)
   * [3. Awaitables: Coroutines vs. Tasks](#3-awaitables-coroutines-vs-tasks)
   * [4. Concurrency: Right vs. Wrong](#4-concurrency-right-vs-wrong)
     + [❌ Mistake: Awaiting Coroutines Directly (sequential)](#%E2%9D%8C-mistake-awaiting-coroutines-directly-sequential)
@@ -607,12 +610,7 @@ with concurrent.futures.ProcessPoolExecutor() as executor:
 * Modern API (`concurrent.futures`) is cleaner and more flexible.
 * `.map()` = simple ordered results, `.as_completed()` = results as they finish.
 * Switching between threads and processes is as simple as swapping the executor class.
-Here you go — your **AsyncIO micro notes** cleaned and formatted for **Obsidian markdown**, with clear headings, code snippets, and explanations.
-
-````markdown
 # Python AsyncIO – Micro Notes
-
----
 
 ## 1. What is AsyncIO?
 - **Purpose**: Library for concurrent code using `async`/`await`.  
