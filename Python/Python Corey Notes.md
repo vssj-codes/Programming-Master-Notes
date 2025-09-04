@@ -3921,7 +3921,7 @@ ___
           self.prog_lang = prog_lang
 
   class Manager(Employee):
-      def __init__(self, first, last, pay, employees=None):
+      def __init__(self, first, last, pay, employees=None): #None instead of [], use immutable datatypes as default
           super().__init__(first, last, pay)
           if employees is None:
               self.employees = []
