@@ -132,7 +132,7 @@
   * [OOP-1:-Classes-and-Instances](#oop-1-classes-and-instances)
       - [Key Insights:](#key-insights-4)
       - [Example Code:](#example-code)
-  * [OOP 2: Class Variables](#oop-2-class-variables)
+  * [OOP-2:-Class-Variables](#oop-2-class-variables)
     + [Key Insights](#key-insights-17)
     + [Code Snippets](#code-snippets-10)
       - [Employee Class with Class Variables](#employee-class-with-class-variables)
@@ -3635,7 +3635,7 @@ print(emp2.fullname())
 print(Employee.fullname(emp1))
 ```
 ___
-## OOP 2: Class Variables
+## OOP-2:-Class-Variables
 
 ### Key Insights
 
