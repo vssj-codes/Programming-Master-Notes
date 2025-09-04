@@ -31,7 +31,7 @@
       - [Key-Takeaway](#key-takeaway)
   * [OOP-6:-Special-(Magic/Dunder)-Methods](#oop-6-special-magicdunder-methods)
       - [Key-Insights:](#key-insights-1)
-  * [OOP-7: Property Decorators - Getters, Setters, and Deleters](#oop-7-property-decorators---getters-setters-and-deleters)
+  * [OOP-7:-Property-Decorators](#oop-7-property-decorators)
 
 <!-- tocstop -->
 
@@ -587,10 +587,9 @@ print(repr(p))  # Output: Person(name='Vamsi', age=31)
 
 - **Useful Links**
   - Python documentation for special methods: [Python Data Model](https://docs.python.org/3/reference/datamodel.html#special-method-names)
-___
-## OOP-7: Property Decorators - Getters, Setters, and Deleters
 
-**Key Insights:**
+## OOP-7:-Property-Decorators
+
 
 - **Introduction to Property Decorators:**
   - Property decorators allow adding getter, setter, and deleter functionality to class attributes.
