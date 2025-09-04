@@ -590,7 +590,6 @@ print(repr(p))  # Output: Person(name='Vamsi', age=31)
 
 ## OOP-7:-Property-Decorators
 
-
 - **Introduction to Property Decorators:**
   - Property decorators allow adding getter, setter, and deleter functionality to class attributes.
   - Useful to maintain attribute consistency without changing existing code.
