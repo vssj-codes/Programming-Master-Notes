@@ -30,7 +30,7 @@
       - [Code-Snippet](#code-snippet)
       - [Key-Takeaway](#key-takeaway)
   * [OOP-6:-Special-(Magic/Dunder)-Methods](#oop-6-special-magicdunder-methods)
-      - [Key Insights:](#key-insights)
+      - [Key-Insights:](#key-insights-1)
   * [OOP-7: Property Decorators - Getters, Setters, and Deleters](#oop-7-property-decorators---getters-setters-and-deleters)
 
 <!-- tocstop -->
@@ -523,21 +523,21 @@ print(repr(p))  # Output: Person(name='Vamsi', age=31)
 * Use `repr()` for **debugging/developers** (unambiguous, recreate object).
 ## OOP-6:-Special-(Magic/Dunder)-Methods
 
-#### Key Insights:
+#### Key-Insights:
   - Special methods in Python allow us to emulate built-in behavior and implement operator overloading.
   - These methods are surrounded by double underscores (e.g., `__init__`).
   - Commonly referred to as "dunder" methods.
 
-- **__init__ Method**
+- __init__ Method
   - Already familiar and commonly used for initializing objects.
   - Automatically called when creating an instance of a class.
 
-- **__repr__ and __str__ Methods**
+- __repr__ and __str__ Methods
   - `__repr__`: Unambiguous representation of the object, useful for debugging and logging. 
   - `__str__`: Readable representation of the object, meant for end-users.
   - Important to implement both for better readability and usability of custom objects.
 
-- **Example Implementation of __repr__ and __str__**
+- Example Implementation of __repr__ and __str__
   ```python
   class Employee:
       def __init__(self, first, last, pay):
