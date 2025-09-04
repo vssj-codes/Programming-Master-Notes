@@ -29,6 +29,23 @@
     + [Synchronous Version](#synchronous-version)
     + [Threaded Version with `.map()`](#threaded-version-with-map)
   * [Takeaways](#takeaways)
+- [Python Multiprocessing – Micro Notes](#python-multiprocessing-%E2%80%93-micro-notes)
+  * [1. Why Use Multiprocessing?](#1-why-use-multiprocessing)
+  * [2. Synchronous vs. Parallel Execution](#2-synchronous-vs-parallel-execution)
+    + [Synchronous Example](#synchronous-example)
+    + [Parallel Execution (Multiprocessing)](#parallel-execution-multiprocessing)
+  * [3. Manual Multiprocessing (Older Way)](#3-manual-multiprocessing-older-way)
+    + [Create, Start, Join Processes](#create-start-join-processes)
+    + [Multiple Processes with a Loop](#multiple-processes-with-a-loop)
+    + [Passing Arguments](#passing-arguments)
+  * [4. Modern Multiprocessing with `concurrent.futures`](#4-modern-multiprocessing-with-concurrentfutures)
+    + [Using `submit` + `as_completed`](#using-submit--as_completed)
+    + [Using `executor.map`](#using-executormap)
+  * [5. Real-World Example: Image Processing](#5-real-world-example-image-processing)
+    + [Original (Synchronous)](#original-synchronous)
+    + [Multiprocessing Refactor](#multiprocessing-refactor)
+  * [6. Switching Between Threads and Processes](#6-switching-between-threads-and-processes)
+  * [Quick Takeaways](#quick-takeaways)
 
 <!-- tocstop -->
 
@@ -377,3 +394,204 @@ with concurrent.futures.ThreadPoolExecutor() as executor:
 * `as_completed` → process tasks as they finish.
 * `.map()` → simple, ordered results.
 * Perfect for network, file, and I/O tasks.
+Perfect. Here’s your content neatly formatted into **Obsidian-ready micro notes** with clear headings, code blocks, and explanations, just like you asked:
+
+# Python Multiprocessing – Micro Notes
+
+## 1. Why Use Multiprocessing?
+- **Goal**: Speed up programs by running tasks truly in parallel.  
+- **Mechanism**: Spreads work across multiple CPU cores.  
+- **Use Cases**:
+  - **CPU-bound tasks** → heavy computation (e.g., image processing).  
+  - **I/O-bound tasks** → file/network wait times.  
+- Unlike threading (best for I/O), multiprocessing helps with both CPU-bound and I/O-bound tasks.
+
+---
+
+## 2. Synchronous vs. Parallel Execution
+
+### Synchronous Example
+```python
+import time
+
+def do_something():
+    print('Sleeping 1 second...')
+    time.sleep(1)
+    print('Done sleeping.')
+
+start = time.perf_counter()
+do_something()
+do_something()
+finish = time.perf_counter()
+
+print(f'Finished in {round(finish-start, 2)} second(s)')
+# Output: ~2.0 seconds
+````
+
+**Observation**
+Runs tasks one after another. Two calls → \~2 seconds.
+
+### Parallel Execution (Multiprocessing)
+
+Same two calls, but run on separate processes → \~1 second.
+
+---
+
+## 3. Manual Multiprocessing (Older Way)
+
+### Create, Start, Join Processes
+
+```python
+import multiprocessing
+import time
+
+def do_something():
+    print('Sleeping 1 second...')
+    time.sleep(1)
+    print('Done sleeping.')
+
+p1 = multiprocessing.Process(target=do_something)
+p2 = multiprocessing.Process(target=do_something)
+
+p1.start()
+p2.start()
+
+p1.join()
+p2.join()
+```
+
+**Key Points**
+
+* `multiprocessing.Process(target=...)` → creates process.
+* `.start()` → runs process.
+* `.join()` → waits for process to finish.
+
+---
+
+### Multiple Processes with a Loop
+
+```python
+processes = []
+for _ in range(10):
+    p = multiprocessing.Process(target=do_something)
+    p.start()
+    processes.append(p)
+
+for process in processes:
+    process.join()
+```
+
+* Two loops:
+
+  1. Start all processes.
+  2. Join them all.
+* Avoid `.join()` inside the start loop (would make it synchronous).
+
+---
+
+### Passing Arguments
+
+```python
+def do_something(seconds):
+    print(f'Sleeping {seconds} second(s)...')
+    time.sleep(seconds)
+    print('Done sleeping.')
+
+p = multiprocessing.Process(target=do_something, args=[1.5])
+p.start()
+```
+
+* Use `args=[...]` (must be **pickleable**).
+
+---
+
+## 4. Modern Multiprocessing with `concurrent.futures`
+
+### Using `submit` + `as_completed`
+
+```python
+import concurrent.futures
+import time
+
+def do_something(seconds):
+    print(f'Sleeping {seconds} second(s)...')
+    time.sleep(seconds)
+    return f'Done Sleeping {seconds}'
+
+secs = [1, 2, 3, 4, 5]
+
+with concurrent.futures.ProcessPoolExecutor() as executor:
+    results = [executor.submit(do_something, sec) for sec in secs]
+    for f in concurrent.futures.as_completed(results):
+        print(f.result())
+```
+
+* `.submit()` → schedules function, returns future.
+* `.result()` → waits + returns value.
+* `as_completed` → yields results as soon as finished.
+
+---
+
+### Using `executor.map`
+
+```python
+secs = [1, 2, 3, 4, 5]
+
+with concurrent.futures.ProcessPoolExecutor() as executor:
+    results = executor.map(do_something, secs)
+    for result in results:
+        print(result)
+```
+
+* Applies function to iterable.
+* Returns results in **submission order**, not completion order.
+* Context manager auto-joins processes.
+
+---
+
+## 5. Real-World Example: Image Processing
+
+### Original (Synchronous)
+
+```python
+for img_name in img_names:
+    # ... process one image ...
+```
+
+Took **22 seconds** for 15 images.
+
+### Multiprocessing Refactor
+
+```python
+def process_image(img_name):
+    # ... process one image ...
+    print(f'{img_name} processed...')
+
+with concurrent.futures.ProcessPoolExecutor() as executor:
+    executor.map(process_image, img_names)
+```
+
+* Finished in **7 seconds** instead of 22.
+
+---
+
+## 6. Switching Between Threads and Processes
+
+* Just change `ProcessPoolExecutor` ↔ `ThreadPoolExecutor`.
+* **Rule of Thumb**:
+
+  * CPU-bound → use processes.
+  * I/O-bound → use threads.
+* **Benchmark Always**: In tests, threading sometimes outperforms processes if tasks involve more I/O than CPU.
+
+---
+
+## Quick Takeaways
+
+* **Processes** → true parallelism (good for CPU-heavy work).
+* **Threads** → concurrency (good for I/O waits).
+* Manual API (`multiprocessing.Process`) works but verbose.
+* Modern API (`concurrent.futures`) is cleaner and more flexible.
+* `.map()` = simple ordered results, `.as_completed()` = results as they finish.
+* Switching between threads and processes is as simple as swapping the executor class.
+
