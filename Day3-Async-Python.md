@@ -46,6 +46,19 @@
     + [Multiprocessing Refactor](#multiprocessing-refactor)
   * [6. Switching Between Threads and Processes](#6-switching-between-threads-and-processes)
   * [Quick Takeaways](#quick-takeaways)
+  * [3. Awaitables: Coroutines vs. Tasks](#3-awaitables-coroutines-vs-tasks)
+  * [4. Concurrency: Right vs. Wrong](#4-concurrency-right-vs-wrong)
+    + [❌ Mistake: Awaiting Coroutines Directly (sequential)](#%E2%9D%8C-mistake-awaiting-coroutines-directly-sequential)
+    + [✅ Correct: Using Tasks (concurrent)](#%E2%9C%85-correct-using-tasks-concurrent)
+  * [5. Don’t Block the Event Loop](#5-dont-block-the-event-loop)
+  * [6. Handling Blocking Code](#6-handling-blocking-code)
+    + [For I/O-bound blocking code](#for-io-bound-blocking-code)
+    + [For CPU-bound blocking code](#for-cpu-bound-blocking-code)
+  * [7. Managing Many Tasks: `gather` & `TaskGroup`](#7-managing-many-tasks-gather--taskgroup)
+    + [`asyncio.gather`](#asynciogather)
+    + [`asyncio.TaskGroup` (Python 3.11+)](#asynciotaskgroup-python-311)
+  * [8. Controlling Concurrency with Semaphores](#8-controlling-concurrency-with-semaphores)
+  * [Quick Takeaways](#quick-takeaways-1)
 
 <!-- tocstop -->
 
@@ -594,4 +607,166 @@ with concurrent.futures.ProcessPoolExecutor() as executor:
 * Modern API (`concurrent.futures`) is cleaner and more flexible.
 * `.map()` = simple ordered results, `.as_completed()` = results as they finish.
 * Switching between threads and processes is as simple as swapping the executor class.
+Here you go — your **AsyncIO micro notes** cleaned and formatted for **Obsidian markdown**, with clear headings, code snippets, and explanations.
 
+````markdown
+# Python AsyncIO – Micro Notes
+
+---
+
+## 1. What is AsyncIO?
+- **Purpose**: Library for concurrent code using `async`/`await`.  
+- **Best Use**: I/O-bound tasks (network requests, DB queries, file I/O).  
+- **Mechanism**: Single-threaded, single-process. Uses **event loop** + cooperative multitasking.  
+- **Not for**: CPU-bound tasks → use `multiprocessing`.  
+
+---
+
+## 2. Core Components: Event Loop, `async`/`await`
+- **Event Loop** → engine that runs/manages async tasks. Start with `asyncio.run()`.  
+- **`async def`** → defines a coroutine.  
+- **`await`** → pauses coroutine, yields control to event loop.  
+
+```python
+import asyncio
+
+async def main():
+    print('hello')
+    await asyncio.sleep(1)  # non-blocking sleep
+    print('world')
+
+asyncio.run(main())
+````
+
+---
+
+## 3. Awaitables: Coroutines vs. Tasks
+
+* **Coroutine Object** → returned when calling an `async` function. Must be awaited or wrapped in Task.
+* **Task** → wrapper that schedules coroutine to run ASAP on event loop. Use `asyncio.create_task()`.
+
+---
+
+## 4. Concurrency: Right vs. Wrong
+
+### ❌ Mistake: Awaiting Coroutines Directly (sequential)
+
+```python
+async def main():
+    await fetch_data(1)
+    await fetch_data(2)  # runs after first finishes
+```
+
+### ✅ Correct: Using Tasks (concurrent)
+
+```python
+async def main():
+    task1 = asyncio.create_task(fetch_data(1))
+    task2 = asyncio.create_task(fetch_data(2))
+
+    result1 = await task1
+    result2 = await task2
+    print(result1, result2)
+```
+
+---
+
+## 5. Don’t Block the Event Loop
+
+* Blocking calls (like `time.sleep`) freeze everything.
+
+```python
+# ❌ Bad: blocks entire loop
+async def fetch_data(data):
+    time.sleep(data)   # blocking!
+```
+
+* ✅ Always use non-blocking alternatives (`asyncio.sleep`, `aiofiles`, `httpx`).
+* If blocking code is unavoidable → offload to thread/process.
+
+---
+
+## 6. Handling Blocking Code
+
+### For I/O-bound blocking code
+
+```python
+import requests
+
+def sync_download(url):
+    return requests.get(url)
+
+async def main():
+    response = await asyncio.to_thread(sync_download, "http://example.com")
+```
+
+### For CPU-bound blocking code
+
+```python
+from concurrent.futures import ProcessPoolExecutor
+
+def cpu_heavy_task():
+    return "done"
+
+async def main():
+    loop = asyncio.get_running_loop()
+    with ProcessPoolExecutor() as pool:
+        result = await loop.run_in_executor(pool, cpu_heavy_task)
+```
+
+---
+
+## 7. Managing Many Tasks: `gather` & `TaskGroup`
+
+### `asyncio.gather`
+
+```python
+tasks = [asyncio.create_task(fetch_data(i)) for i in range(5)]
+results = await asyncio.gather(*tasks, return_exceptions=True)
+```
+
+### `asyncio.TaskGroup` (Python 3.11+)
+
+```python
+async def main():
+    async with asyncio.TaskGroup() as tg:
+        tasks = [tg.create_task(fetch_data(i)) for i in range(5)]
+    results = [t.result() for t in tasks]
+```
+
+* **Difference**:
+
+  * `gather` → exceptions need manual handling.
+  * `TaskGroup` → cancels other tasks if one fails.
+
+---
+
+## 8. Controlling Concurrency with Semaphores
+
+* Limit concurrent tasks to avoid overload.
+
+```python
+DOWNLOAD_LIMIT = 4
+
+async def download_with_limit(url, semaphore):
+    async with semaphore:
+        await download_logic(url)
+
+async def main():
+    semaphore = asyncio.Semaphore(DOWNLOAD_LIMIT)
+    async with asyncio.TaskGroup() as tg:
+        for url in urls:
+            tg.create_task(download_with_limit(url, semaphore))
+```
+
+---
+
+## Quick Takeaways
+
+* Use `asyncio` for **I/O-bound concurrency**, not CPU-heavy work.
+* Event loop runs everything; `async`/`await` controls flow.
+* Use `create_task()` for real concurrency.
+* Avoid blocking calls inside coroutines.
+* Offload blocking work with `to_thread()` or `run_in_executor()`.
+* Use `gather` or `TaskGroup` for managing multiple tasks.
+* Control concurrency with `Semaphore`.
