@@ -3659,7 +3659,7 @@ ___
   - Access class variable within method using `self.raise_amount` or `Employee.raise_amount`
   
 - **Namespace and Attribute Lookup**
-  - Instance checks its namespace first for an attribute.
+  - Instance checks its own namespace first for an attribute.
   - If not found, checks the class namespace.
   - Example: 
     ```python
@@ -3669,7 +3669,7 @@ ___
 
 - **Modifying Class Variables**
   - Changing via class affects all instances: `Employee.raise_amount = 1.05`
-  - Changing via instance creates a new attribute for that instance: `employee1.raise_amount = 1.05`
+  - Changing via instance creates a new attribute for that instance: `employee1.raise_amount = 1.05` and we can see the attribute in instance namespace now.  
   
 - **Class Variable Use Case: Tracking Instances**
   - Example: Keeping count of created instances.
