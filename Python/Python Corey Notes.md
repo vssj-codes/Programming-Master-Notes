@@ -137,7 +137,7 @@
     + [Code Snippets](#code-snippets-10)
       - [Employee Class with Class Variables](#employee-class-with-class-variables)
     + [Summary](#summary-4)
-  * [OOP 3: classmethods and staticmethods](#oop-3-classmethods-and-staticmethods)
+  * [OOP-3:-classmethods-and-staticmethods](#oop-3-classmethods-and-staticmethods)
     + [Regular Methods](#regular-methods)
     + [Class Methods](#class-methods)
     + [Static Methods](#static-methods)
@@ -3722,8 +3722,8 @@ print(Employee.num_of_employees)  # Output: 2
 - **Namespace Lookup:** Instance attributes checked first, then class attributes.
 - **Modifying Class Variables:** Class-level changes affect all instances; instance-level changes create new attributes.
 - **Use Case:** Track number of instances with class variables.
-___
-## OOP 3: classmethods and staticmethods
+- 
+## OOP-3:-classmethods-and-staticmethods
 
 ### Regular Methods
 - Regular methods in a class take the instance (`self`) as the first argument.
