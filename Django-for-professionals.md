@@ -10,12 +10,8 @@
   * [Interview Angle](#interview-angle)
   * [Extension-Ideas](#extension-ideas)
 - [Chapter 3: PostgreSQL with Docker](#chapter-3-postgresql-with-docker)
-  * [Goal](#goal-1)
-  * [Key Concepts](#key-concepts-1)
-  * [Pitfalls & Gotchas](#pitfalls--gotchas-1)
-  * [Interview Angle](#interview-angle-1)
-  * [Extension Ideas](#extension-ideas)
   * [Notes](#notes)
+- [Chapter4-Bookstore](#chapter4-bookstore)
 
 <!-- tocstop -->
 
@@ -133,128 +129,6 @@ Set up a simple **Dockerized Python “Hello World” app** to understand contai
 
 ---
 ## Chapter 3: PostgreSQL with Docker
-
-### Goal
-
-Run **PostgreSQL inside Docker** and connect it with Django (replacing the default SQLite).
-
----
-
-### Key Concepts
-
-* **PostgreSQL**: Production-grade relational database (better than SQLite).
-* **Environment Variables**: Store DB credentials securely.
-* **docker-compose.yml**: Can run multiple services together (Django + Postgres).
-* **Volumes**: Persist database data outside container.
-
-
----
-```
-### Step-by-Step Coding Notes
-
-1. **Update `docker-compose.yml`**
-
-   ```yaml
-   version: "3.9"
-
-   services:
-     db:
-       image: postgres:13
-       volumes:
-         - postgres_data:/var/lib/postgresql/data/
-       environment:
-         - POSTGRES_DB=hello_django_dev
-         - POSTGRES_USER=hello_django
-         - POSTGRES_PASSWORD=hello_django
-
-   volumes:
-     postgres_data:
-   ```
-
-   * `volumes` → ensures DB data persists even if container restarts.
-   * `POSTGRES_*` → sets up DB name, user, and password.
-
-2. **Run Postgres**
-
-   ```bash
-   docker-compose up -d db
-   ```
-
-   * `-d` → detached mode.
-   * Check running containers: `docker ps`.
-
-3. **Verify Database Connection**
-
-   ```bash
-   docker-compose exec db psql --username=hello_django --dbname=hello_django_dev
-   ```
-
-   Inside psql prompt:
-
-   ```sql
-   \l     -- list databases
-   \q     -- quit
-   ```
-
-4. **Install psycopg2 in Django**
-
-   * Add to `requirements.txt`:
-
-     ```
-     psycopg2-binary>=2.8
-     ```
-   * Rebuild container:
-
-     ```bash
-     docker-compose build
-     ```
-
-5. **Update Django `settings.py`**
-
-   ```python
-   DATABASES = {
-       "default": {
-           "ENGINE": "django.db.backends.postgresql",
-           "NAME": "hello_django_dev",
-           "USER": "hello_django",
-           "PASSWORD": "hello_django",
-           "HOST": "db",
-           "PORT": 5432,
-       }
-   }
-   ```
-
-   * Note: `HOST = "db"` matches service name in `docker-compose.yml`.
-
-6. **Run migrations**
-
-   ```bash
-   docker-compose exec web python manage.py migrate
-   ```
-
----
-
-### Pitfalls & Gotchas
-
-* Using `localhost` instead of `db` as host (must match docker-compose service name).
-* Forgetting to add `psycopg2-binary` → Django won’t talk to Postgres.
-* Rebuilding containers (`docker-compose build`) after changing dependencies.
-
----
-
-### Interview Angle
-
-* **Q**: Why is PostgreSQL preferred over SQLite in production?
-* **Q**: What’s the role of Docker volumes for databases?
-* **Q**: How does Django know where the DB is running inside Docker?
-
----
-
-### Extension Ideas
-
-* Add **pgAdmin** (GUI for Postgres) as another Docker service.
-* Create multiple databases and test connecting Django to them.
-* Try using environment variables via `.env` file instead of hardcoding.
 
 ### Notes
 - One of the most immediate differences between working on a “toy app” in Django and a
@@ -383,4 +257,10 @@ docker-compose exec web python manage.py migrate
 docker-compose exec web python manage.py createsuperuser
 ```
 - Let’s use postgresqladmin and for testing purposes set the email to `postgresqladmin@email.com` and the password to `testpass123`
-- `http://127.0.0.1:8000/admin/ `
+- `http://127.0.0.1:8000/admin/ ` and enter in the new superuser log in information.
+- Remember to stop our running container with docker-compose down.
+```shell
+docker-compose down
+```
+
+## Chapter4-Bookstore
