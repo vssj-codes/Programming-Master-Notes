@@ -12,10 +12,10 @@
 - [Chapter 3: PostgreSQL with Docker](#chapter-3-postgresql-with-docker)
   * [Goal](#goal-1)
   * [Key Concepts](#key-concepts-1)
-  * [Notes](#notes)
   * [Pitfalls & Gotchas](#pitfalls--gotchas-1)
   * [Interview Angle](#interview-angle-1)
   * [Extension Ideas](#extension-ideas)
+  * [Notes](#notes)
 
 <!-- tocstop -->
 
@@ -147,78 +147,6 @@ Run **PostgreSQL inside Docker** and connect it with Django (replacing the defau
 * **docker-compose.yml**: Can run multiple services together (Django + Postgres).
 * **Volumes**: Persist database data outside container.
 
----
-### Notes
-- One of the most immediate differences between working on a “toy app” in Django and a
-production-ready one is the database.
-- Django ships with built-in support for five databases: PostgreSQL, MariaDB, MySQL, Oracle, and SQLite
-- The Django ORM handles the translation from Python code to SQL configured for each
-database automatically for us which is quite amazing if you think about it
-
-``` shell
-cd ~/desktop/code
-mkdir ch3-postgresql
-python3.10 -m venv .venv
-source .venv/bin/activate
-python3.10 -m pip install django~=4.0.0
-django-admin startproject django_project .
-python manage.py migrate
-python manage.py runserver
-# Confirm everything worked by navigating to http://127.0.0.1:8000/
-
-pip freeze > requirements.txt
-deactivate
-```
-
-- Docker
-  - To switch over to Docker first deactivate our virtual environment `deactivate`
-```python
-# Dockerfile at project level
-FROM python:3.10.4-slim-bullseye
-# Set environment variables
-ENV PIP_DISABLE_PIP_VERSION_CHECK 1
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
-# Set work directory
-WORKDIR /code
-# Install dependencies
-COPY ./requirements.txt .
-RUN pip install -r requirements.txt
-# Copy project
-COPY . .
-  ```
-  - .dockerignore
-  ```
-  .venv 
-  .git 
-  .gitignore
-  ```
-- Docker will automatically check if it can use the cached results of previous builds.
-- This caching means that the order of a Dockerfile is important for performance reasons. In order to avoid constantly invalidating the cache we start the Dockerfile with commands that are less likely to change while putting commands that are more likely to change, like COPYing the local filesystem, at the end.
-
-```python 
-# docker-compose.yml
-version: "3.9"
-services:
-	web:
-		build: .
-		command: python /code/manage.py runserver 0.0.0.0:8000
-		volumes:
-		- .:/code
-		ports:
-		- 8000:8000
-```
-
-- Detached mode runs containers in the background, which means we can use a single command line tab without needing a separate one open as well. This saves us from switching back and forth between two command line tabs constantly. The downside is that if/when there is an error, the output won’t always be visible. So if your screen does not match this book at some point, try typing docker-compose logs to see the current output and debug any issues
-```shell
-docker-compose up -d
-```
-
-- Since we’re working within Docker now as opposed to locally we must preface traditional commands with `docker-compose exec <service>` where we specify the name of the service. For example, to create a superuser account instead of typing `python manage.py createsuperuser` the updated command would now look like the line below, using the web service.
-``` shell
-  docker-compose exec web python manage.py createsuperuser
-  ```
-
 
 ---
 ```
@@ -327,3 +255,75 @@ docker-compose up -d
 * Add **pgAdmin** (GUI for Postgres) as another Docker service.
 * Create multiple databases and test connecting Django to them.
 * Try using environment variables via `.env` file instead of hardcoding.
+
+### Notes
+- One of the most immediate differences between working on a “toy app” in Django and a
+production-ready one is the database.
+- Django ships with built-in support for five databases: PostgreSQL, MariaDB, MySQL, Oracle, and SQLite
+- The Django ORM handles the translation from Python code to SQL configured for each
+database automatically for us which is quite amazing if you think about it
+
+``` shell
+cd ~/desktop/code
+mkdir ch3-postgresql
+python3.10 -m venv .venv
+source .venv/bin/activate
+python3.10 -m pip install django~=4.0.0
+django-admin startproject django_project .
+python manage.py migrate
+python manage.py runserver
+# Confirm everything worked by navigating to http://127.0.0.1:8000/
+
+pip freeze > requirements.txt
+deactivate
+```
+
+- Docker
+  - To switch over to Docker first deactivate our virtual environment `deactivate`
+```python
+# Dockerfile at project level
+FROM python:3.10.4-slim-bullseye
+# Set environment variables
+ENV PIP_DISABLE_PIP_VERSION_CHECK 1
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+# Set work directory
+WORKDIR /code
+# Install dependencies
+COPY ./requirements.txt .
+RUN pip install -r requirements.txt
+# Copy project
+COPY . .
+  ```
+  - .dockerignore
+  ```
+  .venv 
+  .git 
+  .gitignore
+  ```
+- Docker will automatically check if it can use the cached results of previous builds.
+- This caching means that the order of a Dockerfile is important for performance reasons. In order to avoid constantly invalidating the cache we start the Dockerfile with commands that are less likely to change while putting commands that are more likely to change, like COPYing the local filesystem, at the end.
+
+```python 
+# docker-compose.yml
+version: "3.9"
+services:
+	web:
+		build: .
+		command: python /code/manage.py runserver 0.0.0.0:8000
+		volumes:
+		- .:/code
+		ports:
+		- 8000:8000
+```
+
+- Detached mode runs containers in the background, which means we can use a single command line tab without needing a separate one open as well. This saves us from switching back and forth between two command line tabs constantly. The downside is that if/when there is an error, the output won’t always be visible. So if your screen does not match this book at some point, try typing docker-compose logs to see the current output and debug any issues
+```shell
+docker-compose up -d
+```
+
+- Since we’re working within Docker now as opposed to locally we must preface traditional commands with `docker-compose exec <service>` where we specify the name of the service. For example, to create a superuser account instead of typing `python manage.py createsuperuser` the updated command would now look like the line below, using the web service.
+``` shell
+  docker-compose exec web python manage.py createsuperuser
+  ```
+
