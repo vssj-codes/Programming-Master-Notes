@@ -382,4 +382,5 @@ docker-compose up -d --build
 docker-compose exec web python manage.py migrate 
 docker-compose exec web python manage.py createsuperuser
 ```
--
+- Let’s use postgresqladmin and for testing purposes set the email to `postgresqladmin@email.com` and the password to `testpass123`
+- `http://127.0.0.1:8000/admin/ `
