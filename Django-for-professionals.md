@@ -11,11 +11,11 @@
   * [Extension-Ideas](#extension-ideas)
 - [Chapter 3: PostgreSQL with Docker](#chapter-3-postgresql-with-docker)
   * [Goal](#goal-1)
-  * [🔑 Key Concepts](#%F0%9F%94%91-key-concepts)
-  * [🛠 Step-by-Step Coding Notes](#%F0%9F%9B%A0-step-by-step-coding-notes)
-  * [⚠️ Pitfalls & Gotchas](#%E2%9A%A0%EF%B8%8F-pitfalls--gotchas)
-  * [💡 Interview Angle](#%F0%9F%92%A1-interview-angle)
-  * [🚀 Extension Ideas](#%F0%9F%9A%80-extension-ideas)
+  * [Key Concepts](#key-concepts-1)
+  * [Step-by-Step Coding Notes](#step-by-step-coding-notes-1)
+  * [Pitfalls & Gotchas](#pitfalls--gotchas-1)
+  * [Interview Angle](#interview-angle-1)
+  * [Extension Ideas](#extension-ideas)
 
 <!-- tocstop -->
 
@@ -140,7 +140,7 @@ Run **PostgreSQL inside Docker** and connect it with Django (replacing the defau
 
 ---
 
-### 🔑 Key Concepts
+### Key Concepts
 
 * **PostgreSQL**: Production-grade relational database (better than SQLite).
 * **Environment Variables**: Store DB credentials securely.
@@ -149,7 +149,7 @@ Run **PostgreSQL inside Docker** and connect it with Django (replacing the defau
 
 ---
 
-### 🛠 Step-by-Step Coding Notes
+### Step-by-Step Coding Notes
 
 1. **Update `docker-compose.yml`**
 
@@ -233,7 +233,7 @@ Run **PostgreSQL inside Docker** and connect it with Django (replacing the defau
 
 ---
 
-### ⚠️ Pitfalls & Gotchas
+### Pitfalls & Gotchas
 
 * Using `localhost` instead of `db` as host (must match docker-compose service name).
 * Forgetting to add `psycopg2-binary` → Django won’t talk to Postgres.
@@ -241,7 +241,7 @@ Run **PostgreSQL inside Docker** and connect it with Django (replacing the defau
 
 ---
 
-### 💡 Interview Angle
+### Interview Angle
 
 * **Q**: Why is PostgreSQL preferred over SQLite in production?
 * **Q**: What’s the role of Docker volumes for databases?
@@ -249,7 +249,7 @@ Run **PostgreSQL inside Docker** and connect it with Django (replacing the defau
 
 ---
 
-### 🚀 Extension Ideas
+### Extension Ideas
 
 * Add **pgAdmin** (GUI for Postgres) as another Docker service.
 * Create multiple databases and test connecting Django to them.
