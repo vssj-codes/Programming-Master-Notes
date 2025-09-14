@@ -327,3 +327,53 @@ docker-compose up -d
   docker-compose exec web python manage.py createsuperuser
   ```
 
+- PostgreSQL is a database that can be used by almost any programming language. But if you think about it, how does a programming language–and they all vary in some way or another–connect to the database itself?
+- The answer is via a database adapter! And that’s what Psycopg is, the most popular database adapter for Python.
+-  `docker-compose down`
+- Note that there are actually two versions of Pyscopg2 available: pyscopg2 and pyscopg2-binary.
+- But since we are committed to Docker we can skip that step and instead just update requirements.txt with the psycopg2-binary package.
+- In your text editor open the existing requirements.txt file and add `psycopg2-binary==2.9.3` to the bottom
+- In the existing docker-compose.yml file add a new service called db. This means there will be two separate containers running within our Docker host: web for the Django local server and db for our PostgreSQL database
+- Docker containers are ephemeral meaning when the container stops running all information is lost.
+- The solution is to create a volumes mount called postgres_data and then bind it to a dedicated directory within the container at the location /var/lib/postgresql/data/. The final step is to add a trust authentication to the environment for the db. For large databases with many database users it is recommended to be more explicit with permissions, but this setting is a good choice when there is just one developer.
+```python
+# docker-compose.yml 
+version: "3.9"
+
+services:
+	web:
+		build: .
+		command: python /code/manage.py runserver 0.0.0.0:8000
+		volumes:
+			- .:/code
+		ports:
+			- 8000:8000
+		depends_on:
+			- db
+	db:
+		image: postgres:13
+		volumes:
+			- postgres_data:/var/lib/postgresql/data/
+		environment:
+			- "POSTGRES_HOST_AUTH_METHOD=trust"
+volumes:
+postgres_data:
+```
+
+```python
+# django_project/settings.py
+DATABASES = {
+	"default": {
+		"ENGINE": "django.db.backends.postgresql",
+		"NAME": "postgres",
+		"USER": "postgres",
+		"PASSWORD": "postgres",
+		"HOST": "db", # set in docker-compose.yml
+		"PORT": 5432, # default postgres port
+	}
+}
+```
+
+```shell
+docker-compose up -d --build
+```
