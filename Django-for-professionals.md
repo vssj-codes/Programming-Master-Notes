@@ -214,7 +214,10 @@ services:
 docker-compose up -d
 ```
 
-- Since we’re working within Docker now as opposed to locally we must preface traditional commands with docker-compose exec [service] where we specify the name of the service. For example, to create a superuser account instead of typing python manage.py createsuperuser the updated command would now look like the line below, using the web service.
+- Since we’re working within Docker now as opposed to locally we must preface traditional commands with `docker-compose exec <service>` where we specify the name of the service. For example, to create a superuser account instead of typing `python manage.py createsuperuser` the updated command would now look like the line below, using the web service.
+``` shell
+  docker-compose exec web python manage.py createsuperuser
+  ```
 
 
 ---
