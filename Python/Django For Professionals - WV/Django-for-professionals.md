@@ -11,7 +11,6 @@
   * [Extension-Ideas](#extension-ideas)
 - [Chapter 3: PostgreSQL with Docker](#chapter-3-postgresql-with-docker)
   * [Notes](#notes)
-- [Chapter4-Bookstore](#chapter4-bookstore)
 
 <!-- tocstop -->
 
@@ -263,4 +262,3 @@ docker-compose exec web python manage.py createsuperuser
 docker-compose down
 ```
 
-## Chapter4-Bookstore
