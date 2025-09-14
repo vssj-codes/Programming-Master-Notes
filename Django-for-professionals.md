@@ -211,10 +211,10 @@ services:
 
 - Detached mode runs containers in the background, which means we can use a single command line tab without needing a separate one open as well. This saves us from switching back and forth between two command line tabs constantly. The downside is that if/when there is an error, the output won’t always be visible. So if your screen does not match this book at some point, try typing docker-compose logs to see the current output and debug any issues
 ```shell
-
+docker-compose up -d
 ```
 
-
+- Since we’re working within Docker now as opposed to locally we must preface traditional commands with docker-compose exec [service] where we specify the name of the service. For example, to create a superuser account instead of typing python manage.py createsuperuser the updated command would now look like the line below, using the web service.
 
 
 ---
