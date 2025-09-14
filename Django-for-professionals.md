@@ -9,8 +9,8 @@
   * [Pitfalls & Gotchas](#pitfalls--gotchas)
   * [Interview Angle](#interview-angle)
   * [Extension-Ideas](#extension-ideas)
-- [📘 Chapter 3: PostgreSQL with Docker](#%F0%9F%93%98-chapter-3-postgresql-with-docker)
-  * [🎯 Goal](#%F0%9F%8E%AF-goal)
+- [Chapter 3: PostgreSQL with Docker](#chapter-3-postgresql-with-docker)
+  * [Goal](#goal-1)
   * [🔑 Key Concepts](#%F0%9F%94%91-key-concepts)
   * [🛠 Step-by-Step Coding Notes](#%F0%9F%9B%A0-step-by-step-coding-notes)
   * [⚠️ Pitfalls & Gotchas](#%E2%9A%A0%EF%B8%8F-pitfalls--gotchas)
@@ -132,9 +132,9 @@ Set up a simple **Dockerized Python “Hello World” app** to understand contai
 * Expose a Flask/Django app on port `8000` instead of simple `print`.
 
 ---
-## 📘 Chapter 3: PostgreSQL with Docker
+## Chapter 3: PostgreSQL with Docker
 
-### 🎯 Goal
+### Goal
 
 Run **PostgreSQL inside Docker** and connect it with Django (replacing the default SQLite).
 
