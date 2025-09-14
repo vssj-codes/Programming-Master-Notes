@@ -12,7 +12,7 @@
 - [Chapter 3: PostgreSQL with Docker](#chapter-3-postgresql-with-docker)
   * [Goal](#goal-1)
   * [Key Concepts](#key-concepts-1)
-  * [Step-by-Step Coding Notes](#step-by-step-coding-notes-1)
+  * [Notes](#notes)
   * [Pitfalls & Gotchas](#pitfalls--gotchas-1)
   * [Interview Angle](#interview-angle-1)
   * [Extension Ideas](#extension-ideas)
@@ -148,7 +148,69 @@ Run **PostgreSQL inside Docker** and connect it with Django (replacing the defau
 * **Volumes**: Persist database data outside container.
 
 ---
+### Notes
+- One of the most immediate differences between working on a “toy app” in Django and a
+production-ready one is the database.
+- Django ships with built-in support for five databases: PostgreSQL, MariaDB, MySQL, Oracle, and SQLite
+- The Django ORM handles the translation from Python code to SQL configured for each
+database automatically for us which is quite amazing if you think about it
 
+``` shell
+cd ~/desktop/code
+mkdir ch3-postgresql
+python3.10 -m venv .venv
+source .venv/bin/activate
+python3.10 -m pip install django~=4.0.0
+django-admin startproject django_project .
+python manage.py migrate
+python manage.py runserver
+# Confirm everything worked by navigating to http://127.0.0.1:8000/
+
+pip freeze > requirements.txt
+deactivate
+```
+
+- Docker
+  - To switch over to Docker first deactivate our virtual environment `deactivate`
+```python
+# Dockerfile at project level
+FROM python:3.10.4-slim-bullseye
+# Set environment variables
+ENV PIP_DISABLE_PIP_VERSION_CHECK 1
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+# Set work directory
+WORKDIR /code
+# Install dependencies
+COPY ./requirements.txt .
+RUN pip install -r requirements.txt
+# Copy project
+COPY . .
+  ```
+  - .dockerignore
+  ```
+  .venv 
+  .git 
+  .gitignore
+  ```
+- Docker will automatically check if it can use the cached results of previous builds.
+- This caching means that the order of a Dockerfile is important for performance reasons. In order to avoid constantly invalidating the cache we start the Dockerfile with commands that are less likely to change while putting commands that are more likely to change, like COPYing the local filesystem, at the end.
+
+```python 
+# docker-compose.yml
+version: "3.9"
+services:
+	web:
+		build: .
+		command: python /code/manage.py runserver 0.0.0.0:8000
+		volumes:
+		- .:/code
+		ports:
+		- 8000:8000
+```
+
+
+```
 ### Step-by-Step Coding Notes
 
 1. **Update `docker-compose.yml`**
