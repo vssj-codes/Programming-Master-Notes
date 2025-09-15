@@ -3,7 +3,8 @@
 <!-- toc -->
 
 - [Chapter4-Bookstore](#chapter4-bookstore)
-    + [Docker](#docker)
+    + [Dockerfile](#dockerfile)
+    + [docker-compose.yml](#docker-composeyml)
 
 <!-- tocstop -->
 
@@ -22,10 +23,8 @@ python manage.py runserver
 pip freeze > requirements.txt
 ```
 
-#### Docker
-```
-# Dockerfile
-
+#### Dockerfile
+```python
 FROM python:3.10.4-slim-bullseye
 
 ENV PIP_DISABLE_PIP_VERSION_CHECK 1
@@ -39,3 +38,4 @@ RUN pip install -r requirements.txt
 
 COPY . .
 ```
+#### docker-compose.yml
