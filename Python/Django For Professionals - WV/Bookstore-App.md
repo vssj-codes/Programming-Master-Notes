@@ -106,6 +106,9 @@ DATABASES = {
 ```
 
 #### Custom-User-Model
+
+- You will need to make changes to the built-in User model at some point in your project’s life and if you have not started with a custom user model from the very first migrate command you run, then you’re in for a world of hurt because User is tightly interwoven with the rest of Django internally. It is challenging to switch over to a custom user model mid-project.
+
 There are four steps for adding a custom user model to our project:
 1. Create a `CustomUser` model
 2. Update `django_project/settings.py`
