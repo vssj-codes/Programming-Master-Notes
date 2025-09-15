@@ -8,6 +8,7 @@
     + [.dockerignore](#dockerignore)
     + [.gitignore](#gitignore)
     + [PostgreSQL](#postgresql)
+    + [Custom-User-Model](#custom-user-model)
 
 <!-- tocstop -->
 
@@ -90,16 +91,23 @@ docker-compose up -d --build
 ```
 
 #### PostgreSQL
-```
+```python
 # django_project/settings.py
 DATABASES = {
-"default": {
-"ENGINE": "django.db.backends.postgresql",
-"NAME": "postgres",
-"USER": "postgres",
-"PASSWORD": "postgres",
-"HOST": "db",
-"PORT": 5432,
-}
+	"default": {
+		"ENGINE": "django.db.backends.postgresql",
+		"NAME": "postgres",
+		"USER": "postgres",
+		"PASSWORD": "postgres",
+		"HOST": "db",
+		"PORT": 5432,
+	}
 }
 ```
+
+#### Custom-User-Model
+There are four steps for adding a custom user model to our project:
+1. Create a `CustomUser` model
+2. Update `django_project/settings.py`
+3. Customize UserCreationForm and UserChangeForm
+4. Add the custom user model to `admin.py`
