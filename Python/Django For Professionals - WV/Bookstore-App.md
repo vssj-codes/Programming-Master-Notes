@@ -109,5 +109,16 @@ DATABASES = {
 There are four steps for adding a custom user model to our project:
 1. Create a `CustomUser` model
 2. Update `django_project/settings.py`
-3. Customize UserCreationForm and UserChangeForm
+3. Customize `UserCreationForm` and `UserChangeForm`
 4. Add the custom user model to `admin.py`
+```shell
+docker-compose exec web python manage.py startapp accounts
+```
+
+```python
+# accounts/models.py
+from django.contrib.auth.models import AbstractUser
+from django.db import models
+class CustomUser(AbstractUser):
+	pass
+```
