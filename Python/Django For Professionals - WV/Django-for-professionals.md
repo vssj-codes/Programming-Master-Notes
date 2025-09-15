@@ -261,4 +261,3 @@ docker-compose exec web python manage.py createsuperuser
 ```shell
 docker-compose down
 ```
-
