@@ -7,6 +7,7 @@
     + [docker-compose.yml](#docker-composeyml)
     + [.dockerignore](#dockerignore)
     + [.gitignore](#gitignore)
+    + [PostgreSQL](#postgresql)
 
 <!-- tocstop -->
 
@@ -82,4 +83,23 @@ git init
 __pycache__/
 db.sqlite3
 .DS_Store
+```
+
+```shell
+docker-compose up -d --build
+```
+
+#### PostgreSQL
+```
+# django_project/settings.py
+DATABASES = {
+"default": {
+"ENGINE": "django.db.backends.postgresql",
+"NAME": "postgres",
+"USER": "postgres",
+"PASSWORD": "postgres",
+"HOST": "db",
+"PORT": 5432,
+}
+}
 ```
