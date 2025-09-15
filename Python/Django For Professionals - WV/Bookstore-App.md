@@ -5,6 +5,8 @@
 - [Chapter4-Bookstore](#chapter4-bookstore)
     + [Dockerfile](#dockerfile)
     + [docker-compose.yml](#docker-composeyml)
+    + [.dockerignore](#dockerignore)
+    + [.gitignore](#gitignore)
 
 <!-- tocstop -->
 
@@ -63,3 +65,21 @@ postgres_data:
 
 ```
 
+#### .dockerignore
+```python
+.venv
+.git
+.gitignore
+```
+
+```shell
+git init
+```
+
+#### .gitignore
+```python
+.venv
+__pycache__/
+db.sqlite3
+.DS_Store
+```
