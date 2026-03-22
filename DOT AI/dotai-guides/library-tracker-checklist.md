@@ -335,9 +335,55 @@ books/
 
 ---
 
+## Members Module ✅
+
+Same pattern as Books. Key difference: `email` has `unique: true` in schema.
+
+**Schema** (`src/members/member.schema.ts`):
+```typescript
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { HydratedDocument } from 'mongoose';
+
+export type MemberDocument = HydratedDocument<Member>;
+
+@Schema({ timestamps: true })
+export class Member {
+  @Prop({ required: true })
+  name: string;
+
+  @Prop({ required: true, unique: true })  // unique: true = no duplicate emails
+  email: string;
+
+  @Prop()
+  phone: string;
+}
+
+export const MemberSchema = SchemaFactory.createForClass(Member);
+```
+
+**Checklist:**
+- [ ] Create `src/members/member.schema.ts` — add `unique: true` on email
+- [ ] Create `src/members/dto/create-member.dto.ts` — `phone` is optional (`?`)
+- [ ] Create `src/members/dto/update-member.dto.ts` — all fields optional
+- [ ] Write `members.service.ts` — same 5 methods as BooksService
+- [ ] Write `members.controller.ts` — same 5 routes as BooksController
+- [ ] Update `members.module.ts` — register schema, add `exports: [MembersService]`
+
+**Test:**
+```bash
+# Create a member
+curl -X POST http://localhost:3000/members \
+  -H "Content-Type: application/json" \
+  -d '{"name":"John Doe","email":"john@example.com","phone":"1234567890"}'
+
+# Get all members
+curl http://localhost:3000/members
+```
+
+---
+
 ## Still To Build
 
-- [ ] Members module (same pattern as Books)
 - [ ] Borrowings module (uses BooksService + MembersService via DI)
 
 ---
