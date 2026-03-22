@@ -382,9 +382,242 @@ curl http://localhost:3000/members
 
 ---
 
-## Still To Build
+## Borrowings Module ✅
 
-- [ ] Borrowings module (uses BooksService + MembersService via DI)
+Most complex module — injects `BooksService` and `MembersService` via DI.
+Introduces: cross-module DI, throwing HTTP exceptions, `.populate()` for joins.
+
+---
+
+### Schema (`src/borrowings/borrowing.schema.ts`)
+
+```typescript
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { HydratedDocument, Types } from 'mongoose';
+
+export type BorrowingDocument = HydratedDocument<Borrowing>;
+
+@Schema({ timestamps: true })
+export class Borrowing {
+  @Prop({ type: Types.ObjectId, ref: 'Member', required: true })
+  memberId: Types.ObjectId;       // ref: 'Member' = foreign key pointing to Member collection
+
+  @Prop({ type: Types.ObjectId, ref: 'Book', required: true })
+  bookId: Types.ObjectId;         // ref: 'Book' = foreign key pointing to Book collection
+
+  @Prop({ default: false })
+  returned: boolean;              // default: false = auto set on creation
+
+  @Prop()
+  returnedAt: Date;
+}
+
+export const BorrowingSchema = SchemaFactory.createForClass(Borrowing);
+```
+
+**Checklist:**
+- [ ] Create `src/borrowings/borrowing.schema.ts`
+- [ ] Use `Types.ObjectId` + `ref:` to create references to other collections
+- [ ] Add `returned: boolean` with `default: false`
+- [ ] Add `returnedAt: Date` (set when book is returned)
+
+---
+
+### DTO (`src/borrowings/dto/create-borrowing.dto.ts`)
+
+```typescript
+export class CreateBorrowingDto {
+  memberId: string;
+  bookId: string;
+}
+```
+
+**Checklist:**
+- [ ] Create `src/borrowings/dto/create-borrowing.dto.ts` — just `memberId` and `bookId`
+
+---
+
+### Service (`src/borrowings/borrowings.service.ts`)
+
+```typescript
+import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Borrowing, BorrowingDocument } from './borrowing.schema';
+import { CreateBorrowingDto } from './dto/create-borrowing.dto';
+import { BooksService } from '../books/books.service';
+import { MembersService } from '../members/members.service';
+
+@Injectable()
+export class BorrowingsService {
+  constructor(
+    @InjectModel(Borrowing.name)
+    private borrowingModel: Model<BorrowingDocument>,
+
+    // cross-module DI — injecting services from other modules
+    private booksService: BooksService,
+    private membersService: MembersService,
+  ) {}
+
+  async borrow(createBorrowingDto: CreateBorrowingDto): Promise<Borrowing> {
+    const { memberId, bookId } = createBorrowingDto;
+
+    // 1. Check member exists
+    const member = await this.membersService.findOne(memberId);
+    if (!member) throw new NotFoundException(`Member with ID ${memberId} not found`);
+
+    // 2. Check book exists
+    const book = await this.booksService.findOne(bookId);
+    if (!book) throw new NotFoundException(`Book with ID ${bookId} not found`);
+
+    // 3. Check book has available copies
+    if (book.availableCopies <= 0) throw new BadRequestException(`No available copies`);
+
+    // 4. Decrease available copies by 1
+    await this.booksService.update(bookId, { availableCopies: book.availableCopies - 1 });
+
+    // 5. Create borrowing record
+    const newBorrowing = new this.borrowingModel({ memberId, bookId });
+    return newBorrowing.save();
+  }
+
+  async returnBook(borrowingId: string): Promise<Borrowing | null> {
+    // 1. Find the borrowing record
+    const borrowing = await this.borrowingModel.findById(borrowingId);
+    if (!borrowing) throw new NotFoundException(`Borrowing record not found`);
+
+    // 2. Check it hasn't already been returned
+    if (borrowing.returned) throw new BadRequestException(`Book already returned`);
+
+    // 3. Increase available copies by 1
+    const book = await this.booksService.findOne(borrowing.bookId.toString());
+    if (book) {
+      await this.booksService.update(borrowing.bookId.toString(), {
+        availableCopies: book.availableCopies + 1,
+      });
+    }
+
+    // 4. Mark as returned
+    return this.borrowingModel
+      .findByIdAndUpdate(borrowingId, { returned: true, returnedAt: new Date() }, { new: true })
+      .exec();
+  }
+
+  async findAll(): Promise<Borrowing[]> {
+    return this.borrowingModel
+      .find()
+      .populate('memberId', 'name email')   // replaces ID with member name + email
+      .populate('bookId', 'title author')   // replaces ID with book title + author
+      .exec();
+  }
+}
+```
+
+**Checklist:**
+- [ ] Inject `BooksService` and `MembersService` in constructor (no `@InjectModel` needed — just plain DI)
+- [ ] `borrow()`: check member exists → check book exists → check availableCopies > 0 → decrement → save
+- [ ] `returnBook()`: find borrowing → check not already returned → increment copies → mark returned
+- [ ] `findAll()`: use `.populate()` to replace IDs with actual member/book data
+- [ ] Use `NotFoundException` (404) and `BadRequestException` (400) for error handling
+
+---
+
+### Controller (`src/borrowings/borrowings.controller.ts`)
+
+```typescript
+import { Controller, Get, Post, Patch, Param, Body } from '@nestjs/common';
+import { BorrowingsService } from './borrowings.service';
+import { CreateBorrowingDto } from './dto/create-borrowing.dto';
+
+@Controller('borrowings')
+export class BorrowingsController {
+  constructor(private readonly borrowingsService: BorrowingsService) {}
+
+  @Post()                          // POST /borrowings — borrow a book
+  borrow(@Body() createBorrowingDto: CreateBorrowingDto) {
+    return this.borrowingsService.borrow(createBorrowingDto);
+  }
+
+  @Patch(':id/return')             // PATCH /borrowings/:id/return — return a book
+  returnBook(@Param('id') id: string) {
+    return this.borrowingsService.returnBook(id);
+  }
+
+  @Get()                           // GET /borrowings — list all with populated data
+  findAll() {
+    return this.borrowingsService.findAll();
+  }
+}
+```
+
+**Checklist:**
+- [ ] `@Post()` → calls `service.borrow()`
+- [ ] `@Patch(':id/return')` → calls `service.returnBook(id)`
+- [ ] `@Get()` → calls `service.findAll()`
+
+---
+
+### Module (`src/borrowings/borrowings.module.ts`)
+
+```typescript
+import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
+import { BorrowingsController } from './borrowings.controller';
+import { BorrowingsService } from './borrowings.service';
+import { Borrowing, BorrowingSchema } from './borrowing.schema';
+import { BooksModule } from '../books/books.module';
+import { MembersModule } from '../members/members.module';
+
+@Module({
+  imports: [
+    MongooseModule.forFeature([{ name: Borrowing.name, schema: BorrowingSchema }]),
+    BooksModule,    // import BooksModule to get access to BooksService
+    MembersModule,  // import MembersModule to get access to MembersService
+  ],
+  controllers: [BorrowingsController],
+  providers: [BorrowingsService],
+})
+export class BorrowingsModule {}
+```
+
+**Checklist:**
+- [ ] Import `BooksModule` and `MembersModule` in `imports[]`
+- [ ] This works because both modules have `exports: [BooksService]` and `exports: [MembersService]`
+
+---
+
+### Test the Full Flow
+
+```bash
+# 1. Borrow a book (use real IDs from your DB)
+curl -X POST http://localhost:3000/borrowings \
+  -H "Content-Type: application/json" \
+  -d '{"memberId":"<memberId>","bookId":"<bookId>"}'
+# Expected: returned: false, availableCopies decreases by 1
+
+# 2. Check available copies decreased
+curl http://localhost:3000/books/<bookId>
+
+# 3. Return the book
+curl -X PATCH http://localhost:3000/borrowings/<borrowingId>/return
+# Expected: returned: true, returnedAt set, availableCopies increases by 1
+
+# 4. Get all borrowings — member and book data populated
+curl http://localhost:3000/borrowings
+# Expected: memberId shows { name, email }, bookId shows { title, author }
+```
+
+---
+
+## New Concepts Introduced in Borrowings Module
+
+| Concept | Code | What it does |
+|---|---|---|
+| Cross-module DI | `imports: [BooksModule, MembersModule]` | Use services from other modules |
+| References | `@Prop({ type: Types.ObjectId, ref: 'Book' })` | Foreign key to another collection |
+| Populate | `.populate('bookId', 'title author')` | Fetch related document (like a JOIN) |
+| HTTP Exceptions | `throw new NotFoundException(...)` | NestJS auto-sends 404/400 response |
+| Default values | `@Prop({ default: false })` | Auto-set field value on creation |
 
 ---
 
