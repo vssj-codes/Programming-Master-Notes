@@ -556,7 +556,191 @@ const results = await this.borrowingModel.aggregate([
 
 # Step 13 — Environment Config
 
-*To be added.*
+## The Problem with Hardcoded Values
+
+```
+app.module.ts  →  'mongodb://localhost:27017/library-tracker'  ← BAD
+api-key.guard  →  'library-secret-123'                        ← BAD
+main.ts        →  3000                                        ← BAD
+```
+
+These values differ per environment. If hardcoded:
+- Secrets get committed to git
+- Changing environments means editing source code
+- CI/CD pipelines can't inject their own credentials
+
+---
+
+## Part 1 — Install `@nestjs/config`
+
+```bash
+npm install @nestjs/config
+```
+
+Wraps the popular `dotenv` library with NestJS DI integration.
+
+---
+
+## Part 2 — Create the `.env` File
+
+```bash
+# .env  (at root of project — same level as package.json)
+MONGODB_URI=mongodb://localhost:27017/library-tracker
+API_KEY=library-secret-123
+PORT=3000
+```
+
+`.env` is already in `.gitignore` (NestJS CLI adds it by default). Create `.env.example` with dummy values and commit that instead:
+
+```bash
+# .env.example  ← commit this, not .env
+MONGODB_URI=mongodb://localhost:27017/your-db-name
+API_KEY=your-secret-key
+PORT=3000
+```
+
+---
+
+## Part 3 — Register `ConfigModule` in `AppModule`
+
+```typescript
+import { ConfigModule, ConfigService } from '@nestjs/config';
+
+@Module({
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),  // load .env, make ConfigService available everywhere
+    MongooseModule.forRootAsync({
+      useFactory: (configService: ConfigService) => ({
+        uri: configService.get<string>('MONGODB_URI'),
+      }),
+      inject: [ConfigService],
+    }),
+    BooksModule,
+    MembersModule,
+    BorrowingsModule,
+  ],
+})
+export class AppModule implements NestModule { ... }
+```
+
+### `forRoot` vs `forRootAsync`
+
+| | `forRoot` | `forRootAsync` |
+|---|---|---|
+| When to use | Value known immediately | Value comes from another service |
+| Example | `forRoot('mongodb://...')` | `forRootAsync({ useFactory: (configService) => ... })` |
+| Why | Simple string | ConfigService must be resolved first |
+
+---
+
+## Part 4 — Use `ConfigService` in `main.ts`
+
+```typescript
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+
+  const configService = app.get(ConfigService);
+  const port = configService.get<number>('PORT') ?? 3000;
+
+  // ... pipes, filters, interceptors ...
+
+  await app.listen(port);
+}
+```
+
+---
+
+## Part 5 — Use `ConfigService` in Any Service or Guard
+
+Because `isGlobal: true`, inject `ConfigService` anywhere without re-importing `ConfigModule`:
+
+```typescript
+// api-key.guard.ts
+@Injectable()
+export class ApiKeyGuard implements CanActivate {
+  constructor(private configService: ConfigService) {}
+
+  canActivate(context: ExecutionContext): boolean {
+    const request = context.switchToHttp().getRequest();
+    const apiKey = request.headers['x-api-key'];
+    const validApiKey = this.configService.get<string>('API_KEY');  // from .env
+    return apiKey === validApiKey;
+  }
+}
+```
+
+---
+
+## Part 6 — Typed Config Validation with `Joi`
+
+Plain `ConfigService.get('PORT')` fails silently if a var is missing. Joi validates all env vars at startup and crashes loudly if something is wrong.
+
+```bash
+npm install joi
+```
+
+```typescript
+// src/config/env.validation.ts
+import * as Joi from 'joi';
+
+export const envValidationSchema = Joi.object({
+  MONGODB_URI: Joi.string().required(),
+  API_KEY: Joi.string().required(),
+  PORT: Joi.number().default(3000),
+});
+```
+
+```typescript
+// app.module.ts
+ConfigModule.forRoot({
+  isGlobal: true,
+  validationSchema: envValidationSchema,
+})
+```
+
+If `MONGODB_URI` is missing at startup:
+```
+Error: Config validation error: "MONGODB_URI" is required
+```
+App refuses to start — much better than a cryptic DB error 30 seconds in.
+
+---
+
+## File Structure After Step 13
+
+```
+src/
+  config/
+    env.validation.ts     ← Joi validation schema
+  guards/
+    api-key.guard.ts      ← reads API_KEY from ConfigService
+  app.module.ts           ← ConfigModule + forRootAsync
+  main.ts                 ← PORT from ConfigService
+.env                      ← real secrets (gitignored)
+.env.example              ← template (committed)
+```
+
+---
+
+## DotAI vs Library Tracker (Step 13)
+
+| | Library Tracker | DotAI |
+|---|---|---|
+| Config library | `@nestjs/config` | `@nestjs/config` (same) |
+| Env file | `.env` at project root | `.env` per deployment environment |
+| Validation | `Joi` schema | `Joi` schema |
+| MongoDB URI | from `MONGODB_URI` | from env, overridden per-tenant at request time |
+| Secret management | `.env` file | AWS Secrets Manager / Kubernetes Secrets |
+
+---
+
+## Key Takeaways — Step 13
+
+> 1. Never hardcode secrets or URIs — use `.env` files
+> 2. `ConfigModule.forRoot({ isGlobal: true })` — load once, available everywhere
+> 3. `forRootAsync` — use when a module's config depends on `ConfigService`
+> 4. `ConfigService.get<T>('KEY')` — type-safe access to env vars
+> 5. Joi `validationSchema` — crash at startup if required env vars are missing
 
 ---
 
