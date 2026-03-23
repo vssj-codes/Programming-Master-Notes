@@ -88,19 +88,19 @@ We went through NestJS from scratch. Completed topics:
 | 4 | Services | Done |
 | 5 | Dependency Injection | Done |
 
-### Stage 2 — Request Lifecycle (NEXT)
+### Stage 2 — Request Lifecycle (DONE)
 | Step | Topic | Status |
 |---|---|---|
-| 6 | Middleware | **Next up** |
-| 7 | Guards | Pending |
-| 8 | Pipes | Pending |
-| 9 | Interceptors | Pending |
-| 10 | Exception Filters | Pending |
+| 6 | Middleware | Done |
+| 7 | Guards | Done |
+| 8 | Pipes | Done |
+| 9 | Interceptors | Done |
+| 10 | Exception Filters | Done |
 
-### Stage 3 — Data & Config (Pending)
+### Stage 3 — Data & Config (NEXT)
 | Step | Topic | Status |
 |---|---|---|
-| 11 | DTOs & Validation | Pending |
+| 11 | DTOs & Validation | **Next up** |
 | 12 | Mongoose / MongoDB integration | Pending |
 | 13 | Environment Config | Pending |
 
@@ -120,6 +120,8 @@ We went through NestJS from scratch. Completed topics:
 |---|---|
 | `KT-dotai-backend.md` | Full Knowledge Transfer of the entire codebase |
 | `nestjs-fundamentals.md` | NestJS Steps 1–5 with real code from this codebase |
+| `nestjs-stage2-request-lifecycle.md` | NestJS Steps 6–10 — full request lifecycle |
+| `library-tracker-checklist.md` | Step-by-step build checklist for library-tracker project |
 | `context-memory.md` | This file — session context for new chats |
 
 ---
@@ -127,9 +129,9 @@ We went through NestJS from scratch. Completed topics:
 ## How to Continue in a New Chat
 
 1. Open a new Claude Code chat in `/Users/vsrisaijyothi/Desktop/dotai-backend`
-2. Say: *"Read my context file at `/Users/vsrisaijyothi/Desktop/Programming-Master-Notes/DOT AI/dotai-guides/context-memory.md` and continue my NestJS learning from Step 6: Middleware"*
+2. Say: *"Read my context file at `/Users/vsrisaijyothi/Desktop/Programming-Master-Notes/DOT AI/dotai-guides/context-memory.md` and continue my NestJS learning from Step 11: DTOs & Validation"*
 3. Claude will have full context and continue from exactly where we left off
 
 ---
 
-*Last updated: 2026-03-22*
+*Last updated: 2026-03-23*
