@@ -2,6 +2,7 @@
 
 <!-- toc -->
 
+- [Prompt:](#prompt)
 - [1. Intro](#1-intro)
 - [2. **Claude Code Setup & Workflow**](#2-claude-code-setup--workflow)
     + [**Free Alternatives (Ollama)**](#free-alternatives-ollama)
@@ -9,10 +10,19 @@
     + [**Core Concepts**](#core-concepts)
     + [**Key Built-in Commands**](#key-built-in-commands)
     + [**Best Practices**](#best-practices)
+- [4. **Claude Code Workflow: Landing Page Improvements**](#4-claude-code-workflow-landing-page-improvements)
+- [5. **Context Window Management in Claude Code: Quick Reference**](#5-context-window-management-in-claude-code-quick-reference)
+- [6.](#6)
 
 <!-- tocstop -->
 
 ---
+# Prompt:
+
+ Give ultra concise bullet point notes on this video. i will use this note as my reference while practically implementing what is being taught. It should also serve as a revision sheet when i come back to it for revision
+
+---
+
 # 1. Intro
 
 ---
@@ -61,3 +71,51 @@ This video provides a comprehensive guide to **Slash Commands** in *Claude Code*
 * **Rename Sessions:** Label early to avoid generic AI-assigned names (7:30).
 * **Use `/btw`:** Utilize for quick lookups to keep the main context focused (10:30).
 * **Model Strategy:** Use *Opus* for planning/architecture and *Sonnet* for implementation (16:27).
+---
+# 4. **Claude Code Workflow: Landing Page Improvements**
+
+**Core Workflow (Session → Prompt → Commit → Push)**
+*   **Start Session:** Type `claude` in the terminal to initialize.
+*   **Naming:** Use `/rename [Session Name]` to track project goals.
+*   **File Context:** Always use the `@` symbol before filenames (e.g., `@base.html`) to ensure the AI modifies the correct file.
+*   **Iterative Prompting:** Provide specific instructions. If the initial output isn't perfect, follow up with additional prompts to fix styles or logic.
+*   **Version Control:** Commit changes incrementally (`git add`, `git commit`) after each successful feature implementation.
+
+**Key Development Tasks**
+*   **Adding Footer Links:** Prompt Claude to add "Terms & Conditions" and "Privacy Policy" to `base.html` (03:29).
+*   **Generating Pages:** Request route creation in `app.py` and template creation for new pages. Ensure CSS consistency with the existing theme (07:57, 11:54).
+*   **Multi-modal UI Redesign:** Paste a design image into the chat and instruct Claude to update the hero section in `landing.html` and `landing.css` based on that visual context (13:37).
+*   **Implementing Modals:** Use vanilla JavaScript for functional popups (e.g., YouTube video embeds) to avoid heavy dependencies (17:11).
+
+**Best Practices**
+*   **Curate Prompts:** Draft and polish your prompts in a separate file before pasting them into Claude Code to avoid mistakes.
+*   **Review Diffs:** Always check the "red" (removed) and "green" (added) code snippets provided by Claude before confirming with `y`.
+*   **Iterate:** If errors occur (e.g., wrong filename referenced), simply issue a follow-up command to merge or fix the mistake (20:10).
+*   **Finalize:** Push changes to the repository (`git push origin main`) only after verifying functionality across all updated pages (18:39).
+---
+# 5. **Context Window Management in Claude Code: Quick Reference**
+
+**Core Concept:**
+* **Context Window:** The model's "working memory" (limited in tokens) containing codebases, chat history, tool schemas, and instructions.
+* **Claude Code Limit:** ~200k tokens total, with ~150k usable (others reserved for system prompts, tools, and auto-compaction).
+
+**Token Consumption Factors:**
+* **Bi-directional:** Both your input prompts and Claude’s output consume tokens.
+* **Growth:** Every turn re-sends the entire conversation history; long sessions scale linearly/rapidly.
+* **Degradation:** Response quality drops as the window fills (approaching 150k limit).
+
+**Proactive Management Commands:**
+* `/context`: Check real-time token usage and distribution.
+* `/compact`: Manually compress conversation history to free space (use before sessions get too large).
+
+**Best Practices for Efficiency:**
+* **Session Hygiene:** Limit each session to **one specific feature/task**. Start a new session for unrelated work.
+* **Manual Control:** Use `/compact` proactively (when near 70-75% usage) rather than waiting for auto-compaction, which may trigger during critical tasks.
+* **Sub-agents:** Use for isolated tasks; they have their own independent, fresh context windows.
+* **File Filtering:** Use `.claudeskill` or `.clauderc` (and experiments like `.claudesignore`) to keep unnecessary files out of the context.
+* **Terminal Advantage:** The CLI is preferred over GUI/VS Code extensions to access advanced features like memory management and hook configurations.
+
+**Troubleshooting:**
+* If context is exhausted or quality degrades: Clear current context (`/clear`) or start a completely new session.
+---
+# 6.
