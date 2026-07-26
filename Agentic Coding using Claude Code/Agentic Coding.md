@@ -19,8 +19,7 @@
 - [8. **Project Workflow: Spec-Driven Development**](#8-project-workflow-spec-driven-development)
     + [**Plan Mode Optimizations**](#plan-mode-optimizations)
     + [**Key Commands Summary**](#key-commands-summary)
-- [9. This video covers automating development workflows in *Claude Code* using custom slash commands and implementing authentication features.](#9-this-video-covers-automating-development-workflows-in-claude-code-using-custom-slash-commands-and-implementing-authentication-features)
-    + [**Custom Slash Commands**](#custom-slash-commands)
+- [9. Custom Slash Commands](#9-custom-slash-commands)
     + [**Development Workflow Automations**](#development-workflow-automations)
     + [**Feature Implementation Steps**](#feature-implementation-steps)
 - [10. **Claude Code Skills: Essential Revision Sheet**](#10-claude-code-skills-essential-revision-sheet)
@@ -215,9 +214,7 @@
 *   `/effort`: Manage AI reasoning depth.
 *   `/ultraplan`: Trigger remote cloud-based planning.
 ---
-# 9. This video covers automating development workflows in *Claude Code* using custom slash commands and implementing authentication features.
-
-### **Custom Slash Commands**
+# 9. Custom Slash Commands
 *   **Concept:** Saved prompts that execute repeatable workflows via `/command_name`.
 *   **Setup:** Create a markdown file (`.md`) inside the `.claude/commands/` directory.
 *   **Scope:** 
