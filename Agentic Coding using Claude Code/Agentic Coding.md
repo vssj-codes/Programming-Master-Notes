@@ -245,33 +245,6 @@
     *   **Explicit Constraints:** Use precise instructions (e.g., "do not use ORM, use parameterized queries").
     *   **Validation:** Include instructions to verify database state, file existence, or user input.
     *   **Safety:** Automate checking for uncommitted changes at the start of scripts.
-
-*   **Revision (30-second):**
-    *   Custom commands = saved prompts in `.claude/commands/`.
-    *   Restart Claude Code to load new commands.
-    *   Use `$arguments` for dynamic inputs.
-    *   Enforce branch creation in automation flow.
-    *   Validate feature implementation against generated Acceptance Criteria.
-
-*   **Implementation Checklist:**
-    *   [ ] Initialize command file in `.claude/commands/`.
-    *   [ ] Define required tools and step-by-step logic.
-    *   [ ] Restart Claude Code.
-    *   [ ] Run command to generate spec.
-    *   [ ] Enter Plan Mode to generate technical implementation plan.
-    *   [ ] Review and approve code edits.
-    *   [ ] Test implementation against spec requirements.
-
-*   **Gotchas:**
-    *   Commands are **not hot-reloaded**; must restart Claude Code.
-    *   `git status` must be clean before running automated workflows.
-    *   If a feature works but violates security (e.g., accessible while logged in), update spec/workflow to include guards.
-
-*   **Cheat Sheet:**
-    *   **Path (Project):** `.claude/commands/`
-    *   **Path (Specs):** `.claude/specs/`
-    *   **Key Variable:** `$arguments` (captures input after command).
-    *   **Common Flow:** `/create-spec` → `Plan Mode` → `Apply` → `Test`.
 ---
 # 10. **Claude Code Skills: Essential Revision Sheet**
 
