@@ -21,6 +21,7 @@
     + [**Key Commands Summary**](#key-commands-summary)
 - [9. Custom Slash Commands](#9-custom-slash-commands)
 - [10. **Claude Code Skills: Essential Revision Sheet**](#10-claude-code-skills-essential-revision-sheet)
+      - [**Core Concept: Skills**](#core-concept-skills)
 - [11. **Subagents in Claude Code: Summary Notes**](#11-subagents-in-claude-code-summary-notes)
 - [12. **Claude Custom Subagents: Quick Reference**](#12-claude-custom-subagents-quick-reference)
 - [13. ### **What is MCP?**](#13-%23%23%23-what-is-mcp)
@@ -274,6 +275,60 @@
 **5. Commands vs. Skills (Key Update)**
 *   Anthropic has merged commands and skills. Both are now structured as skills.
 *   To keep an old-style "command" behavior, add `disable_model_invocation: true` to the YAML front matter to prevent auto-loading (0:46:06 - 0:49:17).
+
+#### **Core Concept: Skills**
+* **Purpose**: Transform general-purpose LLMs into task-specific experts for repeated, complex workflows.
+* **Limitation of Prompts**: 
+    * Waste context window space.
+    * Hard to bundle resources (files, scripts, templates).
+    * Cannot easily share, version, or compose.
+    * Risk of performance degradation with massive, complex single-prompt instructions.
+* **Skills Advantage**: 
+    * **On-demand loading**: Only consumes context when triggered.
+    * **Modular**: Can be composed (e.g., link PDF reader → table extractor → PPT generator).
+    * **Portable**: Can be versioned and shared via Git.
+
+**Technical Structure**
+* **Location**: `.claude/skills/<skill-name>/`
+* **Required File**: `skill.md`
+* **Structure of `skill.md`**:
+    * **YAML Front Matter**: Must define `name` and `description` (triggers the skill).
+    * **Markdown Body**: Contains detailed instructions, code patterns, and validation steps.
+    * **Resources**: Relative links to support folders (e.g., `/scripts/`, `/templates/`).
+* **Loading Mechanism**: **Progressive Disclosure**
+    1. **Level 1**: Descriptions/metadata always loaded in context.
+    2. **Level 2**: `skill.md` body loaded only when trigger matches user intent.
+    3. **Level 3**: Supporting files fetched only if referenced/needed by the skill.
+
+**Skill Types & Scope**
+* **Personal**: Saved in `~/claude/skills/` (Available across all projects).
+* **Project**: Saved in `./.claude/skills/` (Available only in specific repository; ideal for team collaboration).
+
+**Workflow: Creation & Implementation**
+1. **Identify**: Isolate specialized, repetitive tasks.
+2. **Draft**: Create `skill.md` folder structure.
+3. **Test**: Evaluate outputs and iterate (4-5 iterations needed for high quality).
+4. **Revise**: Refine instructions based on testing failures.
+* **Creation Methods**:
+    * **Manual**: Write `skill.md` directly (advanced).
+    * **Claude (Recommended)**: Use `skill-creator` (accessible via `+` in Claude Chat).
+    * **Community**: Download/fork; **Warning**: Audit for security risks (e.g., API key exposure).
+
+**Implementation Steps (Practical Example: UI Design)**
+* **Project Setup**: Use `claude code` within repo.
+* **Execution**: 
+    * Use `/create-spec` to generate `spec.md` (or provide custom spec).
+    * Run `claude` in plan mode → read `spec.md` → generate implementation.
+    * `claude -r` (restart) is required after creating/modifying a skill to register changes.
+* **Revise Workflow**: Use `/rewind` to reset conversation and code history when iterating on skill-based UI builds.
+
+**Important Updates & Best Practices**
+* **Merging Concepts**: Skills and Commands are being unified.
+* **Transition**: Stop creating individual `commands` folders. Use `skills` for everything.
+* **Trigger Control**: 
+    * Default: Skills auto-trigger based on description.
+    * To act as a manual-only command: Add `disable_model_invocation: true` to YAML front matter.
+* **Collaboration**: Always commit `.claude/skills/` to Git for team consistency.
 ---
 # 11. **Subagents in Claude Code: Summary Notes**
 
