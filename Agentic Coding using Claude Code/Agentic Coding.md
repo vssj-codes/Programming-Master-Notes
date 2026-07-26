@@ -65,7 +65,6 @@
 
 ---
 # 3. Slash Commands in Claude Code
-This video provides a comprehensive guide to **Slash Commands** in *Claude Code*, which serve as shortcuts to trigger predefined workflows and improve development efficiency.
 
 ### **Core Concepts**
 * **Slash Commands:** Shortcuts starting with `/` to execute automated tasks without writing full prompts (0:36).
