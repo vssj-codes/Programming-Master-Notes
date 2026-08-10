@@ -2,7 +2,7 @@
 
 <!-- toc -->
 
-- [02-Mid-Level](#02-mid-level)
+- [Python Mid-Level — Q&A Reference](#python-mid-level--qa-reference)
   * [Section 1 — Decorators (Depth)](#section-1--decorators-depth)
   * [Section 2 — Closures & Scope (Depth)](#section-2--closures--scope-depth)
   * [Section 3 — Generators (Depth)](#section-3--generators-depth)
@@ -20,7 +20,14 @@
 
 ---
 
-# 02-Mid-Level
+# Python Mid-Level — Q&A Reference
+
+  
+
+---
+
+  
+
 ## Section 1 — Decorators (Depth)
 
   
@@ -32,17 +39,26 @@ A:
 ```python
 
 def my_decorator(func):
-	def wrapper(*args, **kwargs):
-		print("before")
-		result = func(*args, **kwargs)
-		print("after")
-		return result
-	return wrapper
+
+def wrapper(*args, **kwargs):
+
+print("before")
+
+result = func(*args, **kwargs)
+
+print("after")
+
+return result
+
+return wrapper
 
   
+
 @my_decorator
+
 def greet(name):
-	print(f"Hello {name}")
+
+print(f"Hello {name}")
 
 ```
 
@@ -65,11 +81,16 @@ A: Without `functools.wraps`, the wrapper function replaces the original's metad
 ```python
 
 import functools
+
 def decorator(func):
-    @functools.wraps(func)  # copies __name__, __doc__, etc.
-    def wrapper(*args, **kwargs):
-        return func(*args, **kwargs)
-    return wrapper
+
+@functools.wraps(func) # copies __name__, __doc__, etc.
+
+def wrapper(*args, **kwargs):
+
+return func(*args, **kwargs)
+
+return wrapper
 
 ```
 
@@ -93,19 +114,29 @@ A: Requires 3 layers: outer function takes config → returns decorator → retu
 
 ```python
 
-def repeat(n):              # layer 1: takes config
-    def decorator(func):    # layer 2: takes function
-        @functools.wraps(func)
-        def wrapper(*args, **kwargs):  # layer 3: wraps call
-            for _ in range(n):
-                result = func(*args, **kwargs)
-            return result
-        return wrapper
-    return decorator
+def repeat(n): # layer 1: takes config
+
+def decorator(func): # layer 2: takes function
+
+@functools.wraps(func)
+
+def wrapper(*args, **kwargs): # layer 3: wraps call
+
+for _ in range(n):
+
+result = func(*args, **kwargs)
+
+return result
+
+return wrapper
+
+return decorator
+
+  
 
 @repeat(3)
-def greet(): print("hi")
 
+def greet(): print("hi")
 
 ```
 
