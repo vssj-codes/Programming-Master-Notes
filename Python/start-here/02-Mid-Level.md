@@ -65,16 +65,11 @@ A: Without `functools.wraps`, the wrapper function replaces the original's metad
 ```python
 
 import functools
-
 def decorator(func):
-
-@functools.wraps(func) # copies __name__, __doc__, etc.
-
-def wrapper(*args, **kwargs):
-
-return func(*args, **kwargs)
-
-return wrapper
+    @functools.wraps(func)  # copies __name__, __doc__, etc.
+    def wrapper(*args, **kwargs):
+        return func(*args, **kwargs)
+    return wrapper
 
 ```
 
@@ -98,29 +93,19 @@ A: Requires 3 layers: outer function takes config → returns decorator → retu
 
 ```python
 
-def repeat(n): # layer 1: takes config
-
-def decorator(func): # layer 2: takes function
-
-@functools.wraps(func)
-
-def wrapper(*args, **kwargs): # layer 3: wraps call
-
-for _ in range(n):
-
-result = func(*args, **kwargs)
-
-return result
-
-return wrapper
-
-return decorator
-
-  
+def repeat(n):              # layer 1: takes config
+    def decorator(func):    # layer 2: takes function
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):  # layer 3: wraps call
+            for _ in range(n):
+                result = func(*args, **kwargs)
+            return result
+        return wrapper
+    return decorator
 
 @repeat(3)
-
 def greet(): print("hi")
+
 
 ```
 
