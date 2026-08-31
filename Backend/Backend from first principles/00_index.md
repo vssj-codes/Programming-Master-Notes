@@ -49,5 +49,5 @@
 
 ## Notes
 
-- [[01-what-is-a-backend]] — Video 3
+- [[03-what-is-a-backend]] — Video 3
 - [[Backend overview]]
